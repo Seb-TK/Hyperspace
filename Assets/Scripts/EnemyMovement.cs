@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -8,25 +10,69 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementRandomness;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private EnemyDataScriptableObject.AiTypes AiType;
+    [SerializeField] private float hoverDistance;
     private GameObject player;
     private Vector3 playerPosition;
+    private EnemyDataScriptableObject data;
+
     void Awake()
     {
         player = FindAnyObjectByType<PlayerMovement>().gameObject;
     }
     void Start()
     {
-        EnemyDataScriptableObject data = GetComponent<EnemyData>().EnemyDataScriptableObject;
+        data = GetComponent<EnemyData>().EnemyDataScriptableObject;
         movementSpeed = data.movementSpeed;
         rotationSpeed = data.rotationSpeed;
         movementRandomness = data.movementRandomness;
+        AiType = data.aiType;
+        hoverDistance = data.hoverDistance;
     }
 
     void Update()
     {
         playerPosition = player.transform.position;
+        if(AiType == EnemyDataScriptableObject.AiTypes.Ranger)
+        {
+        RangerAi();
+        }
+    }
+
+    public void RangerAi()
+    {
         TurnTowardsPlayer();
-        Move();
+        HoverAtDistance(hoverDistance);
+    }
+
+    IEnumerator Charge(float chargeRange, float chargeSpeed)
+    {
+        float distanceTraveled = 0;
+        while (distanceTraveled < chargeRange)
+        {
+            distanceTraveled++;
+            transform.position+= transform.up * chargeSpeed;
+            yield return null;  
+        }
+    }
+
+    private void HoverAtDistance(float distance)
+    {
+        float distanceToPlayer = Vector3.Distance(
+            player.transform.position,
+            transform.position
+        );
+        Vector3 directionToPlayer = playerPosition - transform.position;
+        float hoverDistanceBuffer = 2f;
+        if(Mathf.Round(distanceToPlayer) >= distance)
+        {
+            transform.position += directionToPlayer * movementSpeed;
+            Debug.Log("adding transform");
+        } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
+        {
+            transform.position -= directionToPlayer * movementSpeed;
+            Debug.Log("subtracting transform");
+        }
     }
 
     void TurnTowardsPlayer()
@@ -38,7 +84,7 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    void Move()
+    void Drift()
     {
         float t = Time.deltaTime * rotationSpeed;
         Vector3 direction = new Vector3(

@@ -10,6 +10,13 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float movementSpeed;
     public float movementRandomness;
     public float rotationSpeed;
+    public enum AiTypes{
+        Ranger,
+        Charger,
+        Drifter
+    };
+    public AiTypes aiType;
+    public float hoverDistance;
     [Header("Object Dimensions")]
     public float objectWidth;
     public float objectHitBoxWidth;

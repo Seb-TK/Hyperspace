@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
   bullet: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
-  movementSpeed: 0.1
+  movementSpeed: 0.02
   movementRandomness: 0
   rotationSpeed: 300
+  aiType: 0
+  hoverDistance: 5
   objectWidth: 0.5
   objectHitBoxWidth: 0.8
   sizeChangeMultiplier: 2.3
