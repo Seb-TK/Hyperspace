@@ -8,6 +8,7 @@ public class EnemyDataScriptableObject : ScriptableObject
     public GameObject enemyVisualMesh;
     [Header("Movement")]
     public float movementSpeed;
+    public float movementSpeedZ;
     public float movementRandomness;
     public float rotationSpeed;
     public enum AiTypes{

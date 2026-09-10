@@ -8,10 +8,15 @@ public class EnemyMovement : MonoBehaviour
     //simply keeps a certain distance from the player
     // moves towards or away to keep at around this distance
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeedZ;
     [SerializeField] private float movementRandomness;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private EnemyDataScriptableObject.AiTypes AiType;
     [SerializeField] private float hoverDistance;
+    [SerializeField] private float chargeRate;
+    [SerializeField] private float chargeRange;
+    [SerializeField] private float chargeSpeed;
+    private float chargeTimer;
     private GameObject player;
     private Vector3 playerPosition;
     private EnemyDataScriptableObject data;
@@ -45,6 +50,17 @@ public class EnemyMovement : MonoBehaviour
         HoverAtDistance(hoverDistance);
     }
 
+    public void ChargerAi()
+    {
+        if(chargeTimer > Time.deltaTime)
+        {
+            chargeTimer = Time.deltaTime + chargeRate;
+            StartCoroutine(Charge(chargeRange,chargeSpeed));
+        }
+        RangerAi();
+
+    }
+
     IEnumerator Charge(float chargeRange, float chargeSpeed)
     {
         float distanceTraveled = 0;
@@ -70,6 +86,15 @@ public class EnemyMovement : MonoBehaviour
         } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
         {
             transform.position -= directionToPlayer * movementSpeed;
+        }
+        Debug.Log("transform position z" + transform.position.z);
+        Debug.Log("player position z" + player.transform.position.z);
+        if(transform.position.z <= player.transform.position.z)
+        {
+            transform.position += Vector3.forward * movementSpeedZ;
+        } else if(transform.position.z >= player.transform.position.z + 0.05f)
+        {
+            transform.position -= Vector3.forward * movementSpeedZ;
         }
     }
 
