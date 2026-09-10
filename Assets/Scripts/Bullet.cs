@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float killDistance;
+    [SerializeField] private EdgeWrapping edgeWrapping;
     public float MoveSpeed;
     public float Damage;
     public float BulletSize;
@@ -15,9 +16,11 @@ public class Bullet : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * BulletSize;
-        EdgeWrapping edgeWrapping = GetComponent<EdgeWrapping>();
         float bounds = 1.1f;
-        edgeWrapping.FindBoundPos(boundWidthPos,boundHeightPos, bounds, bounds);
+        Debug.Log(edgeWrapping);
+        float [] boundArray = edgeWrapping.FindBoundPos(bounds, bounds);
+        boundWidthPos = boundArray[0];
+        boundHeightPos = boundArray[1];
     }
     void FixedUpdate()
     {

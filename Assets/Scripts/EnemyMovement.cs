@@ -67,11 +67,9 @@ public class EnemyMovement : MonoBehaviour
         if(Mathf.Round(distanceToPlayer) >= distance)
         {
             transform.position += directionToPlayer * movementSpeed;
-            Debug.Log("adding transform");
         } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
         {
             transform.position -= directionToPlayer * movementSpeed;
-            Debug.Log("subtracting transform");
         }
     }
 

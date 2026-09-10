@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   killDistance: 20
+  edgeWrapping: {fileID: 3781512536716243463, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
   MoveSpeed: 10
   Damage: 1
   BulletSize: 0.1

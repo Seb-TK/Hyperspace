@@ -87,7 +87,6 @@ public class PlayerShooting : MonoBehaviour
             rayCastDistance);
 
         isShooting = isSeeingEnemy;
-        //Debug.Log(isShooting);
     }
     
 }

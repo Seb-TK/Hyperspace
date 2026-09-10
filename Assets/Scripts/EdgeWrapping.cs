@@ -1,37 +1,38 @@
+using System;
 using UnityEngine;
 
 public class EdgeWrapping : MonoBehaviour
 {
     [SerializeField] private float boundWidth;
     [SerializeField] private float boundHeight;
-    private Vector3 topRightPoint;
-    private Camera camera;
-    private float camOffset;
     private float boundWidthPos;
     private float boundHeightPos;
     private GameObject visualMesh;
     private float cloneOffsetWidth;
     private float cloneOffsetHeight;
 
-    public void FindBoundPos(float boundWidthPos, float boundHeightPos, float boundWidth, float boundHeight)
+    public float[] FindBoundPos(float boundWidth, float boundHeight)
     {
-        camera = Camera.main;
-        camOffset = -camera.transform.position.z;
+        Camera camera = Camera.main;
+        float camOffset = -camera.transform.position.z;
 
-        topRightPoint = camera.ViewportToWorldPoint(
+        Vector3 topRightPoint = camera.ViewportToWorldPoint(
             new Vector3(
-                this.boundWidth,
-                this.boundHeight,
+                boundWidth,
+                boundHeight,
                 camOffset
             ));
-
-        this.boundWidthPos = topRightPoint.x;
-        this.boundHeightPos = topRightPoint.y;
+        float outputWidth = topRightPoint.x;
+        float outputHeight = topRightPoint.y;
+        float[] outputArray = {outputWidth, outputHeight};
+        return outputArray;
     }
 
     void Start()
     {
-        FindBoundPos(boundWidthPos, boundHeightPos, boundWidth, boundHeight);
+        float[] boundArray = FindBoundPos(boundWidth, boundHeight);
+        boundWidthPos = boundArray[0];
+        boundHeightPos = boundArray[1];
     }
 
     void LateUpdate()

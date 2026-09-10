@@ -27,11 +27,9 @@ public class EnemyData : MonoBehaviour
         {
             Die();
         }
-        Debug.Log(health);
     }
     private void Die()
     {
-        Debug.Log("die");
         Destroy(gameObject);
     }
     
