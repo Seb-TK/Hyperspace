@@ -13,25 +13,25 @@ public class EdgeWrapping : MonoBehaviour
     private float cloneOffsetWidth;
     private float cloneOffsetHeight;
 
-    private void FindBoundPos()
+    public void FindBoundPos(float boundWidthPos, float boundHeightPos, float boundWidth, float boundHeight)
     {
         camera = Camera.main;
         camOffset = -camera.transform.position.z;
 
         topRightPoint = camera.ViewportToWorldPoint(
             new Vector3(
-                boundWidth,
-                boundHeight,
+                this.boundWidth,
+                this.boundHeight,
                 camOffset
             ));
 
-        boundWidthPos = topRightPoint.x;
-        boundHeightPos = topRightPoint.y;
+        this.boundWidthPos = topRightPoint.x;
+        this.boundHeightPos = topRightPoint.y;
     }
 
     void Start()
     {
-        FindBoundPos();
+        FindBoundPos(boundWidthPos, boundHeightPos, boundWidth, boundHeight);
     }
 
     void LateUpdate()
