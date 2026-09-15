@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -14,12 +15,14 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private EnemyDataScriptableObject.AiTypes AiType;
     [SerializeField] private float hoverDistance;
     [SerializeField] private float chargeRate;
-    [SerializeField] private float chargeRange;
     [SerializeField] private float chargeSpeed;
+    [SerializeField] private float chargeDistance;
+    [SerializeField] private float chargePauseLength;
     private float chargeTimer;
     private GameObject player;
     private Vector3 playerPosition;
     private EnemyDataScriptableObject data;
+    private Vector3 directionToPlayer;
 
     void Awake()
     {
@@ -33,11 +36,21 @@ public class EnemyMovement : MonoBehaviour
         movementRandomness = data.movementRandomness;
         AiType = data.aiType;
         hoverDistance = data.hoverDistance;
+        chargeDistance = data.chargeDistance;
+        chargeSpeed = data.chargeSpeed;
+        chargeRate = data.chargeRate;
+        chargePauseLength = data.chargePauseLength;
+        chargeTimer = Time.deltaTime + chargeRate;
+        if(AiType == EnemyDataScriptableObject.AiTypes.Charger)
+        {
+            StartCoroutine(ChargerAi());
+        }
     }
 
     void Update()
     {
         playerPosition = player.transform.position;
+        directionToPlayer = (playerPosition - transform.position).normalized;
         if(AiType == EnemyDataScriptableObject.AiTypes.Ranger)
         {
         RangerAi();
@@ -50,25 +63,32 @@ public class EnemyMovement : MonoBehaviour
         HoverAtDistance(hoverDistance);
     }
 
-    public void ChargerAi()
+    IEnumerator ChargerAi()
     {
-        if(chargeTimer > Time.deltaTime)
+        while (true)
         {
-            chargeTimer = Time.deltaTime + chargeRate;
-            StartCoroutine(Charge(chargeRange,chargeSpeed));
-        }
-        RangerAi();
-
-    }
-
-    IEnumerator Charge(float chargeRange, float chargeSpeed)
-    {
-        float distanceTraveled = 0;
-        while (distanceTraveled < chargeRange)
-        {
-            distanceTraveled++;
-            transform.position+= transform.up * chargeSpeed;
-            yield return null;  
+            if(Time.time > chargeTimer)
+            {
+                float chargePauseLengthTimer = Time.time + chargePauseLength;
+                while(Time.time < chargePauseLengthTimer)
+                {
+                    yield return null;
+                }
+                Vector3 currentPosition = transform.position;
+                Vector3 targetPosition = transform.position += transform.right * chargeDistance;
+                float t = 0f;
+                while(t <= 1f)
+                {
+                    t += chargeSpeed;
+                    //experiment with an animation curve for better easing
+                    float easedT = Mathf.SmoothStep(0,1,t);
+                    transform.position = Vector3.Lerp(currentPosition, targetPosition, easedT);
+                    yield return null;
+                }
+                chargeTimer = Time.time + chargeRate;
+            }
+            RangerAi();
+            yield return null;
         }
     }
 
@@ -78,23 +98,20 @@ public class EnemyMovement : MonoBehaviour
             player.transform.position,
             transform.position
         );
-        Vector3 directionToPlayer = playerPosition - transform.position;
         float hoverDistanceBuffer = 2f;
         if(Mathf.Round(distanceToPlayer) >= distance)
         {
-            transform.position += directionToPlayer * movementSpeed;
+            transform.position += directionToPlayer * movementSpeed * Time.deltaTime;
         } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
         {
-            transform.position -= directionToPlayer * movementSpeed;
+            transform.position -= directionToPlayer * movementSpeed * Time.deltaTime;
         }
-        Debug.Log("transform position z" + transform.position.z);
-        Debug.Log("player position z" + player.transform.position.z);
         if(transform.position.z <= player.transform.position.z)
         {
-            transform.position += Vector3.forward * movementSpeedZ;
+            transform.position += Vector3.forward * movementSpeedZ * Time.deltaTime;
         } else if(transform.position.z >= player.transform.position.z + 0.05f)
         {
-            transform.position -= Vector3.forward * movementSpeedZ;
+            transform.position -= Vector3.forward * movementSpeedZ * Time.deltaTime;
         }
     }
 

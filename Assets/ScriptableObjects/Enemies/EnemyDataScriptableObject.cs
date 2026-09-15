@@ -11,6 +11,10 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float movementSpeedZ;
     public float movementRandomness;
     public float rotationSpeed;
+    public float chargeDistance;
+    public float chargeSpeed;
+    public float chargePauseLength;
+    public float chargeRate;
     public enum AiTypes{
         Ranger,
         Charger,
