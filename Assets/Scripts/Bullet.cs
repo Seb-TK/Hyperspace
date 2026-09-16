@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float killDistance;
+    
     [SerializeField] private EdgeWrapping edgeWrapping;
     public float MoveSpeed;
+    public float bulletRange;
     public float Damage;
     public float BulletSize;
     private Rigidbody rigidBody;
     private float boundWidthPos;
     private float boundHeightPos;
+    private bool isPlayerBullet;
+    private Vector3 startingPos;
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * BulletSize;
         float bounds = 1.1f;
-        Debug.Log(edgeWrapping);
         float [] boundArray = edgeWrapping.FindBoundPos(bounds, bounds);
         boundWidthPos = boundArray[0];
         boundHeightPos = boundArray[1];
+        startingPos = transform.position;
     }
     void FixedUpdate()
     {
@@ -41,15 +44,31 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (Vector3.Distance(transform.position, startingPos) > bulletRange)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
         GameObject colliderGameObject = other.gameObject;
-        if (colliderGameObject.GetComponent<EnemyData>() != null)
+        if (isPlayerBullet)
         {
-            EnemyData enemyDataScript = colliderGameObject.GetComponent<EnemyData>();
-            enemyDataScript.OnHit(Damage);
+            if (colliderGameObject.GetComponent<EnemyData>() != null)
+            {
+                EnemyData enemyDataScript = colliderGameObject.GetComponent<EnemyData>();
+                enemyDataScript.OnHit(Damage);
+            }
+        }
+        else
+        {
+            if (colliderGameObject.GetComponent<PlayerData>() != null)
+            {
+                PlayerData playerData = colliderGameObject.GetComponent<PlayerData>();
+                playerData.OnHit(Damage);
+            }
         }
     }
+    
 }

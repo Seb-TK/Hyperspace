@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
@@ -13,6 +14,7 @@ public class PlayerShooting : MonoBehaviour
     private float fireRate;
     private float fireRateTimer;
     private float bulletSize;
+    private float bulletRange;
     private bool isShooting;
     private int enemyDetectionRadius;
     void Awake()
@@ -23,6 +25,7 @@ public class PlayerShooting : MonoBehaviour
         bulletSpeed = data.bulletSpeed;
         fireRate = data.fireRate;
         bulletSize = data.bulletSize;
+        bulletRange = data.bulletRange;
     }
     void Update()
     {
@@ -63,6 +66,7 @@ public class PlayerShooting : MonoBehaviour
         bulletScript.Damage = bulletDamage;
         bulletScript.MoveSpeed = bulletSpeed;
         bulletScript.BulletSize = bulletSize;
+        bulletScript.bulletRange = bulletRange;
     }
 
     void ToggleInput()

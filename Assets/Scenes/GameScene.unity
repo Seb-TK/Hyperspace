@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   EnemyPrefab: {fileID: 67493959001194574, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
+  SpawnCirclePrefab: {fileID: 3871052150835977722, guid: d00a6241d9be244449aa0f3a29d13a76, type: 3}
   enemyDataList:
   - {fileID: 11400000, guid: 10dc22a45fb0d4a7d9569fab5e7fcf51, type: 2}
 --- !u!4 &1186301138307071573
