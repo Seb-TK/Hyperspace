@@ -5,22 +5,28 @@ using UnityEngine;
 public class EnemyDataScriptableObject : ScriptableObject
 {
     public GameObject enemyVisualMesh;
-    [Header("Movement")]
+
+    [Header("Movement")]    
     public float movementSpeed;
     public float movementSpeedZ;
     public float movementRandomness;
     public float rotationSpeed;
-    public float chargeSpeed;
-    public float chargeDistance;
-    public float chargePauseLength;
-    public float chargeRate;
+
     public enum AiTypes{
         Ranger,
         Charger,
         Drifter
     };
     public AiTypes aiType;
+    [Header("Ranged")] 
     public float hoverDistance;
+
+    [Header("Charge")]    
+    public float chargeSpeed;
+    public float chargeDistance;
+    public float chargePauseLength;
+    public float chargeRate;
+
     [Header("Object Dimensions")]
     public float objectWidth;
     public float objectHitBoxWidth;

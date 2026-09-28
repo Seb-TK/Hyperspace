@@ -365,8 +365,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   EnemyPrefab: {fileID: 67493959001194574, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
   SpawnCirclePrefab: {fileID: 3871052150835977722, guid: d00a6241d9be244449aa0f3a29d13a76, type: 3}
+  ChosenEnemy: 0
   enemyDataList:
+  - {fileID: 11400000, guid: c0f03191046f2495bb6799dd017d6ee7, type: 2}
+  - {fileID: 11400000, guid: b06432384674d4fc0abe02ccebcb6dff, type: 2}
+  - {fileID: 11400000, guid: b49b2ab999a2f4ef390787c4eae846d4, type: 2}
+  - {fileID: 11400000, guid: a333ca4c048014d3d9df21e16b7cdc2d, type: 2}
   - {fileID: 11400000, guid: 10dc22a45fb0d4a7d9569fab5e7fcf51, type: 2}
+  - {fileID: 11400000, guid: 21d06a786d3ed4e028bf6f55c3759353, type: 2}
+  - {fileID: 11400000, guid: 8de3c6a8d3f1c4c2b9e47717ec75c5d5, type: 2}
+  edgeWrapping: {fileID: 0}
 --- !u!4 &1186301138307071573
 Transform:
   m_ObjectHideFlags: 0

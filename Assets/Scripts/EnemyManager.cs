@@ -7,16 +7,19 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject EnemyPrefab;
     [SerializeField] private GameObject SpawnCirclePrefab;
+    
+    [SerializeField] private int ChosenEnemy;
+    
     [SerializeField] private List<EnemyDataScriptableObject> enemyDataList;
-
+    [SerializeField] private EdgeWrapping edgeWrapping;
     void Start()
     {
-        SpawnEnemy(0);
+        SpawnEnemy(ChosenEnemy);
     }
 
     private void SpawnEnemy(int enemyDataIndex)
     {
-        EdgeWrapping edgeWrapping = FindAnyObjectByType<EdgeWrapping>();
+        edgeWrapping = EnemyPrefab.GetComponent<EdgeWrapping>();
         float boundDimensions = 1f;
         float[] boundList = edgeWrapping.FindBoundPos(boundDimensions, boundDimensions);
         float spawnRangeX = boundList[0];

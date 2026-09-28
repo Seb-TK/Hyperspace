@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   edgeWrapping: {fileID: 3781512536716243463, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
-  MoveSpeed: 5
+  MoveSpeed: 10
   bulletRange: 10
   Damage: 0
   BulletSize: 0.1
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74d77eac130b4fef9d44c8781ca73f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectBehavior
-  objectWidth: 1
+  objectWidth: 0.5
   objectHitBoxWidth: 0.2
-  sizeChangeMultiplier: 1
-  sizeChangeOffset: 0
+  sizeChangeMultiplier: 2.3
+  sizeChangeOffset: -1

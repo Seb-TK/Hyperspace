@@ -17,12 +17,12 @@ MonoBehaviour:
   movementSpeedZ: 1
   movementRandomness: 0
   rotationSpeed: 300
+  aiType: 0
+  hoverDistance: 5
   chargeSpeed: 0.03
   chargeDistance: 6
   chargePauseLength: 0.4
   chargeRate: 3
-  aiType: 0
-  hoverDistance: 5
   objectWidth: 0.3
   objectHitBoxWidth: 0.5
   sizeChangeMultiplier: 2
@@ -32,6 +32,6 @@ MonoBehaviour:
   fireRate: 0.5
   bulletSize: 0.1
   bulletRange: 10
-  bulletSpeed: 5
+  bulletSpeed: 10
   bulletCount: 1
-  bulletAccuracy: 0
+  bulletAccuracy: 3
