@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
     }
     void Start()
     {
-        data = GetComponent<EnemyData>().EnemyDataScriptableObject;
+        data = GetComponent<EnemyData>().EnemyDataContainer;
         movementSpeed = data.movementSpeed;
         rotationSpeed = data.rotationSpeed;
         movementRandomness = data.movementRandomness;

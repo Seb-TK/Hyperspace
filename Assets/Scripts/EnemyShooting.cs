@@ -21,8 +21,7 @@ public class EnemyShooting : MonoBehaviour
     {
         player = FindAnyObjectByType<PlayerMovement>().gameObject;
 
-        EnemyDataComponent = GetComponent<EnemyData>();
-        data = EnemyDataComponent.EnemyDataScriptableObject;
+        data = GetComponent<EnemyData>().EnemyDataContainer;
         AiType = data.aiType;
         if(AiType == EnemyDataScriptableObject.AiTypes.Charger)
         {

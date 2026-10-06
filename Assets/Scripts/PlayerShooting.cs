@@ -67,6 +67,7 @@ public class PlayerShooting : MonoBehaviour
         bulletScript.MoveSpeed = bulletSpeed;
         bulletScript.BulletSize = bulletSize;
         bulletScript.bulletRange = bulletRange;
+        bulletScript.isPlayerBullet = true;
     }
 
     void ToggleInput()

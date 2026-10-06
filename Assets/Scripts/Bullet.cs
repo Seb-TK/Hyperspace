@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody rigidBody;
     private float boundWidthPos;
     private float boundHeightPos;
-    private bool isPlayerBullet;
+    public bool isPlayerBullet;
     private Vector3 startingPos;
     void Awake()
     {

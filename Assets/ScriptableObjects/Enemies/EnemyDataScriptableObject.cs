@@ -4,9 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDataScriptableObject", menuName = "Scriptable Objects/EnemyDataScriptableObject")]
 public class EnemyDataScriptableObject : ScriptableObject
 {
-    public GameObject enemyVisualMesh;
+    
 
-    [Header("Movement")]    
+    //Learn about [System.Serializable] sometime
     public float movementSpeed;
     public float movementSpeedZ;
     public float movementRandomness;
@@ -17,6 +17,7 @@ public class EnemyDataScriptableObject : ScriptableObject
         Charger,
         Drifter
     };
+
     public AiTypes aiType;
     [Header("Ranged")] 
     public float hoverDistance;
@@ -28,12 +29,15 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float chargeRate;
 
     [Header("Object Dimensions")]
+    public GameObject enemyVisualMesh;
     public float objectWidth;
     public float objectHitBoxWidth;
     public float sizeChangeMultiplier;
     public float sizeChangeOffset;
+
     [Header("Stats")]
     public float health;
+
     [Header("Shooting")]
     public GameObject bulletPrefab;
     public float fireRate;

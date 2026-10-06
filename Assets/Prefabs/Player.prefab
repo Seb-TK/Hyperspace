@@ -192,6 +192,8 @@ MonoBehaviour:
   bulletSpeed: 10
   fireRate: 0.5
   bulletSize: 0.1
+  bulletRange: 10
+  health: 0
 --- !u!65 &5381784012048388346
 BoxCollider:
   m_ObjectHideFlags: 0

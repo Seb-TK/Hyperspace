@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class EnemyData : MonoBehaviour
 {
-    public EnemyDataScriptableObject EnemyDataScriptableObject;
+    public EnemyDataScriptableObject EnemyDataContainer;
     private float health;
-    void Awake()
+    void Start()
     {
-        GameObject meshPrefab = EnemyDataScriptableObject.enemyVisualMesh;
-        Instantiate(meshPrefab, this.transform);
-        health = EnemyDataScriptableObject.health;
+
+        health = EnemyDataContainer.health;
 
         ObjectBehavior objectBehavior = GetComponent<ObjectBehavior>();
-        objectBehavior.objectWidth = EnemyDataScriptableObject.objectWidth;
-        objectBehavior.sizeChangeMultiplier = EnemyDataScriptableObject.sizeChangeMultiplier;
-        objectBehavior.sizeChangeOffset = EnemyDataScriptableObject.sizeChangeOffset;
+        objectBehavior.objectWidth = EnemyDataContainer.objectWidth;
+        objectBehavior.sizeChangeMultiplier = EnemyDataContainer.sizeChangeMultiplier;
+        objectBehavior.sizeChangeOffset = EnemyDataContainer.sizeChangeOffset;
 
-        objectBehavior.objectHitBoxWidth = EnemyDataScriptableObject.objectHitBoxWidth;
+        objectBehavior.objectHitBoxWidth = EnemyDataContainer.objectHitBoxWidth;
     }
 
     public void OnHit(float damage)
