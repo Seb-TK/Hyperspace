@@ -17,6 +17,8 @@ public class EnemyData : MonoBehaviour
         objectBehavior.sizeChangeOffset = EnemyDataContainer.sizeChangeOffset;
 
         objectBehavior.objectHitBoxWidth = EnemyDataContainer.objectHitBoxWidth;
+        EnemyVisualMesh visualMesh = transform.GetChild(0).gameObject.GetComponent<EnemyVisualMesh>();
+        visualMesh.SizeMultiplier = EnemyDataContainer.visualSizeMultiplier;
     }
 
     public void OnHit(float damage)

@@ -48,8 +48,8 @@ public class PlayerShooting : MonoBehaviour
 
     void ShootInput()
     {
-        //ToggleInput();
-        DetectEnemy();
+        ToggleInput();
+        //DetectEnemy();
         if(isShooting){
             if (Time.time > fireRateTimer)
             {
@@ -62,7 +62,7 @@ public class PlayerShooting : MonoBehaviour
     void Shoot()
     {
         GameObject spawnedBullet = Instantiate(bullet, transform.position, transform.rotation);
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
         bulletScript.Damage = bulletDamage;
         bulletScript.MoveSpeed = bulletSpeed;
         bulletScript.BulletSize = bulletSize;

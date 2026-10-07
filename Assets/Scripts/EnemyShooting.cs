@@ -58,10 +58,10 @@ public class EnemyShooting : MonoBehaviour
     void SpawnBullet(Vector3 position, Quaternion rotation)
     {
         GameObject spawnedBullet = Instantiate(bulletPrefab, position, rotation);
-        Bullet bulletScript = bulletPrefab.GetComponent<Bullet>();
+        Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
+        bulletScript.BulletSize = bulletSize;
         bulletScript.Damage = damage;
         bulletScript.MoveSpeed = speed;
-        bulletScript.BulletSize = bulletSize;
         bulletScript.bulletRange = range;
     }
 

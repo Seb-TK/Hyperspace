@@ -158,10 +158,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   edgeWrapping: {fileID: 3781512536716243463, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
-  MoveSpeed: 10
-  bulletRange: 10
+  MoveSpeed: 1
+  bulletRange: 3
   Damage: 0
   BulletSize: 0.1
+  isPlayerBullet: 1
 --- !u!54 &6460462697714054883
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -224,5 +225,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectBehavior
   objectWidth: 0.5
   objectHitBoxWidth: 0.2
-  sizeChangeMultiplier: 2.3
+  sizeChangeMultiplier: 1.7
   sizeChangeOffset: -1

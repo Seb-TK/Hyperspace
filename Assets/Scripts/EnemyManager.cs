@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float waitTimeMin;
     void Start()
     {
-        SpawnEnemy(ChosenEnemy, Vector3.zero);
+        StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
@@ -30,6 +30,7 @@ public class EnemyManager : MonoBehaviour
             yield return new WaitForSeconds(UnityEngine.Random.Range(waitTimeMin,waitTimeMax));
             Vector3 spawnLocation = EnemySpawnLocationSetup();
             int enemyType = UnityEngine.Random.Range(0,enemyDataList.Count);
+            enemyType = ChosenEnemy;
             SpawnEnemy(enemyType, spawnLocation);
         }
         
@@ -42,11 +43,13 @@ public class EnemyManager : MonoBehaviour
         float[] boundList = edgeWrapping.FindBoundPos(boundDimensions, boundDimensions);
         float spawnRangeX = boundList[0];
         float spawnRangeY = boundList[1];
+        float spawnPointX = UnityEngine.Random.Range(-spawnRangeX, spawnRangeX);
+        float spawnPointY = UnityEngine.Random.Range(-spawnRangeY, spawnRangeY);
 
         WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
         float dimensionRange = worldPlane.dimensionRange;
-        float spawnRangeZ = UnityEngine.Random.Range(-dimensionRange, dimensionRange);
-        return new Vector3(spawnRangeX,spawnRangeY,spawnRangeZ);
+        float spawnPointZ = UnityEngine.Random.Range(-dimensionRange, dimensionRange);
+        return new Vector3(spawnPointX,spawnPointY,spawnPointZ);
     }
     private void SpawnEnemy(int enemyDataIndex, Vector3 spawnLocation)
     {

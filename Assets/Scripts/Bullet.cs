@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     private float boundHeightPos;
     public bool isPlayerBullet;
     private Vector3 startingPos;
-    void Awake()
+    void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * BulletSize;

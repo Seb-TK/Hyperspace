@@ -53,7 +53,13 @@ public class EnemyMovement : MonoBehaviour
         directionToPlayer = (playerPosition - transform.position).normalized;
         if(AiType == EnemyDataScriptableObject.AiTypes.Ranger)
         {
-        RangerAi();
+            RangerAi();
+        } else if(AiType == EnemyDataScriptableObject.AiTypes.Charger)
+        {
+            ChargerAi();
+        } else if(AiType == EnemyDataScriptableObject.AiTypes.Drifter)
+        {
+            DrifterAi();
         }
     }
 
@@ -124,7 +130,7 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    void Drift()
+    void DrifterAi()
     {
         float t = Time.deltaTime * rotationSpeed;
         Vector3 direction = new Vector3(

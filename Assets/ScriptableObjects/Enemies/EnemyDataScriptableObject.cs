@@ -7,6 +7,7 @@ public class EnemyDataScriptableObject : ScriptableObject
     
 
     //Learn about [System.Serializable] sometime
+    [Header("Movement")]
     public float movementSpeed;
     public float movementSpeedZ;
     public float movementRandomness;
@@ -34,6 +35,7 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float objectHitBoxWidth;
     public float sizeChangeMultiplier;
     public float sizeChangeOffset;
+    public float visualSizeMultiplier = 1;
 
     [Header("Stats")]
     public float health;

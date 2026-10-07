@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2463054256315017644}
   - component: {fileID: 9170288684764865539}
   - component: {fileID: -3999904454457167982}
+  - component: {fileID: -7114490096241246828}
   m_Layer: 0
   m_Name: EnemyVisual
   m_TagString: Untagged
@@ -109,3 +110,15 @@ MonoBehaviour:
   colorOffset: 0
   saturation: 1
   value: 1
+--- !u!114 &-7114490096241246828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767110290482761148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace4a7eda90e34fc996a975c2f35a7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

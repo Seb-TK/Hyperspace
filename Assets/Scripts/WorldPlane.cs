@@ -8,14 +8,23 @@ public class WorldPlane : MonoBehaviour
 
     void Update()
     {
+        bool isPressing = false;
         if (Input.GetKey(KeyCode.Q))
         {
+            isPressing = true;
             dimensionLocation += dimensionMoveSpeed * Time.deltaTime;
-        }
+        } 
         if (Input.GetKey(KeyCode.E))
         {
+            isPressing = true;
             dimensionLocation -= dimensionMoveSpeed * Time.deltaTime;
         }
+        if (isPressing == false)
+        {
+            dimensionLocation += Input.mouseScrollDelta.y * dimensionMoveSpeed * Time.deltaTime;
+        }
+
+        
 
         if(dimensionLocation > dimensionRange)
         {

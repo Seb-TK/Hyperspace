@@ -22,7 +22,7 @@ public class ObjectBehavior : MonoBehaviour
             collider.size.y,
             objectHitBoxWidth
         );
-
+        displayObjectOnPlane();
     }
 
     void Update()
@@ -41,29 +41,31 @@ public class ObjectBehavior : MonoBehaviour
         float distanceToPlane = worldPlaneObject.GetDistanceToPoint(transform.position);
         distanceToPlane = Mathf.Abs(distanceToPlane);
         
+        Vector3 visualMeshScale = visualMesh.transform.localScale;
+
         if(distanceToPlane != 0)
         {
-            visualMesh.transform.localScale =  Vector3.one / (distanceToPlane + 1);
-            visualMesh.transform.localScale *= sizeChangeMultiplier;
-            visualMesh.transform.localScale += Vector3.one * sizeChangeOffset;
+            visualMeshScale =  Vector3.one / (distanceToPlane + 1);
+            visualMeshScale *= sizeChangeMultiplier;
+            visualMeshScale += Vector3.one * sizeChangeOffset;
         }
         else
         {
-            visualMesh.transform.localScale =  Vector3.one;
-            visualMesh.transform.localScale *= sizeChangeMultiplier;
-            visualMesh.transform.localScale += Vector3.one * sizeChangeOffset;
+            visualMeshScale =  Vector3.one;
+            visualMeshScale *= sizeChangeMultiplier;
+            visualMeshScale += Vector3.one * sizeChangeOffset;
         }
 
         visualMesh.transform.position = transform.position;
-        visualMesh.transform.localScale = new Vector3(
-            visualMesh.transform.localScale.x,
-            visualMesh.transform.localScale.y,
+        visualMeshScale = new Vector3(
+            visualMeshScale.x,
+            visualMeshScale.y,
             1
         );
-        if(visualMesh.transform.localScale.x <= 0)
+        if(visualMeshScale.x <= 0)
         {
-            visualMesh.transform.localScale = Vector3.zero;
+            visualMeshScale = Vector3.zero;
         }
-
+        visualMesh.transform.localScale = visualMeshScale;
     }
 }

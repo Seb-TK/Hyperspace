@@ -7,7 +7,7 @@ public class ObjectLocationColor : MonoBehaviour
     private Renderer renderer;
     private float dimensionLocation;
     private WorldPlane worldPlane;
-    [SerializeField]private float colorMultiplier = 5f;
+    [SerializeField]private float colorMultiplier = 1f;
     [SerializeField]private float colorOffset = 0f;
     [SerializeField]private float saturation = 1f;
     [SerializeField]private float value = 1f;
@@ -16,10 +16,11 @@ public class ObjectLocationColor : MonoBehaviour
         worldPlane = FindAnyObjectByType<WorldPlane>();
         renderer = GetComponent<Renderer>();
 
-        colorMultiplier = 5f;
+        colorMultiplier = worldPlane.dimensionRange;
         colorOffset = 0f;
         saturation = 0.8f;
         value = 1.5f;
+        SetColor();
     }
 
     void Update()
