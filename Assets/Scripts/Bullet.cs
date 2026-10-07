@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     private float boundHeightPos;
     public bool isPlayerBullet;
     private Vector3 startingPos;
+    private Vector3 savedVelocity;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -25,9 +26,9 @@ public class Bullet : MonoBehaviour
         boundHeightPos = boundArray[1];
         startingPos = transform.position;
     }
-    void FixedUpdate()
+    void Update()
     {
-        rigidBody.MovePosition(rigidBody.position + transform.up * MoveSpeed * Time.deltaTime);
+        transform.position += transform.up * MoveSpeed;
         if(transform.position.x > boundWidthPos)
         {
             Destroy(gameObject);
@@ -48,6 +49,7 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     void OnTriggerEnter(Collider other)

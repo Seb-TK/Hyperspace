@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c04b54e064436993c07fcf87d371e, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
-  enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
   movementSpeed: 2
   movementSpeedZ: 1
   movementRandomness: 0
@@ -23,15 +22,17 @@ MonoBehaviour:
   chargeDistance: 6
   chargePauseLength: 0.4
   chargeRate: 3
+  enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
   objectWidth: 0.3
   objectHitBoxWidth: 0.5
   sizeChangeMultiplier: 2
   sizeChangeOffset: -1.3
+  visualSizeMultiplier: 1
   health: 7
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   fireRate: 3.5
-  bulletSize: 1.2
-  bulletRange: 20
+  bulletSize: 0.8
+  bulletRange: 30
   bulletSpeed: 15
   bulletCount: 1
   bulletAccuracy: 0

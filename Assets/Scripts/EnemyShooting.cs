@@ -49,7 +49,6 @@ public class EnemyShooting : MonoBehaviour
     {
         for(int i = 0; i < this.bulletCount; i++)
         {
-            Debug.Log("bulletspawned");
             float randomOffsetFloat = Random.Range(-this.accuracy, this.accuracy);
             Quaternion randomOffset = Quaternion.Euler(0, 0, randomOffsetFloat - 90);
             SpawnBullet(transform.position, transform.rotation * randomOffset);

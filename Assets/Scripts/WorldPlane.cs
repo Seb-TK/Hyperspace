@@ -24,8 +24,6 @@ public class WorldPlane : MonoBehaviour
             dimensionLocation += Input.mouseScrollDelta.y * dimensionMoveSpeed * Time.deltaTime;
         }
 
-        
-
         if(dimensionLocation > dimensionRange)
         {
             dimensionLocation = -dimensionRange;

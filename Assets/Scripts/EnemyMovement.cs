@@ -100,18 +100,26 @@ public class EnemyMovement : MonoBehaviour
 
     private void HoverAtDistance(float distance)
     {
+        Vector3 playerPosition = player.transform.position;
+        playerPosition.z = 0;
+        Vector3 thisPosition = transform.position;
+        thisPosition.z = 0;
+
         float distanceToPlayer = Vector3.Distance(
-            player.transform.position,
-            transform.position
+            playerPosition,
+            thisPosition
         );
         float hoverDistanceBuffer = 2f;
         if(Mathf.Round(distanceToPlayer) >= distance)
         {
-            transform.position += directionToPlayer * movementSpeed * Time.deltaTime;
+            thisPosition += directionToPlayer * movementSpeed * Time.deltaTime;
         } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
         {
-            transform.position -= directionToPlayer * movementSpeed * Time.deltaTime;
+            thisPosition -= directionToPlayer * movementSpeed * Time.deltaTime;
         }
+        thisPosition.z = transform.position.z;
+        transform.position = thisPosition;
+
         if(transform.position.z <= player.transform.position.z)
         {
             transform.position += Vector3.forward * movementSpeedZ * Time.deltaTime;
@@ -129,8 +137,9 @@ public class EnemyMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0,0,targetAngle);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
-
-    void DrifterAi()
+    // add a failsafe so that drifters dont drift
+    //out of bounds on the z axis, maybe a tp?
+    void DrifterAi() 
     {
         float t = Time.deltaTime * rotationSpeed;
         Vector3 direction = new Vector3(
@@ -140,6 +149,19 @@ public class EnemyMovement : MonoBehaviour
         );
         direction.Normalize();
         transform.position += direction * movementSpeed * Time.deltaTime;
+
+        WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
+        float dimensionRange = worldPlane.dimensionRange;
+        Vector3 newPos = transform.position;
+        if(transform.position.z > dimensionRange)
+        {
+            newPos.z = -dimensionRange;
+        }
+        if(transform.position.z < -dimensionRange)
+        {
+            newPos.z = dimensionRange;
+        }
+        transform.position = newPos;
     }
 
 }

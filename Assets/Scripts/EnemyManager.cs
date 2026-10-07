@@ -20,7 +20,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float waitTimeMin;
     void Start()
     {
-        StartCoroutine(SpawnLoop());
+        SpawnEnemy(ChosenEnemy, new Vector3(0,0,0.98f));
+        //StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()

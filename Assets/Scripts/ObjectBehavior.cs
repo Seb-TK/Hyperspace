@@ -25,7 +25,7 @@ public class ObjectBehavior : MonoBehaviour
         displayObjectOnPlane();
     }
 
-    void Update()
+    void LateUpdate()
     {
         displayObjectOnPlane();
     }

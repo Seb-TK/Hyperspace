@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c04b54e064436993c07fcf87d371e, type: 3}
   m_Name: Drifter
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
-  enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
-  movementSpeed: 1
-  movementSpeedZ: 1
-  movementRandomness: 0
+  movementSpeed: 0.1
+  movementSpeedZ: 0.2
+  movementRandomness: 100
   rotationSpeed: 350
   aiType: 2
   hoverDistance: 2
@@ -23,15 +22,17 @@ MonoBehaviour:
   chargeDistance: 6
   chargePauseLength: 0.4
   chargeRate: 3
+  enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
   objectWidth: 0.3
   objectHitBoxWidth: 0.5
   sizeChangeMultiplier: 2
   sizeChangeOffset: -1.3
+  visualSizeMultiplier: 3.3
   health: 18
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   fireRate: 1.5
-  bulletSize: 0.8
-  bulletRange: 3
+  bulletSize: 0.6
+  bulletRange: 30
   bulletSpeed: 1
   bulletCount: 3
   bulletAccuracy: 360

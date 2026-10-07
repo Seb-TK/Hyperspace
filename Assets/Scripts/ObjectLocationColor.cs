@@ -16,7 +16,7 @@ public class ObjectLocationColor : MonoBehaviour
         worldPlane = FindAnyObjectByType<WorldPlane>();
         renderer = GetComponent<Renderer>();
 
-        colorMultiplier = worldPlane.dimensionRange;
+        colorMultiplier = 1;
         colorOffset = 0f;
         saturation = 0.8f;
         value = 1.5f;
