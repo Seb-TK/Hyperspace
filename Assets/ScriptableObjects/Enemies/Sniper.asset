@@ -16,6 +16,7 @@ MonoBehaviour:
   movementSpeedZ: 1
   movementRandomness: 0
   rotationSpeed: 200
+  ignoreEdgeWrap: 1
   aiType: 0
   hoverDistance: 10
   chargeSpeed: 0.03

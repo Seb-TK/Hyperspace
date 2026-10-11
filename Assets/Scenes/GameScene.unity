@@ -365,7 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   EnemyPrefab: {fileID: 67493959001194574, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
   SpawnCirclePrefab: {fileID: 3871052150835977722, guid: d00a6241d9be244449aa0f3a29d13a76, type: 3}
-  ChosenEnemy: 2
+  ChosenEnemy: 4
   enemyDataList:
   - {fileID: 11400000, guid: c0f03191046f2495bb6799dd017d6ee7, type: 2}
   - {fileID: 11400000, guid: b06432384674d4fc0abe02ccebcb6dff, type: 2}
