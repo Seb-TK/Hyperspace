@@ -190,10 +190,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   bullet: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   bulletDamage: 1
-  bulletSpeed: 0.2
-  fireRate: 0.5
-  bulletSize: 0.2
-  bulletRange: 10
+  bulletSpeed: 6
+  fireRate: 0.6
+  bulletSize: 0.165
+  bulletRange: 30
   health: 10
 --- !u!65 &5381784012048388346
 BoxCollider:

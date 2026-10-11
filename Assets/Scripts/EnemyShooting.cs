@@ -16,6 +16,7 @@ public class EnemyShooting : MonoBehaviour
     private float accuracy;
     private float speed;
     private float bulletSize;
+    private bool ignoreEdgeWrap;
     private GameObject bulletPrefab;
     void Start()
     {
@@ -34,6 +35,7 @@ public class EnemyShooting : MonoBehaviour
         accuracy = data.bulletAccuracy;
         bulletSize = data.bulletSize;
         bulletPrefab = data.bulletPrefab;
+        ignoreEdgeWrap = data.ignoreEdgeWrap;
     }
 
     void Update()
@@ -59,6 +61,7 @@ public class EnemyShooting : MonoBehaviour
         GameObject spawnedBullet = Instantiate(bulletPrefab, position, rotation);
         Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
         bulletScript.isPlayerBullet = false;
+        bulletScript.ignoreEdgeWrap = ignoreEdgeWrap;
         bulletScript.BulletSize = bulletSize;
         bulletScript.Damage = damage;
         bulletScript.MoveSpeed = speed;

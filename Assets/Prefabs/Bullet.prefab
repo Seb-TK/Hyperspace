@@ -160,10 +160,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   edgeWrapping: {fileID: 3781512536716243463, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
+  collisionDistance: 0.1
   MoveSpeed: 1
   bulletRange: 3
   Damage: 1
   BulletSize: 0.1
+  ignoreEdgeWrap: 0
   isPlayerBullet: 1
 --- !u!65 &8603934023980988684
 BoxCollider:
@@ -216,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EdgeWrapping
   boundWidth: 1.02
   boundHeight: 1.02
+  ignoreEdgeWrap: 0
 --- !u!54 &-6229895939796884983
 Rigidbody:
   m_ObjectHideFlags: 0

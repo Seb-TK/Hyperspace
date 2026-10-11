@@ -12,6 +12,7 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float movementSpeedZ;
     public float movementRandomness;
     public float rotationSpeed;
+    public bool ignoreEdgeWrap;
 
     public enum AiTypes{
         Ranger,

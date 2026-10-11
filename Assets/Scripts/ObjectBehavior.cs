@@ -36,18 +36,6 @@ public class ObjectBehavior : MonoBehaviour
         displayObjectOnPlane();
     }
 
-    public bool collisionCheck(float ZPositionOne, float ZPositionTwo)
-    {
-        if(Mathf.Abs(ZPositionOne - ZPositionTwo) <= CollisionDistance)
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
-
-    }
-
     void displayObjectOnPlane()
     {
         Vector3 worldPlaneNormal = worldPlaneGameObject.transform.forward;

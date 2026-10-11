@@ -13,6 +13,7 @@ public class EdgeWrapping : MonoBehaviour
     private float dimensionLocation;
     private float dimensionRange;
     int thisObjOnWhichSide;
+    public bool ignoreEdgeWrap = false;
 
     public float[] FindBoundPos(float boundWidth, float boundHeight)
     {
@@ -48,14 +49,16 @@ public class EdgeWrapping : MonoBehaviour
     }
     void LateUpdate()
     {
-        EdgeTeleport();
+        if (!ignoreEdgeWrap)
+        {
+            EdgeTeleport();
+        }
         savedPosition = transform.position;
         if(GetComponent<PlayerData>() == null)
         {
             AppearOnOppositeDimensionEdge();
         }
     }
-
     private void AppearOnOppositeDimensionEdge()
     {
         dimensionLocation = worldPlane.dimensionLocation;
@@ -68,24 +71,6 @@ public class EdgeWrapping : MonoBehaviour
         {
             thisObjOnWhichSide = -1;
         }
-        //first you find the distance to the edge by subtracting the current distance
-        // from the total range (halfed technically, the maxed range)
-        //distance to edge
-        //then you find your new position
-        //you find the total distance and add the distance to the edge
-        //this finds how far out you'd be from the edge
-        //then you multiply it by the side that the object would be on
-        // the idea is that you're seeing how far away the object is from the edge
-        //then putting it that distance outside of the opposite edge
-        //since that'd be where it would be
-        //now you find the difference between the distance between the object
-        //and the player as well as the new location and the player
-        // then you just see if the new difference is smaller which would mean that the
-        //new location is closer so you'd switch to it
-        //weirdly though, the new distance is always the same distance?
-        //???
-
-
         float distanceToEdge = dimensionRange - Mathf.Abs(transform.position.z);
         float newPositionZ = (dimensionRange + distanceToEdge) * thisObjOnWhichSide;
         float difference = Mathf.Abs(transform.position.z - dimensionLocation);

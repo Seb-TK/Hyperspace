@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    //simple ai gives movement inputs like the player
-    //simply keeps a certain distance from the player
-    // moves towards or away to keep at around this distance
+    //add velocity to allow for some sliding and such 
+    // for a bit more dynamic ness
+    //ADD TIME.DELTATIME to the velocity
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementSpeedZ;
     [SerializeField] private float movementRandomness;

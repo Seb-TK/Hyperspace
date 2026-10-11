@@ -7,34 +7,41 @@ public class Bullet : MonoBehaviour
 {
     
     [SerializeField] private EdgeWrapping edgeWrapping;
+    [SerializeField] private float collisionDistance;
     public float MoveSpeed;
     public float bulletRange;
     public float Damage;
     public float BulletSize;
+    public bool ignoreEdgeWrap = false;
     private Rigidbody rigidBody;
     private float boundWidthPos;
     private float boundHeightPos;
     public bool isPlayerBullet;
     private Vector3 startingPos;
-    private Vector3 savedVelocity;
-    private static int bulletCount;
-    private int bulletNumber;
+    private float distanceTraveled;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * BulletSize;
         float bounds = 1.1f;
         float [] boundArray = edgeWrapping.FindBoundPos(bounds, bounds);
+        GetComponent<EdgeWrapping>().ignoreEdgeWrap = ignoreEdgeWrap;
         boundWidthPos = boundArray[0];
         boundHeightPos = boundArray[1];
         startingPos = transform.position;
-        bulletCount ++;
-        bulletNumber = bulletCount;
     }
     void Update()
     {
-        Debug.Log("yo im bullet number " + bulletNumber);
-        transform.position += transform.up * MoveSpeed;
+        transform.position += transform.up * MoveSpeed * Time.deltaTime;
+        distanceTraveled += MoveSpeed * Time.deltaTime;
+        if (distanceTraveled > bulletRange)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void DieOnEdge()
+    {
         if(transform.position.x > boundWidthPos)
         {
             Destroy(gameObject);
@@ -51,17 +58,14 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (Vector3.Distance(transform.position, startingPos) > bulletRange)
-        {
-            Destroy(gameObject);
-        }
-
     }
 
     void OnTriggerEnter(Collider other)
     {
         GameObject collider = other.gameObject;
-        if(GetComponent<ObjectBehavior>().collisionCheck(startingPos.z, collider.transform.position.z))
+        float distanceToCollider = transform.position.z - collider.transform.position.z;
+        distanceToCollider = Mathf.Abs(distanceToCollider);
+        if(distanceToCollider <= collisionDistance)
         {
             if (isPlayerBullet)
             {
