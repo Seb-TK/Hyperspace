@@ -26,13 +26,13 @@ MonoBehaviour:
   objectWidth: 0.3
   objectHitBoxWidth: 0.5
   sizeChangeMultiplier: 2
-  sizeChangeOffset: -1.3
-  visualSizeMultiplier: 3.3
-  health: 18
+  sizeChangeOffset: -1.2
+  visualSizeMultiplier: 3
+  health: 8
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   fireRate: 1.5
-  bulletSize: 0.6
+  bulletSize: 0.4
   bulletRange: 30
-  bulletSpeed: 1
+  bulletSpeed: 0.01
   bulletCount: 3
   bulletAccuracy: 360

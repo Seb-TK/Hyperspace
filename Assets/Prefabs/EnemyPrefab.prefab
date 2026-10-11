@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3781512536716243463}
   - component: {fileID: 6036517211801550158}
   - component: {fileID: -1479953350338997384}
+  - component: {fileID: 2690032388999278947}
   m_Layer: 6
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -50,8 +51,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   movementSpeed: 0
+  movementSpeedZ: 0
   movementRandomness: 0
   rotationSpeed: 0
+  AiType: 0
+  hoverDistance: 0
+  chargeRate: 0
+  chargeSpeed: 0
+  chargeDistance: 0
+  chargePauseLength: 0
 --- !u!114 &6397057679295714414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da3113f68dbb42e3ac6ea8b5671d02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  EnemyDataScriptableObject: {fileID: 11400000, guid: 10dc22a45fb0d4a7d9569fab5e7fcf51, type: 2}
+  EnemyDataContainer: {fileID: 0}
+  invincibilityLength: 0.5
 --- !u!114 &-1479953350338997384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +138,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   EnemyDataComponent: {fileID: 0}
+--- !u!54 &2690032388999278947
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67493959001194574}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

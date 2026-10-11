@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9170288684764865539}
   - component: {fileID: -3999904454457167982}
   - component: {fileID: -7114490096241246828}
+  - component: {fileID: -707038862797450163}
   m_Layer: 0
   m_Name: EnemyVisual
   m_TagString: Untagged
@@ -110,6 +111,7 @@ MonoBehaviour:
   colorOffset: 0
   saturation: 1
   value: 1
+  valueCollisionMultiplier: 0
 --- !u!114 &-7114490096241246828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,3 +126,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   SizeMultiplier: 0
   fixedSizeMultiplier: 1.3
+--- !u!114 &-707038862797450163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767110290482761148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705408b41e5fa418899152a109ca3a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  damageAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.6623377
+      outSlope: 1.6623377
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.045833334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -5.690475
+      outSlope: -5.690475
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.100000024
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  onHitColor: 0
+  onHitSaturation: 0
+  onHitValue: 3
+  hitAnimationTime: 0.2

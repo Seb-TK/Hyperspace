@@ -50,7 +50,11 @@ public class EdgeWrapping : MonoBehaviour
     }
     void LateUpdate()
     {
-        EdgeTeleport();
+        if(GetComponent<Bullet>() == null)
+        {
+            EdgeTeleport();
+        }
+        
         savedPosition = transform.position;
         if(GetComponent<PlayerData>() == null)
         {

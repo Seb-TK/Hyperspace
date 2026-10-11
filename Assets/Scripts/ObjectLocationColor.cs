@@ -7,19 +7,24 @@ public class ObjectLocationColor : MonoBehaviour
     private Renderer renderer;
     private float dimensionLocation;
     private WorldPlane worldPlane;
+    private ObjectBehavior objectBehavior;
+    private float collisionDistance;
     [SerializeField]private float colorMultiplier = 1f;
     [SerializeField]private float colorOffset = 0f;
     [SerializeField]private float saturation = 1f;
     [SerializeField]private float value = 1f;
-    void Awake()
+    [SerializeField]private float valueCollisionMultiplier;
+    void Start()
     {
         worldPlane = FindAnyObjectByType<WorldPlane>();
         renderer = GetComponent<Renderer>();
-
+        objectBehavior = FindAnyObjectByType<ObjectBehavior>();
+        collisionDistance = ObjectBehavior.CollisionDistance;
         colorMultiplier = 1;
         colorOffset = 0f;
         saturation = 0.8f;
         value = 1.5f;
+        valueCollisionMultiplier = 0.5f;
         SetColor();
     }
 
@@ -37,7 +42,19 @@ public class ObjectLocationColor : MonoBehaviour
         float dimensionLocationPercent = trueDimensionLocation / trueDimensionRange;    
         float targetColorValue = (dimensionLocationPercent * colorMultiplier) + colorOffset;
         targetColorValue = targetColorValue %1f;
-        renderer.material.color = Color.HSVToRGB(targetColorValue, saturation, value);        
+        float tempValue = value;
+        if(Mathf.Abs(transform.position.z - dimensionLocation) > collisionDistance)
+        {
+            tempValue *= valueCollisionMultiplier;
+        }
+        if(GetComponent<EnemyData>() != null)
+        {
+            Debug.Log("Mathf.Abs(transform.position.z - dimensionLocation): " + Mathf.Abs(transform.position.z - dimensionLocation));
+            Debug.Log("transform.position.z " + transform.position.z);
+            Debug.Log("dimensionLocation " + dimensionLocation);
+        }
+        renderer.material.color = Color.HSVToRGB(targetColorValue, saturation, tempValue);        
+
     }
 
 }

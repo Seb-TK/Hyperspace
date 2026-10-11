@@ -516,7 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   dimensionMoveSpeed: 0.5
   dimensionRange: 0.5
-  dimensionLocation: 0
+  dimensionLocation: 0.48
 --- !u!1 &5673509269056146938
 GameObject:
   m_ObjectHideFlags: 0

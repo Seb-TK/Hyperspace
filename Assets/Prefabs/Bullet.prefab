@@ -109,6 +109,7 @@ MonoBehaviour:
   colorOffset: 0
   saturation: 1
   value: 1
+  valueCollisionMultiplier: 0
 --- !u!1 &6335770467902634788
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +123,7 @@ GameObject:
   - component: {fileID: 8603934023980988684}
   - component: {fileID: -4057011768318242874}
   - component: {fileID: -7737591231719930373}
+  - component: {fileID: -6229895939796884983}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -160,7 +162,7 @@ MonoBehaviour:
   edgeWrapping: {fileID: 3781512536716243463, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
   MoveSpeed: 1
   bulletRange: 3
-  Damage: 0
+  Damage: 1
   BulletSize: 0.1
   isPlayerBullet: 1
 --- !u!65 &8603934023980988684
@@ -178,7 +180,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -214,3 +216,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EdgeWrapping
   boundWidth: 1.02
   boundHeight: 1.02
+--- !u!54 &-6229895939796884983
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335770467902634788}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

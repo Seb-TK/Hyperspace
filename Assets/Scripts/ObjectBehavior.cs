@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class ObjectBehavior : MonoBehaviour
@@ -10,12 +12,16 @@ public class ObjectBehavior : MonoBehaviour
     public float sizeChangeOffset;
     private GameObject worldPlaneGameObject;
     private GameObject visualMesh;
+
+    public static float CollisionDistance = 0.3f;
     void Start()
     {
+
         gameManager = FindAnyObjectByType<GameManager>().gameObject;
         worldPlaneGameObject = gameManager.GetComponent<GameManager>().worldPlane;
         visualMesh = transform.GetChild(0).gameObject;
 
+        objectHitBoxWidth = 5;
         BoxCollider collider = GetComponent<BoxCollider>();
         collider.size = new Vector3(
             collider.size.x,
@@ -28,6 +34,18 @@ public class ObjectBehavior : MonoBehaviour
     void LateUpdate()
     {
         displayObjectOnPlane();
+    }
+
+    public bool collision(float ZPositionOne, float ZPositionTwo)
+    {
+        if(Mathf.Abs(ZPositionOne - ZPositionTwo) <= CollisionDistance)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+
     }
 
     void displayObjectOnPlane()
