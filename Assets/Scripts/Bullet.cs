@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
@@ -54,21 +55,24 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        GameObject colliderGameObject = other.gameObject;
-        if (isPlayerBullet)
+        GameObject collider = other.gameObject;
+        if(GetComponent<ObjectBehavior>().collisionCheck(startingPos.z, collider.transform.position.z))
         {
-            if (colliderGameObject.GetComponent<EnemyData>() != null)
+            if (isPlayerBullet)
             {
-                EnemyData enemyDataScript = colliderGameObject.GetComponent<EnemyData>();
-                enemyDataScript.OnHit(Damage);
+                if (collider.GetComponent<EnemyData>() != null)
+                {
+                    EnemyData enemyDataScript = collider.GetComponent<EnemyData>();
+                    enemyDataScript.OnHit(Damage);
+                }
             }
-        }
-        else
-        {
-            if (colliderGameObject.GetComponent<PlayerData>() != null)
+            else
             {
-                PlayerData playerData = colliderGameObject.GetComponent<PlayerData>();
-                playerData.OnHit(Damage);
+                if (collider.GetComponent<PlayerData>() != null)
+                {
+                    PlayerData playerData = collider.GetComponent<PlayerData>();
+                    playerData.OnHit(Damage);
+                }
             }
         }
     }

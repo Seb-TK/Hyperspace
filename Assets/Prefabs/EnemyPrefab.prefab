@@ -72,10 +72,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74d77eac130b4fef9d44c8781ca73f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  objectWidth: 0.5
+  objectWidth: 0.8
   objectHitBoxWidth: 0
   sizeChangeMultiplier: 2.3
-  sizeChangeOffset: -1
+  sizeChangeOffset: -0.9
 --- !u!65 &2371020681305131931
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   EnemyDataContainer: {fileID: 0}
-  invincibilityLength: 0.5
+  invincibilityLength: 0.1
 --- !u!114 &-1479953350338997384
 MonoBehaviour:
   m_ObjectHideFlags: 0

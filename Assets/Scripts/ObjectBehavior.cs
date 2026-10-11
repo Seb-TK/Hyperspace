@@ -36,7 +36,7 @@ public class ObjectBehavior : MonoBehaviour
         displayObjectOnPlane();
     }
 
-    public bool collision(float ZPositionOne, float ZPositionTwo)
+    public bool collisionCheck(float ZPositionOne, float ZPositionTwo)
     {
         if(Mathf.Abs(ZPositionOne - ZPositionTwo) <= CollisionDistance)
         {

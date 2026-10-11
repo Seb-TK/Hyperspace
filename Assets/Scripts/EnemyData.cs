@@ -36,7 +36,6 @@ public class EnemyData : MonoBehaviour
             return;
         }
         health -= damage;
-
         EnemyAnimations enemyAnimations = visualMesh.gameObject.GetComponent<EnemyAnimations>();
         enemyAnimations.getHit();
         if(health <= 0f)
