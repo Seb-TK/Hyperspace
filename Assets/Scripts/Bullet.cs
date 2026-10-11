@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
     public bool isPlayerBullet;
     private Vector3 startingPos;
     private Vector3 savedVelocity;
+    private static int bulletCount;
+    private int bulletNumber;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -26,9 +28,12 @@ public class Bullet : MonoBehaviour
         boundWidthPos = boundArray[0];
         boundHeightPos = boundArray[1];
         startingPos = transform.position;
+        bulletCount ++;
+        bulletNumber = bulletCount;
     }
     void Update()
     {
+        Debug.Log("yo im bullet number " + bulletNumber);
         transform.position += transform.up * MoveSpeed;
         if(transform.position.x > boundWidthPos)
         {

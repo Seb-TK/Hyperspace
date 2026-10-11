@@ -96,16 +96,6 @@ public class EdgeWrapping : MonoBehaviour
             newPosition.z = newPositionZ;
             transform.position = newPosition;
         }
-
-
-
-        Debug.Log("new difference "+newDifference);
-        Debug.Log("difference "+difference);
-        Debug.Log("z pos "+transform.position.z);
-        Debug.Log("new pos "+newPositionZ);
-        Debug.Log("dimensionLocation "+dimensionLocation);
-        Debug.Log("");
-        Debug.Log("");
     }
 
     private void CloneOnEdge()

@@ -58,6 +58,7 @@ public class EnemyShooting : MonoBehaviour
     {
         GameObject spawnedBullet = Instantiate(bulletPrefab, position, rotation);
         Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
+        bulletScript.isPlayerBullet = false;
         bulletScript.BulletSize = bulletSize;
         bulletScript.Damage = damage;
         bulletScript.MoveSpeed = speed;

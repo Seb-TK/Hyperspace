@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   SizeMultiplier: 0
-  fixedSizeMultiplier: 1.3
+  fixedSizeMultiplier: 1.8
 --- !u!114 &-707038862797450163
 MonoBehaviour:
   m_ObjectHideFlags: 0
