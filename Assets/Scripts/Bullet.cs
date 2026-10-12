@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
     public bool isPlayerBullet;
     private Vector3 startingPos;
     private float distanceTraveled;
+    public float rangeRandom;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -34,7 +35,7 @@ public class Bullet : MonoBehaviour
     {
         transform.position += transform.up * MoveSpeed * Time.deltaTime;
         distanceTraveled += MoveSpeed * Time.deltaTime;
-        if (distanceTraveled > bulletRange)
+        if (distanceTraveled > (bulletRange + UnityEngine.Random.Range(0,rangeRandom)))
         {
             Destroy(gameObject);
         }

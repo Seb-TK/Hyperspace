@@ -4,10 +4,10 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour
 {
     [SerializeField] private EnemyData EnemyDataComponent;
-    private EnemyDataScriptableObject data;
+    private EnemyDataObj data;
     private GameObject mesh;
     private GameObject player;
-    private EnemyDataScriptableObject.AiTypes AiType;
+    private EnemyDataObj.AiTypes AiType;
     private float fireRateTimer;
     private float damage;
     private float fireRate;
@@ -16,6 +16,7 @@ public class EnemyShooting : MonoBehaviour
     private float accuracy;
     private float speed;
     private float bulletSize;
+    private float rangeRandom;
     private bool ignoreEdgeWrap;
     private GameObject bulletPrefab;
     void Start()
@@ -24,7 +25,7 @@ public class EnemyShooting : MonoBehaviour
 
         data = GetComponent<EnemyData>().EnemyDataContainer;
         AiType = data.aiType;
-        if(AiType == EnemyDataScriptableObject.AiTypes.Charger)
+        if(AiType == EnemyDataObj.AiTypes.Charger)
         {
             enabled = false;
         }
@@ -36,6 +37,7 @@ public class EnemyShooting : MonoBehaviour
         bulletSize = data.bulletSize;
         bulletPrefab = data.bulletPrefab;
         ignoreEdgeWrap = data.ignoreEdgeWrap;
+        rangeRandom = data.rangeRandom;
     }
 
     void Update()
@@ -66,6 +68,7 @@ public class EnemyShooting : MonoBehaviour
         bulletScript.Damage = damage;
         bulletScript.MoveSpeed = speed;
         bulletScript.bulletRange = range;
+        bulletScript.rangeRandom = rangeRandom;
     }
 
 }

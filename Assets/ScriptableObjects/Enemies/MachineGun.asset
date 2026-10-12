@@ -16,8 +16,9 @@ MonoBehaviour:
   movementSpeedZ: 1
   movementRandomness: 0
   rotationSpeed: 200
-  aiType: 0
+  ignoreEdgeWrap: 0
   hoverDistance: 4
+  aiType: 0
   chargeSpeed: 0.03
   chargeDistance: 6
   chargePauseLength: 0.4
@@ -30,9 +31,10 @@ MonoBehaviour:
   visualSizeMultiplier: 1
   health: 5
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
-  fireRate: 1.5
-  bulletSize: 0.08
-  bulletRange: 2
-  bulletSpeed: 7
-  bulletCount: 20
+  fireRate: 0.4
+  bulletSize: 0.2
+  bulletRange: 10
+  bulletSpeed: 3
+  bulletCount: 1
   bulletAccuracy: 10
+  rangeRandom: 5

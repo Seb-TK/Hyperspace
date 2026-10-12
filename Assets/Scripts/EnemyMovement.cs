@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float movementSpeedZ;
     [SerializeField] private float movementRandomness;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private EnemyDataScriptableObject.AiTypes AiType;
+    [SerializeField] private EnemyDataObj.AiTypes AiType;
     [SerializeField] private float hoverDistance;
     [SerializeField] private float chargeRate;
     [SerializeField] private float chargeSpeed;
@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     private float chargeTimer;
     private GameObject player;
     private Vector3 playerPosition;
-    private EnemyDataScriptableObject data;
+    private EnemyDataObj data;
     private Vector3 directionToPlayer;
 
     void Awake()
@@ -41,7 +41,7 @@ public class EnemyMovement : MonoBehaviour
         chargeRate = data.chargeRate;
         chargePauseLength = data.chargePauseLength;
         chargeTimer = Time.deltaTime + chargeRate;
-        if(AiType == EnemyDataScriptableObject.AiTypes.Charger)
+        if(AiType == EnemyDataObj.AiTypes.Charger)
         {
             StartCoroutine(ChargerAi());
         }
@@ -51,13 +51,13 @@ public class EnemyMovement : MonoBehaviour
     {
         playerPosition = player.transform.position;
         directionToPlayer = (playerPosition - transform.position).normalized;
-        if(AiType == EnemyDataScriptableObject.AiTypes.Ranger)
+        if(AiType == EnemyDataObj.AiTypes.Ranger)
         {
             RangerAi();
-        } else if(AiType == EnemyDataScriptableObject.AiTypes.Charger)
+        } else if(AiType == EnemyDataObj.AiTypes.Charger)
         {
             ChargerAi();
-        } else if(AiType == EnemyDataScriptableObject.AiTypes.Drifter)
+        } else if(AiType == EnemyDataObj.AiTypes.Drifter)
         {
             DrifterAi();
         }

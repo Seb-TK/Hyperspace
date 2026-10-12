@@ -10,31 +10,35 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject EnemyPrefab;
     [SerializeField] private GameObject SpawnCirclePrefab;
-    
     [SerializeField] private int ChosenEnemy;
-    
-    [SerializeField] private List<EnemyDataScriptableObject> enemyDataList;
+    [SerializeField] private List<EnemyDataObj> enemyDataList;
     [SerializeField] private EdgeWrapping edgeWrapping;
-
     [SerializeField] private float waitTimeMax;
     [SerializeField] private float waitTimeMin;
+    [SerializeField] private float spawnDelay;
+    [SerializeField] private float defaultEnergy;
+    [SerializeField] private float energyPerWave;
+    [SerializeField] private float waveWaitTime;
+    private int wave;
+    private float startTime;
+
+
     void Start()
     {
-        SpawnEnemy(ChosenEnemy, new Vector3(0,0,0.2f));
-        //StartCoroutine(SpawnLoop());
+        //SpawnEnemy(ChosenEnemy, new Vector3(0,0,0));
+        StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
     {
+        startTime = Time.time;
         while (true) // while game running
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(waitTimeMin,waitTimeMax));
-            Vector3 spawnLocation = EnemySpawnLocationSetup();
-            int enemyType = UnityEngine.Random.Range(0,enemyDataList.Count);
-            enemyType = ChosenEnemy;
-            SpawnEnemy(enemyType, spawnLocation);
+            wave++;
+            float energy = defaultEnergy + wave * energyPerWave;
+            SpawnWave(energy);
+            yield return new WaitForSeconds(waveWaitTime);
         }
-        
     }
 
     private Vector3 EnemySpawnLocationSetup()
@@ -66,14 +70,22 @@ public class EnemyManager : MonoBehaviour
     }
     
 
-    IEnumerator SpawnWave(float spawnRate, int enemyCount)
+    IEnumerator SpawnWave(float energy)
     {
         int enemyListLength = enemyDataList.Count;
-        for(int i = 0; i < enemyCount; i++)
+        while(energy >= 0)
         {
-            yield return new WaitForSeconds(spawnRate);
-            int randomEnemyInt = UnityEngine.Random.Range(0,enemyListLength);
-            SpawnEnemy(enemyListLength, EnemySpawnLocationSetup());
+            yield return new WaitForSeconds(spawnDelay);
+            int randomEnemyInt;
+            EnemyDataObj chosenEnemy;
+            int energyCost;
+            do {
+                randomEnemyInt = UnityEngine.Random.Range(0,enemyListLength);
+                chosenEnemy = enemyDataList[randomEnemyInt];
+                energyCost = chosenEnemy.energyCost;
+            } while(energyCost > energy & wave <= chosenEnemy.waveUnlocked);
+            energy -= energyCost;
+            SpawnEnemy(randomEnemyInt, EnemySpawnLocationSetup());
         }
     }
 }

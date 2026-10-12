@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyData : MonoBehaviour
 {
-    public EnemyDataScriptableObject EnemyDataContainer;
+    public EnemyDataObj EnemyDataContainer;
     private float health;
     private EnemyVisualMesh visualMesh;
     private ObjectBehavior objectBehavior;

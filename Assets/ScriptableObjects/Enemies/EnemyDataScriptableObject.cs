@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyDataScriptableObject", menuName = "Scriptable Objects/EnemyDataScriptableObject")]
-public class EnemyDataScriptableObject : ScriptableObject
+public class EnemyDataObj : ScriptableObject
 {
     
 
@@ -13,6 +13,7 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float movementRandomness;
     public float rotationSpeed;
     public bool ignoreEdgeWrap;
+    public float hoverDistance;
 
     public enum AiTypes{
         Ranger,
@@ -21,8 +22,6 @@ public class EnemyDataScriptableObject : ScriptableObject
     };
 
     public AiTypes aiType;
-    [Header("Ranged")] 
-    public float hoverDistance;
 
     [Header("Charge")]    
     public float chargeSpeed;
@@ -40,6 +39,8 @@ public class EnemyDataScriptableObject : ScriptableObject
 
     [Header("Stats")]
     public float health;
+    public int waveUnlocked;
+    public int energyCost;
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
@@ -49,4 +50,5 @@ public class EnemyDataScriptableObject : ScriptableObject
     public float bulletSpeed;
     public int bulletCount;
     public float bulletAccuracy;
+    public float rangeRandom;
 }
