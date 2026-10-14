@@ -25,7 +25,7 @@ public class EnemyData : MonoBehaviour
         visualMesh.SizeMultiplier = EnemyDataContainer.visualSizeMultiplier;
     }
 
-    
+
 
     public void OnHit(float damage)
     {
@@ -44,11 +44,11 @@ public class EnemyData : MonoBehaviour
         }
     }
 
-
-
-
     private void Die()
     {
+        EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>();
+        enemyManager.enemyCount--;
+        Debug.Log("I died, enemy count is: " + enemyManager.enemyCount);
         Destroy(gameObject);
     }
     

@@ -18,11 +18,15 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float chargeSpeed;
     [SerializeField] private float chargeDistance;
     [SerializeField] private float chargePauseLength;
+    [SerializeField] private float movementAcrossZLength;
+    [SerializeField] private float lengthOfMovementsZ;
     private float chargeTimer;
     private GameObject player;
     private Vector3 playerPosition;
     private EnemyDataObj data;
     private Vector3 directionToPlayer;
+    private WorldPlane worldPlane;
+    
 
     void Awake()
     {
@@ -31,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         data = GetComponent<EnemyData>().EnemyDataContainer;
+        worldPlane = FindAnyObjectByType<WorldPlane>();
         movementSpeed = data.movementSpeed;
         rotationSpeed = data.rotationSpeed;
         movementRandomness = data.movementRandomness;
@@ -40,6 +45,7 @@ public class EnemyMovement : MonoBehaviour
         chargeSpeed = data.chargeSpeed;
         chargeRate = data.chargeRate;
         chargePauseLength = data.chargePauseLength;
+        lengthOfMovementsZ = data.lengthOfMovementsZ;
         chargeTimer = Time.deltaTime + chargeRate;
         if(AiType == EnemyDataObj.AiTypes.Charger)
         {
@@ -67,6 +73,7 @@ public class EnemyMovement : MonoBehaviour
     {
         TurnTowardsPlayer();
         HoverAtDistance(hoverDistance);
+        StartCoroutine(MoveAcrossZ(lengthOfMovementsZ));
     }
 
     IEnumerator ChargerAi()
@@ -129,6 +136,26 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    IEnumerator MoveAcrossZ(float lengthOfMovements)
+    {
+        for (int i = 0; i < lengthOfMovements; i++)
+        {
+            float newPosZ = transform.position.z;
+            if(worldPlane.dimensionLocation > transform.position.z)
+            {
+                newPosZ += movementSpeedZ * Time.deltaTime;
+            } else if (worldPlane.dimensionLocation < transform.position.z)
+            {
+                newPosZ -= movementSpeedZ * Time.deltaTime;
+            }
+            transform.position = new Vector3(
+                                transform.position.x, 
+                                transform.position.y,
+                                newPosZ);
+            yield return null;
+        }
+    }
+
     void TurnTowardsPlayer()
     {
         Vector2 directionToPlayer = playerPosition - transform.position;
@@ -150,7 +177,6 @@ public class EnemyMovement : MonoBehaviour
         direction.Normalize();
         transform.position += direction * movementSpeed * Time.deltaTime;
 
-        WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
         float dimensionRange = worldPlane.dimensionRange;
         Vector3 newPos = transform.position;
         if(transform.position.z > dimensionRange)

@@ -16,11 +16,12 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float waitTimeMax;
     [SerializeField] private float waitTimeMin;
     [SerializeField] private float spawnDelay;
-    [SerializeField] private float defaultEnergy;
-    [SerializeField] private float energyPerWave;
+    [SerializeField] private int defaultEnergy;
+    [SerializeField] private int energyPerWave;
     [SerializeField] private float waveWaitTime;
     private int wave;
-    private float startTime;
+    public int enemyCount;
+    private bool temp;
 
 
     void Start()
@@ -31,15 +32,17 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator SpawnLoop()
     {
-        startTime = Time.time;
         while (true) // while game running
         {
             wave++;
-            float energy = defaultEnergy + wave * energyPerWave;
-            SpawnWave(energy);
+            int energy = defaultEnergy + wave * energyPerWave;
+            yield return StartCoroutine(SpawnWave(energy));
+            yield return new WaitUntil(() => enemyCount == 0);
             yield return new WaitForSeconds(waveWaitTime);
+            
         }
     }
+
 
     private Vector3 EnemySpawnLocationSetup()
     {
@@ -58,6 +61,7 @@ public class EnemyManager : MonoBehaviour
     }
     private void SpawnEnemy(int enemyDataIndex, Vector3 spawnLocation)
     {
+        enemyCount++;
         GameObject SpawnCircle = Instantiate(SpawnCirclePrefab, spawnLocation, quaternion.identity);
         GameObject SpawnedEnemy = Instantiate(EnemyPrefab, spawnLocation, quaternion.identity);
         EnemyData enemyData = SpawnedEnemy.GetComponent<EnemyData>();
@@ -68,10 +72,11 @@ public class EnemyManager : MonoBehaviour
         SpawnedEnemy.SetActive(false);
         SpawnCircle.GetComponent<SpawnCircle>().Enemy = SpawnedEnemy;
     }
-    
 
-    IEnumerator SpawnWave(float energy)
+    IEnumerator SpawnWave(int inputEnergy)
     {
+        Debug.Log("wave spawned");
+        int energy = inputEnergy;
         int enemyListLength = enemyDataList.Count;
         while(energy >= 0)
         {
@@ -79,15 +84,21 @@ public class EnemyManager : MonoBehaviour
             int randomEnemyInt;
             EnemyDataObj chosenEnemy;
             int energyCost;
+            Debug.Log("energy is at: " + energy);
             do {
                 randomEnemyInt = UnityEngine.Random.Range(0,enemyListLength);
                 chosenEnemy = enemyDataList[randomEnemyInt];
                 energyCost = chosenEnemy.energyCost;
-            } while(energyCost > energy & wave <= chosenEnemy.waveUnlocked);
+                yield return null;
+                Debug.Log("i picked: " + chosenEnemy);
+                Debug.Log("it had a cost of: " + energyCost);
+            } while(energyCost > energy | wave < chosenEnemy.waveUnlocked);
+            Debug.Log("time to spawn, my energy went from: " + energy);
             energy -= energyCost;
+            Debug.Log("now it's: " + energy);
             SpawnEnemy(randomEnemyInt, EnemySpawnLocationSetup());
+            Debug.Log("Enemy spawned");
+            Debug.Log("");
         }
     }
 }
-
-
