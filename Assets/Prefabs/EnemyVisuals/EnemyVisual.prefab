@@ -164,5 +164,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   onHitColor: 0
   onHitSaturation: 0
-  onHitValue: 3
-  hitAnimationTime: 0.2
+  onHitValue: 5
+  hitAnimationTime: 0.3

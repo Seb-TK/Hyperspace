@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Charger
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
   movementSpeed: 3
-  movementSpeedZ: 0
+  movementSpeedZ: 100
   movementRandomness: 0
   rotationSpeed: 300
-  aiType: 1
+  ignoreEdgeWrap: 0
   hoverDistance: 5
+  lengthOfMovementsZ: 0
+  aiType: 1
   chargeSpeed: 0.03
   chargeDistance: 6
   chargePauseLength: 0.4
@@ -28,7 +30,9 @@ MonoBehaviour:
   sizeChangeMultiplier: 2
   sizeChangeOffset: -1.3
   visualSizeMultiplier: 1
-  health: 999
+  health: 8
+  waveUnlocked: 1
+  energyCost: 1
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   fireRate: 0.5
   bulletSize: 0.1
@@ -36,3 +40,4 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletCount: 1
   bulletAccuracy: 3
+  rangeRandom: 0

@@ -377,32 +377,11 @@ MonoBehaviour:
   edgeWrapping: {fileID: 0}
   waitTimeMax: 5
   waitTimeMin: 3
-  difficultyCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.0000007627532
-      value: 0.9999994
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7999939
-      value: 0.24285772
-      inSlope: -2.4773629
-      outSlope: -2.4773629
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.015617415
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  difficultyRandom: 0
-  difficultyMultiplier: 0
+  spawnDelay: 3
+  defaultEnergy: 2
+  energyPerWave: 2
+  waveWaitTime: 5
+  enemyCount: 0
 --- !u!4 &1186301138307071573
 Transform:
   m_ObjectHideFlags: 0

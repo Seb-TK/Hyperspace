@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: MachineGun
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
   movementSpeed: 2
-  movementSpeedZ: 1
+  movementSpeedZ: 100
   movementRandomness: 0
   rotationSpeed: 200
   ignoreEdgeWrap: 0
   hoverDistance: 4
+  lengthOfMovementsZ: 0
   aiType: 0
   chargeSpeed: 0.03
   chargeDistance: 6
@@ -30,6 +31,8 @@ MonoBehaviour:
   sizeChangeOffset: -1.3
   visualSizeMultiplier: 1
   health: 5
+  waveUnlocked: 6
+  energyCost: 5
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   fireRate: 0.4
   bulletSize: 0.2
