@@ -1,5 +1,7 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 
 public class EdgeWrapping : MonoBehaviour
 {
@@ -12,31 +14,31 @@ public class EdgeWrapping : MonoBehaviour
     private WorldPlane worldPlane;
     private float dimensionLocation;
     private float dimensionRange;
-    int thisObjOnWhichSide;
+    private int thisObjOnWhichSide;
     public bool ignoreEdgeWrap = false;
 
-    public float[] FindBoundPos(float boundWidth, float boundHeight)
-    {
-        Camera camera = Camera.main;
-        float camOffset = -camera.transform.position.z;
 
-        Vector3 topRightPoint = camera.ViewportToWorldPoint(
-            new Vector3(
-                boundWidth,
-                boundHeight,
-                camOffset
-            ));
-        float outputWidth = topRightPoint.x;
-        float outputHeight = topRightPoint.y;
-        float[] outputArray = {outputWidth, outputHeight};
-        return outputArray;
-    }
+    //used for a fix camera to find camera borders
+    // public float[] FindBoundPos(float boundWidth, float boundHeight)
+    // {
+    //     Camera camera = Camera.main;
+    //     float camOffset = -camera.transform.position.z;
+
+    //     Vector3 topRightPoint = camera.ViewportToWorldPoint(
+    //         new Vector3(
+    //             boundWidth,
+    //             boundHeight,
+    //             camOffset
+    //         ));
+    //     float outputWidth = topRightPoint.x;
+    //     float outputHeight = topRightPoint.y;
+    //     float[] outputArray = {outputWidth, outputHeight};
+    //     return outputArray;
+    // }
+
 
     void Start()
     {
-        float[] boundArray = FindBoundPos(boundWidth, boundHeight);
-        boundWidthPos = boundArray[0];
-        boundHeightPos = boundArray[1];
         savedPosition = transform.position;
         worldPlane = FindAnyObjectByType<WorldPlane>();
     }
@@ -56,10 +58,39 @@ public class EdgeWrapping : MonoBehaviour
         savedPosition = transform.position;
         if(GetComponent<PlayerData>() == null)
         {
-            AppearOnOppositeDimensionEdge();
+            EdgeWrap();
+            EdgeWrapOnAxisZ();
         }
     }
-    private void AppearOnOppositeDimensionEdge()
+
+    private void EdgeWrap()
+    {
+        GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
+        float playerPosX = player.transform.position.x;
+        float playerPosY = player.transform.position.y;
+        float mapWidthX = worldPlane.transform.localScale.x;
+        float mapWidthY = worldPlane.transform.localScale.y;
+        float mapRadiusX = mapWidthX / 2f;
+        float mapRadiusY = mapWidthY / 2f;
+        float distanceX;
+        float distanceY;
+
+        distanceX = this.transform.position.x - playerPosX;
+        distanceY = this.transform.position.y - playerPosY;
+        distanceX = distanceX - mapRadiusX;
+        distanceY = distanceY - mapRadiusY;
+        distanceX = Mathf.Repeat(distanceX, mapRadiusX);
+        distanceY = Mathf.Repeat(distanceY, mapRadiusY);
+        distanceX = distanceX + playerPosX;
+        distanceY = distanceY + playerPosY;
+
+        Vector3 newPosition = transform.position;
+        newPosition.x = distanceX;
+        newPosition.y = distanceY;
+        transform.position = newPosition;
+
+    }
+    private void EdgeWrapOnAxisZ()
     {
         dimensionLocation = worldPlane.dimensionLocation;
         dimensionRange = worldPlane.dimensionRange;
