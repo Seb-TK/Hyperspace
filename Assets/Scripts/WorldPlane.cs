@@ -5,7 +5,13 @@ public class WorldPlane : MonoBehaviour
     [SerializeField] private float dimensionMoveSpeed;
     public float dimensionRange;
     public float dimensionLocation;
-
+    public float boundWidth;
+    public float boundHeight;
+    void Awake()
+    {
+        boundWidth = transform.localScale.x / 2f;
+        boundHeight = transform.localScale.y / 2f;
+    }
     void Update()
     {
         bool isPressing = false;

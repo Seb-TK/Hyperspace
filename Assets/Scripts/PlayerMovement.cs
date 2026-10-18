@@ -21,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
         DashInput();
+        
+        WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
+        Vector3 setPosZ = transform.position;
+        setPosZ.z = worldPlane.transform.position.z;
+        transform.position = setPosZ;
     }
 
     void Movement()
@@ -31,16 +36,6 @@ public class PlayerMovement : MonoBehaviour
             0
         ).normalized;
         transform.position += InputVector * MovementSpeed * Time.deltaTime;
-        
-        Camera camera = Camera.main;
-        float camOffset = -camera.transform.position.z;
-        Vector3 rightEdge = camera.ViewportToWorldPoint(new Vector3(screenWidth,0,camOffset));
-        Vector3 topEdge = camera.ViewportToWorldPoint(new Vector3(0,screenHeight,camOffset));
-        float width = rightEdge.x;
-        float height = topEdge.y;
-        float newX = Mathf.Clamp(transform.position.x, -width, width);
-        float newY = Mathf.Clamp(transform.position.y, -height, height);
-        transform.position = new Vector3(newX, newY, transform.position.z);
     }
     void DashInput()
     {

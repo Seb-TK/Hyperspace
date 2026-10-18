@@ -14,8 +14,6 @@ public class Bullet : MonoBehaviour
     public float BulletSize;
     public bool ignoreEdgeWrap = false;
     private Rigidbody rigidBody;
-    private float boundWidthPos;
-    private float boundHeightPos;
     public bool isPlayerBullet;
     private Vector3 startingPos;
     private float distanceTraveled;
@@ -24,11 +22,6 @@ public class Bullet : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * BulletSize;
-        float bounds = 1.1f;
-        float [] boundArray = edgeWrapping.FindBoundPos(bounds, bounds);
-        GetComponent<EdgeWrapping>().ignoreEdgeWrap = ignoreEdgeWrap;
-        boundWidthPos = boundArray[0];
-        boundHeightPos = boundArray[1];
         startingPos = transform.position;
     }
     void Update()
@@ -37,12 +30,15 @@ public class Bullet : MonoBehaviour
         distanceTraveled += MoveSpeed * Time.deltaTime;
         if (distanceTraveled > (bulletRange + UnityEngine.Random.Range(0,rangeRandom)))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
     void DieOnEdge()
     {
+        WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
+        float boundWidthPos = worldPlane.boundWidth;
+        float boundHeightPos = worldPlane.boundHeight;
         if(transform.position.x > boundWidthPos)
         {
             Destroy(gameObject);

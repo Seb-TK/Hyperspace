@@ -5,17 +5,11 @@ using UnityEngine.SocialPlatforms.GameCenter;
 
 public class EdgeWrapping : MonoBehaviour
 {
-    [SerializeField] private float boundWidth;
-    [SerializeField] private float boundHeight;
-    private float boundWidthPos;
-    private float boundHeightPos;
-    private GameObject visualMesh;
     private Vector3 savedPosition;
     private WorldPlane worldPlane;
     private float dimensionLocation;
     private float dimensionRange;
     private int thisObjOnWhichSide;
-    public bool ignoreEdgeWrap = false;
 
 
     //used for a fix camera to find camera borders
@@ -51,44 +45,47 @@ public class EdgeWrapping : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (!ignoreEdgeWrap)
-        {
-            EdgeTeleport();
-        }
+        EdgeTeleport();
         savedPosition = transform.position;
+
+        //red is real one blue is fake imposter evil clone
+        Vector3 point = transform.position;
+        Debug.DrawRay(point, Vector3.right * 0.5f, Color.red);
+        Debug.DrawRay(point, Vector3.up * 0.5f, Color.red);
+
         if(GetComponent<PlayerData>() == null)
         {
             EdgeWrap();
             EdgeWrapOnAxisZ();
         }
+        
+        point = transform.position;
+        Debug.DrawRay(point, Vector3.right * 0.5f, Color.blue);
+        Debug.DrawRay(point, Vector3.up * 0.5f, Color.blue);
+
     }
 
     private void EdgeWrap()
-    {
+    {   
+
         GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
-        float playerPosX = player.transform.position.x;
-        float playerPosY = player.transform.position.y;
-        float mapWidthX = worldPlane.transform.localScale.x;
-        float mapWidthY = worldPlane.transform.localScale.y;
-        float mapRadiusX = mapWidthX / 2f;
-        float mapRadiusY = mapWidthY / 2f;
-        float distanceX;
-        float distanceY;
+        Vector3 playerPos = player.transform.position;
+        float mapWidth = worldPlane.transform.localScale.x;
+        float mapHeight = worldPlane.transform.localScale.y;
 
-        distanceX = this.transform.position.x - playerPosX;
-        distanceY = this.transform.position.y - playerPosY;
-        distanceX = distanceX - mapRadiusX;
-        distanceY = distanceY - mapRadiusY;
-        distanceX = Mathf.Repeat(distanceX, mapRadiusX);
-        distanceY = Mathf.Repeat(distanceY, mapRadiusY);
-        distanceX = distanceX + playerPosX;
-        distanceY = distanceY + playerPosY;
-
+        Vector3 distance = transform.position - playerPos;
+        distance.x = Mathf.Repeat(distance.x + mapWidth / 2f, mapWidth);
+        distance.y = Mathf.Repeat(distance.y + mapHeight / 2f, mapHeight);
+        distance.x -= mapWidth / 2f;
+        distance.y -= mapHeight / 2f;
+        distance += playerPos;
+        
         Vector3 newPosition = transform.position;
-        newPosition.x = distanceX;
-        newPosition.y = distanceY;
+        newPosition.x = distance.x;
+        newPosition.y = distance.y;
         transform.position = newPosition;
 
+        
     }
     private void EdgeWrapOnAxisZ()
     {
@@ -114,32 +111,10 @@ public class EdgeWrapping : MonoBehaviour
         }
     }
 
-    private void CloneOnEdge()
-    {
-        Vector3 newPos = transform.position;
-
-        if(transform.position.x > boundWidthPos)
-        {
-            newPos.x = -boundWidthPos;
-        }
-        if(transform.position.x < -boundWidthPos)
-        {
-            newPos.x = boundWidthPos;
-        }
-        if(transform.position.y > boundHeightPos)
-        {
-            newPos.y = -boundHeightPos;
-        }
-        if(transform.position.y < -boundHeightPos)
-        {
-            newPos.y = boundHeightPos;
-        }
-
-        transform.position = newPos;
-    }
-
     private void EdgeTeleport()
     {
+        float boundWidthPos = worldPlane.boundWidth;
+        float boundHeightPos = worldPlane.boundHeight;
         Vector3 newPos = transform.position;
 
         if(transform.position.x > boundWidthPos)
@@ -159,6 +134,13 @@ public class EdgeWrapping : MonoBehaviour
             newPos.y = boundHeightPos;
         }
 
-        transform.position = newPos;
+        if(transform.position != newPos)
+        {
+            Debug.Log("my position is " + transform.position);
+            transform.position = newPos;
+            Debug.Log("my new position is " + transform.position);
+            Debug.Log("");
+        }
+        
     }
 }

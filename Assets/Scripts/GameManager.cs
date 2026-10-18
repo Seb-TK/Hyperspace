@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        GameObject player = GameObject.Instantiate(playerPrefab, worldPlane.transform);
+        GameObject player = GameObject.Instantiate(playerPrefab);
     }
 
 }
