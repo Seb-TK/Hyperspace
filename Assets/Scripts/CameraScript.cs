@@ -13,7 +13,8 @@ public class CameraScript : MonoBehaviour
     {
         player = FindAnyObjectByType<PlayerData>().gameObject;
         playerPos = player.transform.position;
-        EdgeWrapping.OnPlayerTeleport += playerTeleported;
+        EdgeWrapping edgeWrapping = player.GetComponent<EdgeWrapping>();
+        edgeWrapping.OnPlayerTeleport += playerTeleported;
     }
 
     // Update is called once per frame

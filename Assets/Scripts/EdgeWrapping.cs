@@ -114,7 +114,7 @@ public class EdgeWrapping : MonoBehaviour
         }
     }
 
-    public static event Action OnPlayerTeleport;
+    public event Action OnPlayerTeleport;
 
     private void EdgeTeleport()
     {
