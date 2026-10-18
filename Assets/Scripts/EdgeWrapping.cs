@@ -45,7 +45,15 @@ public class EdgeWrapping : MonoBehaviour
     }
     void LateUpdate()
     {
-        EdgeTeleport();
+        
+        if(GetComponent<PlayerData>() != null)
+        {
+            Debug.Log("Before edge teleport: " + transform.position);
+            EdgeTeleport();
+            Debug.Log("After edge teleport: " + transform.position);
+            Debug.Log("");
+        }
+
         savedPosition = transform.position;
 
         //red is real one blue is fake imposter evil clone
@@ -133,14 +141,6 @@ public class EdgeWrapping : MonoBehaviour
         {
             newPos.y = boundHeightPos;
         }
-
-        if(transform.position != newPos)
-        {
-            Debug.Log("my position is " + transform.position);
-            transform.position = newPos;
-            Debug.Log("my new position is " + transform.position);
-            Debug.Log("");
-        }
-        
+        transform.position = newPos;
     }
 }

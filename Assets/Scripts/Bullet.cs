@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
         distanceTraveled += MoveSpeed * Time.deltaTime;
         if (distanceTraveled > (bulletRange + UnityEngine.Random.Range(0,rangeRandom)))
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
