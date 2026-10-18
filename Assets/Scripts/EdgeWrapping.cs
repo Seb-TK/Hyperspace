@@ -10,6 +10,7 @@ public class EdgeWrapping : MonoBehaviour
     private float dimensionLocation;
     private float dimensionRange;
     private int thisObjOnWhichSide;
+    public Vector3 playerPosBeforeTeleport;
 
 
     //used for a fix camera to find camera borders
@@ -45,14 +46,7 @@ public class EdgeWrapping : MonoBehaviour
     }
     void LateUpdate()
     {
-        
-        if(GetComponent<PlayerData>() != null)
-        {
-            Debug.Log("Before edge teleport: " + transform.position);
-            EdgeTeleport();
-            Debug.Log("After edge teleport: " + transform.position);
-            Debug.Log("");
-        }
+        EdgeTeleport();
 
         savedPosition = transform.position;
 
@@ -119,6 +113,8 @@ public class EdgeWrapping : MonoBehaviour
         }
     }
 
+    public static event Action OnPlayerTeleport;
+
     private void EdgeTeleport()
     {
         float boundWidthPos = worldPlane.boundWidth;
@@ -141,6 +137,18 @@ public class EdgeWrapping : MonoBehaviour
         {
             newPos.y = boundHeightPos;
         }
-        transform.position = newPos;
+        
+        if(transform.position != newPos & GetComponent<PlayerData>() != null)
+        {
+            playerPosBeforeTeleport = transform.position;
+            transform.position = newPos;
+            OnPlayerTeleport?.Invoke();
+        }
+        else
+        {
+            transform.position = newPos;
+        }
+
+        
     }
 }
