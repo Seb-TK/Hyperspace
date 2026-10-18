@@ -21,7 +21,6 @@ public class CameraScript : MonoBehaviour
     {
         playerPos = player.transform.position;
         lerpToPlayer();
-        setCameraPos(transform.position.x, transform.position.y, zOffSet);
     }
 
     void playerTeleported()
@@ -33,9 +32,13 @@ public class CameraScript : MonoBehaviour
 
     void lerpToPlayer()
     {
+        float rememberPosZ = transform.position.z;
         Vector3 currentPos = transform.position;
         float distance = Vector3.Distance(currentPos, playerPos);
         transform.position = Vector3.Lerp(currentPos, playerPos, distance * lerpSpeed * Time.deltaTime);
+        Vector3 pos = transform.position;
+        pos.z = rememberPosZ;
+        transform.position = pos;
     }
     void setCameraPos(float xPos, float yPos, float zPos)
     {

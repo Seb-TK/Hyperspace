@@ -36,6 +36,7 @@ public class EdgeWrapping : MonoBehaviour
     {
         savedPosition = transform.position;
         worldPlane = FindAnyObjectByType<WorldPlane>();
+        playerPosBeforeTeleport = transform.position;
     }
     
     //execution order is sooner than default so no need to worry 
