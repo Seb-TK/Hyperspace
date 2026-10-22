@@ -189,13 +189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87485176a519243179847518bcbbe357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  bullet: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
-  bulletDamage: 1
-  bulletSpeed: 6
-  fireRate: 0.6
-  bulletSize: 0.165
-  bulletRange: 30
   health: 10
+  equippedWeapons:
+  - shootTimer: 0
+    data: {fileID: 11400000, guid: 0ec21d8eb88054d0b91d7ecf356a6e1d, type: 2}
+  weaponDataList:
+  - {fileID: 11400000, guid: 0ec21d8eb88054d0b91d7ecf356a6e1d, type: 2}
+  - {fileID: 11400000, guid: e7893bd2ab1d84b81ae6a5a354dd2007, type: 2}
 --- !u!65 &5381784012048388346
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -229,3 +229,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1051548954d704f2fb02818e448d76bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EdgeWrapping
+  playerPosBeforeTeleport: {x: 0, y: 0, z: 0}

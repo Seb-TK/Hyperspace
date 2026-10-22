@@ -73,5 +73,9 @@ public class ObjectBehavior : MonoBehaviour
             visualMeshScale = Vector3.zero;
         }
         visualMesh.transform.localScale = visualMeshScale;
+
+        Vector3 newPos = transform.position;
+        newPos.z = worldPlaneGameObject.transform.position.z;
+        transform.position = newPos;
     }
 }

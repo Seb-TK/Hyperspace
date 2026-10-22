@@ -21,11 +21,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
         DashInput();
-        
+
         WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
-        Vector3 setPosZ = transform.position;
-        setPosZ.z = worldPlane.transform.position.z;
-        transform.position = setPosZ;
+        Vector3 newPos = transform.position;
+        newPos.z = worldPlane.transform.position.z;
+        transform.position = newPos;
     }
 
     void Movement()

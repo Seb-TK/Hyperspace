@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,22 +16,25 @@ public class PlayerShooting : MonoBehaviour
     private float fireRateTimer;
     private float bulletSize;
     private float bulletRange;
+    private int bulletCount;
     private bool isShooting;
     private int enemyDetectionRadius;
-    void Awake()
+    private PlayerData playerData;
+
+    void Start()
     {
-        data = GetComponent<PlayerData>();
-        bullet = data.bullet;
-        bulletDamage = data.bulletDamage;
-        bulletSpeed = data.bulletSpeed;
-        fireRate = data.fireRate;
-        bulletSize = data.bulletSize;
-        bulletRange = data.bulletRange;
+        PlayerData.WeaponType shooter = PlayerData.WeaponType.shooter;
+        PlayerData.addWeapon(shooter);
+        playerData = GetComponent<PlayerData>();
     }
     void Update()
     {
         MouseLook();
-        ShootInput();
+        if (ToggleInput())
+        {
+            FireGuns();
+        }
+        
     }
 
     void MouseLook()
@@ -46,20 +50,43 @@ public class PlayerShooting : MonoBehaviour
         transform.rotation = Quaternion.Euler(0,0,angle - 90); // 90 is for up offset
     }
 
-    void ShootInput()
+    void ApplyWeaponData(PlayerData.Weapon weapon)
     {
-        ToggleInput();
-        //DetectEnemy();
-        if(isShooting){
-            if (Time.time > fireRateTimer)
+        WeaponData data = weapon.data;
+        bullet = data.bulletObj;
+        bulletDamage = data.damage;
+        bulletSpeed = data.speed;
+        fireRate = data.fireRate;
+        bulletSize = data.size;
+        bulletRange = data.range;
+        bulletCount = data.count;
+    }
+
+    void FireGuns()
+    {
+        for(int i = 0; i < playerData.equippedWeapons.Count; i++)
+        {
+            if (playerData.equippedWeapons[i].IncrimentTimer())
             {
+                ApplyWeaponData(playerData.equippedWeapons[i]);
                 Shoot();
-                fireRateTimer = Time.time + fireRate;
             }
         }
     }
 
     void Shoot()
+    {
+        for(int i = 0; i < playerData.equippedWeapons.Count; i++)
+        {
+            ApplyWeaponData(playerData.equippedWeapons[i]);
+            for(int j = 0; j < bulletCount; j++)
+            {
+                SpawnBullet();
+            }
+        }
+    }
+
+    void SpawnBullet()
     {
         GameObject spawnedBullet = Instantiate(bullet, transform.position, transform.rotation);
         Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
@@ -70,13 +97,16 @@ public class PlayerShooting : MonoBehaviour
         bulletScript.isPlayerBullet = true;
     }
 
-    void ToggleInput()
+    bool ToggleInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
             isShooting = !isShooting;
         }
+        return isShooting;
     }
+
+    
 
     void DetectEnemy()
     {

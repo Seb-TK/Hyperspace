@@ -71,10 +71,18 @@ public class EdgeWrapping : MonoBehaviour
     private void EdgeWrap()
     {   
 
+
         GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
         Vector3 playerPos = player.transform.position;
         float mapWidth = worldPlane.transform.localScale.x;
         float mapHeight = worldPlane.transform.localScale.y;
+
+
+        //find distance between current
+        //compare to distance of flipped version
+        //what ever is closest pick?
+
+
 
         Vector3 distance = transform.position - playerPos;
         distance.x = Mathf.Repeat(distance.x + mapWidth / 2f, mapWidth);
