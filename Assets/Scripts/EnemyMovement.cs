@@ -171,7 +171,7 @@ public class EnemyMovement : MonoBehaviour
     }
     // add a failsafe so that drifters dont drift
     //out of bounds on the z axis, maybe a tp?
-    void DrifterAi() 
+    void DrifterAi()
     {
         float t = Time.deltaTime * rotationSpeed;
         Vector3 direction = new Vector3(

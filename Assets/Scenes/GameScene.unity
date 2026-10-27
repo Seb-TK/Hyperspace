@@ -377,8 +377,8 @@ MonoBehaviour:
   edgeWrapping: {fileID: 0}
   waitTimeMax: 5
   waitTimeMin: 3
-  spawnDelay: 3
-  defaultEnergy: 2
+  spawnDelay: 1
+  defaultEnergy: 1000
   energyPerWave: 2
   waveWaitTime: 5
   enemyCount: 0

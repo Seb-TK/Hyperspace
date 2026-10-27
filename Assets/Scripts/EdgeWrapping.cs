@@ -93,62 +93,63 @@ public class EdgeWrapping : MonoBehaviour
 
 
         GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
-        Vector3 playerTransform = player.transform.position;
+        Vector3 playerPos = player.transform.position;
         float mapWidth = worldPlane.transform.localScale.x;
         float mapHeight = worldPlane.transform.localScale.y;
 
 
-        //find distance between current
-        //compare to distance of flipped version
-        //what ever is closest pick?
+
+        // //find distance between current
+        // //compare to distance of flipped version
+        // //what ever is closest pick?
 
         
         
-        float distanceToPlayer = transform.position.x - playerTransform.x;
-        float[] newPositions = new float[2];
-        float mapLength = mapWidth;
-        if(distanceToPlayer >= mapLength / 2)
-        {
+        // float distanceToPlayer = transform.position.x - playerPos.x;
+        // float[] newPositions = new float[2];
+        // float mapLength = mapWidth;
+        // if(distanceToPlayer >= mapLength / 2)
+        // {
             
-            float newPosX = transform.position.x;
-            float newPosY = transform.position.y;
+        //     float newPosX = transform.position.x;
+        //     float newPosY = transform.position.y;
 
-            //switch to flipped
-            if(transform.position.x > 0)
-            {
-                //means that you need to subtract the difference
-                //between the location of object
-                // and positive edge
-                //from negative edge
-                float distanceToEdgeX = (mapLength / 2) - transform.position.x;
-                newPosX = (-mapLength / 2) - distanceToEdgeX;
-            }
-            else
-            {
-                //means you need to add 
-                // the difference between
-                //bottom width and position
-                //to the top edge
-                float distanceToEdgeX = (mapWidth / 2) + transform.position.x;
-                newPosX = mapWidth / 2 + Mathf.Abs(distanceToEdgeX);
-            }
-            transform.position = new Vector3(newPosX, newPosY, transform.position.z);
-        }
-
-
+        //     //switch to flipped
+        //     if(transform.position.x > 0)
+        //     {
+        //         //means that you need to subtract the difference
+        //         //between the location of object
+        //         // and positive edge
+        //         //from negative edge
+        //         float distanceToEdgeX = (mapLength / 2) - transform.position.x;
+        //         newPosX = (-mapLength / 2) - distanceToEdgeX;
+        //     }
+        //     else
+        //     {
+        //         //means you need to add 
+        //         // the difference between
+        //         //bottom width and position
+        //         //to the top edge
+        //         float distanceToEdgeX = (mapWidth / 2) + transform.position.x;
+        //         newPosX = mapWidth / 2 + Mathf.Abs(distanceToEdgeX);
+        //     }
+        //     transform.position = new Vector3(newPosX, newPosY, transform.position.z);
+        // }
 
 
-        // Vector3 distance = transform.position - playerPos;
-        // distance.x = Mathf.Repeat(distance.x + mapWidth / 2f, mapWidth);
-        // distance.y = Mathf.Repeat(distance.y + mapHeight / 2f, mapHeight);
-        // distance.x -= mapWidth / 2f;
-        // distance.y -= mapHeight / 2f;
-        // distance += playerPos;
+
+
+        Vector3 distance = transform.position - playerPos;
+        distance.x = Mathf.Repeat(distance.x + mapWidth / 2f, mapWidth);
+        distance.y = Mathf.Repeat(distance.y + mapHeight / 2f, mapHeight);
+        distance.x -= mapWidth / 2f;
+        distance.y -= mapHeight / 2f;
+        distance += playerPos;
         
-        // Vector3 newPosition = transform.position;
-        // newPosition.x = distance.x;
-        // newPosition.y = distance.y;
-        // transform.position = newPosition;
+        Vector3 newPosition = transform.position;
+        newPosition.x = distance.x;
+        newPosition.y = distance.y;
+        transform.position = newPosition;
 
         
     }
