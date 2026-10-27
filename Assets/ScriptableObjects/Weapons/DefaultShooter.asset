@@ -16,8 +16,8 @@ MonoBehaviour:
   bulletObj: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   damage: 1
   fireRate: 1
-  speed: 3
+  speed: 10
   count: 1
-  size: 0.3
+  size: 0.2
   accuracy: 0
-  range: 15
+  range: 50

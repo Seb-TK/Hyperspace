@@ -55,6 +55,8 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("this runs fourth");
+        Debug.Log("in enemy movement late update my starting positon is: " + transform.position);
         playerPosition = player.transform.position;
         directionToPlayer = (playerPosition - transform.position).normalized;
         if(AiType == EnemyDataObj.AiTypes.Ranger)
@@ -67,6 +69,9 @@ public class EnemyMovement : MonoBehaviour
         {
             DrifterAi();
         }
+        Debug.Log("this runs last");
+        Debug.Log("in enemy movement late update my ending positon is: " + transform.position);
+        Debug.Log("next update");
     }
 
     public void RangerAi()

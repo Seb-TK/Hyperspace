@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -17,6 +17,7 @@ public class PlayerShooting : MonoBehaviour
     private float bulletSize;
     private float bulletRange;
     private int bulletCount;
+    private float bulletAccuracy;
     private bool isShooting;
     private int enemyDetectionRadius;
     private PlayerData playerData;
@@ -60,6 +61,7 @@ public class PlayerShooting : MonoBehaviour
         bulletSize = data.size;
         bulletRange = data.range;
         bulletCount = data.count;
+        bulletAccuracy = data.accuracy;
     }
 
     void FireGuns()
@@ -81,14 +83,16 @@ public class PlayerShooting : MonoBehaviour
             ApplyWeaponData(playerData.equippedWeapons[i]);
             for(int j = 0; j < bulletCount; j++)
             {
-                SpawnBullet();
+                float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
+                Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);
+                SpawnBullet(transform.rotation * rotationOffset);
             }
         }
     }
 
-    void SpawnBullet()
+    void SpawnBullet(Quaternion rotation)
     {
-        GameObject spawnedBullet = Instantiate(bullet, transform.position, transform.rotation);
+        GameObject spawnedBullet = Instantiate(bullet, transform.position, rotation);
         Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
         bulletScript.Damage = bulletDamage;
         bulletScript.MoveSpeed = bulletSpeed;

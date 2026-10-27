@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,15 +10,22 @@ public class ObjectLocationColor : MonoBehaviour
     private WorldPlane worldPlane;
     private ObjectBehavior objectBehavior;
     private float collisionDistance;
-    [SerializeField]private float colorMultiplier = 1f;
-    [SerializeField]private float colorOffset = 0f;
-    [SerializeField]private float saturation = 1f;
-    [SerializeField]private float value = 1f;
-    [SerializeField]private float valueCollisionMultiplier;
+    [SerializeField] private float colorMultiplier = 1f;
+    [SerializeField] private float colorOffset = 0f;
+    [SerializeField] private float saturation = 1f;
+    [SerializeField] private float value = 1f;
+    [SerializeField] private float valueCollisionMultiplier;
+    [SerializeField] private bool isBlack;
     void Start()
     {
-        worldPlane = FindAnyObjectByType<WorldPlane>();
         renderer = GetComponent<Renderer>();
+        if(isBlack)
+        {
+            renderer.material.color = Color.HSVToRGB(0,0,0);
+            GetComponent<ObjectLocationColor>().enabled = false;
+            return;
+        }
+        worldPlane = FindAnyObjectByType<WorldPlane>();
         objectBehavior = FindAnyObjectByType<ObjectBehavior>();
         collisionDistance = ObjectBehavior.CollisionDistance;
         colorMultiplier = 1;
