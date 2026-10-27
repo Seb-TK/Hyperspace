@@ -26,10 +26,13 @@ public class PlayerData : MonoBehaviour
 
         public bool IncrimentTimer()
         {
-            shootTimer += Time.deltaTime;
+            float randomOffsetRange = 0.1f;
+            float randomOffset = Random.Range(-randomOffsetRange,randomOffsetRange);
+            shootTimer += Time.deltaTime + (Time.deltaTime * randomOffset);
             if(shootTimer >= data.fireRate)
             {
                 shootTimer = 0;
+                Debug.Log("shoot timer is above fire rate");
                 return true;
             }
             else

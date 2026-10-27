@@ -80,17 +80,14 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        for(int i = 0; i < playerData.equippedWeapons.Count; i++)
+        for(int j = 0; j < bulletCount; j++)
         {
-            ApplyWeaponData(playerData.equippedWeapons[i]);
-            for(int j = 0; j < bulletCount; j++)
-            {
-                float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
-                Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);
-                SpawnBullet(transform.position, transform.rotation * rotationOffset, bulletVisualMesh);
-            }
+            float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
+            Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);
+            SpawnBullet(transform.position, transform.rotation * rotationOffset, bulletVisualMesh);
         }
     }
+        
 
     void SpawnBullet(Vector3 position, Quaternion rotation, GameObject visualMesh)
     {
