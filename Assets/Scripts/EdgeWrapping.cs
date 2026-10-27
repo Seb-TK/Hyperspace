@@ -54,11 +54,11 @@ public class EdgeWrapping : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (GetComponent<EnemyMovement>() != null)
-        {
-            Debug.Log("this runs second");
-            Debug.Log("in edge wrapping late update my starting positon is: " + transform.position);
-        }
+        // if (GetComponent<EnemyMovement>() != null)
+        // {
+        //     Debug.Log("this runs second");
+        //     Debug.Log("in edge wrapping late update my starting positon is: " + transform.position);
+        // }
         
         
         EdgeTeleport();
@@ -80,11 +80,11 @@ public class EdgeWrapping : MonoBehaviour
         Debug.DrawRay(point, Vector3.right * 0.5f, Color.blue);
         Debug.DrawRay(point, Vector3.up * 0.5f, Color.blue);
 
-        if (GetComponent<EnemyMovement>() != null)
-        {
-            Debug.Log("This runs third");
-            Debug.Log("in edge wrapping late update my ending positon is: " + transform.position);
-        }
+        // if (GetComponent<EnemyMovement>() != null)
+        // {
+        //     Debug.Log("This runs third");
+        //     Debug.Log("in edge wrapping late update my ending positon is: " + transform.position);
+        // }
         
     }
 

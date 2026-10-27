@@ -6,6 +6,7 @@ public class WeaponData : ScriptableObject
 {
     public String weaponName;
     public GameObject bulletObj;
+    public GameObject bulletVisualMesh;
     public float damage;
     public float fireRate;
     public float speed;

@@ -34,6 +34,7 @@ MonoBehaviour:
   waveUnlocked: 4
   energyCost: 3
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
+  bulletVisualMesh: {fileID: 2417094205364157175, guid: 51577dbad53a1468fa31c05b16a37bd9, type: 3}
   fireRate: 2
   bulletSize: 0.3
   bulletRange: 20

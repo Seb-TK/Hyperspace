@@ -6,6 +6,7 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private EnemyData EnemyDataComponent;
     private EnemyDataObj data;
     private GameObject mesh;
+    private GameObject bulletVisualMesh;
     private GameObject player;
     private EnemyDataObj.AiTypes AiType;
     private float fireRateTimer;
@@ -29,6 +30,7 @@ public class EnemyShooting : MonoBehaviour
         {
             enabled = false;
         }
+        bulletVisualMesh = data.bulletVisualMesh;
         fireRate = data.fireRate;
         range = data.bulletRange;
         bulletCount = data.bulletCount;
@@ -62,12 +64,13 @@ public class EnemyShooting : MonoBehaviour
     {
         GameObject spawnedBullet = Instantiate(bulletPrefab, position, rotation);
         Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
+        bulletScript.BulletVisualMesh = bulletVisualMesh;
         bulletScript.isPlayerBullet = false;
         bulletScript.ignoreEdgeWrap = ignoreEdgeWrap;
         bulletScript.BulletSize = bulletSize;
         bulletScript.Damage = damage;
         bulletScript.MoveSpeed = speed;
-        bulletScript.bulletRange = range;
+        bulletScript.BulletRange = range;
         bulletScript.rangeRandom = rangeRandom;
     }
 

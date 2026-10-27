@@ -8,8 +8,9 @@ public class Bullet : MonoBehaviour
     
     [SerializeField] private EdgeWrapping edgeWrapping;
     [SerializeField] private float collisionDistance;
+    public GameObject BulletVisualMesh;
     public float MoveSpeed;
-    public float bulletRange;
+    public float BulletRange;
     public float Damage;
     public float BulletSize;
     public bool ignoreEdgeWrap = false;
@@ -23,12 +24,14 @@ public class Bullet : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * BulletSize;
         startingPos = transform.position;
+        GameObject VisualMeshObj = Instantiate(BulletVisualMesh, transform.position, transform.rotation);
+        VisualMeshObj.transform.parent = transform;
     }
     void Update()
     {
         transform.position += transform.up * MoveSpeed * Time.deltaTime;
         distanceTraveled += MoveSpeed * Time.deltaTime;
-        if (distanceTraveled > (bulletRange + UnityEngine.Random.Range(0,rangeRandom)))
+        if (distanceTraveled > (BulletRange + UnityEngine.Random.Range(0,rangeRandom)))
         {
             Destroy(gameObject);
         }

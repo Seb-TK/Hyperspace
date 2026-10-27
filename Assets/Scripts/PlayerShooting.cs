@@ -19,6 +19,7 @@ public class PlayerShooting : MonoBehaviour
     private int bulletCount;
     private float bulletAccuracy;
     private bool isShooting;
+    private GameObject bulletVisualMesh;
     private int enemyDetectionRadius;
     private PlayerData playerData;
 
@@ -62,6 +63,7 @@ public class PlayerShooting : MonoBehaviour
         bulletRange = data.range;
         bulletCount = data.count;
         bulletAccuracy = data.accuracy;
+        bulletVisualMesh = data.bulletVisualMesh;
     }
 
     void FireGuns()
@@ -85,19 +87,20 @@ public class PlayerShooting : MonoBehaviour
             {
                 float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
                 Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);
-                SpawnBullet(transform.rotation * rotationOffset);
+                SpawnBullet(transform.position, transform.rotation * rotationOffset, bulletVisualMesh);
             }
         }
     }
 
-    void SpawnBullet(Quaternion rotation)
+    void SpawnBullet(Vector3 position, Quaternion rotation, GameObject visualMesh)
     {
-        GameObject spawnedBullet = Instantiate(bullet, transform.position, rotation);
+        GameObject spawnedBullet = Instantiate(bullet, position, rotation);
         Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
+        bulletScript.BulletVisualMesh = bulletVisualMesh;
         bulletScript.Damage = bulletDamage;
         bulletScript.MoveSpeed = bulletSpeed;
         bulletScript.BulletSize = bulletSize;
-        bulletScript.bulletRange = bulletRange;
+        bulletScript.BulletRange = bulletRange;
         bulletScript.isPlayerBullet = true;
     }
 

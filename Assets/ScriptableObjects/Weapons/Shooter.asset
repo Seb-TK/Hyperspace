@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b8fa673144bc45ff9607296461c8751, type: 3}
-  m_Name: DefaultShooter
+  m_Name: Shooter
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObj
-  weaponName: 
+  weaponName: Shooter
   bulletObj: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
+  bulletVisualMesh: {fileID: 2417094205364157175, guid: 51577dbad53a1468fa31c05b16a37bd9, type: 3}
   damage: 1
   fireRate: 1
   speed: 10

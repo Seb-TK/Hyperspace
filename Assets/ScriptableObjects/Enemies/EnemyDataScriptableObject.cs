@@ -45,6 +45,7 @@ public class EnemyDataObj : ScriptableObject
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
+    public GameObject bulletVisualMesh;
     public float fireRate;
     public float bulletSize;
     public float bulletRange;
