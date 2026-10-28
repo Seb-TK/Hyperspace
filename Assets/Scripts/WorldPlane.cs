@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class WorldPlane : MonoBehaviour
 {
-    [SerializeField] private float dimensionMoveSpeed;
+    [SerializeField] private float dimensionMoveSpeedButtons;
+    [SerializeField] private float dimensionMoveSpeedScroll;
     public float dimensionRange;
     public float dimensionLocation;
     public float boundWidth;
@@ -14,36 +15,45 @@ public class WorldPlane : MonoBehaviour
     }
     void Update()
     {
-        bool isPressing = false;
-        if (Input.GetKey(KeyCode.Q))
-        {
-            isPressing = true;
-            dimensionLocation += dimensionMoveSpeed * Time.deltaTime;
-        } 
-        if (Input.GetKey(KeyCode.E))
-        {
-            isPressing = true;
-            dimensionLocation -= dimensionMoveSpeed * Time.deltaTime;
-        }
-        if (isPressing == false)
-        {
-            dimensionLocation += Input.mouseScrollDelta.y * dimensionMoveSpeed * Time.deltaTime;
-        }
-
-        if(dimensionLocation > dimensionRange)
-        {
-            dimensionLocation = -dimensionRange;
-        }
-        if(dimensionLocation < -dimensionRange)
-        {
-            dimensionLocation = dimensionRange;
-        }
-
+        // moveUsingButtons();
+        moveUsingScroll();
+        wrapOnAxisZ();
         transform.position = new Vector3(
             transform.position.x,
             transform.position.y,
             dimensionLocation
         );
+    }
+
+    void wrapOnAxisZ()
+    {
+        float newLocation = Mathf.Repeat(dimensionLocation + dimensionRange, dimensionRange + dimensionRange);
+        newLocation -= dimensionRange;
+        dimensionLocation = newLocation;
+    }
+
+    void moveUsingScroll()
+    {
+        dimensionLocation += Input.mouseScrollDelta.y * dimensionMoveSpeedScroll * Time.deltaTime;
+    }
+
+    void moveUsingButtons()
+    {
+      bool isPressing = false;
+        if (Input.GetKey(KeyCode.Q))
+        {
+            isPressing = true;
+            dimensionLocation += dimensionMoveSpeedButtons * Time.deltaTime;
+        } 
+        if (Input.GetKey(KeyCode.E))
+        {
+            isPressing = true;
+            dimensionLocation -= dimensionMoveSpeedButtons * Time.deltaTime;
+        }
+        if (isPressing == false)
+        {
+            dimensionLocation += Input.mouseScrollDelta.y * dimensionMoveSpeedButtons * Time.deltaTime;
+        }
     }
         
 }

@@ -517,7 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699d0fd7d7c974f94891d28841ea2771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  dimensionMoveSpeed: 0.5
+  dimensionMoveSpeedButtons: 0.5
+  dimensionMoveSpeedScroll: 5
   dimensionRange: 0.5
   dimensionLocation: 0
   boundWidth: 0
