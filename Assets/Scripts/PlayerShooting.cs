@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
@@ -22,6 +23,10 @@ public class PlayerShooting : MonoBehaviour
     private GameObject bulletVisualMesh;
     private int enemyDetectionRadius;
     private PlayerData playerData;
+    [SerializeField] private float lockOnRange;
+    [SerializeField] private float lockOnRangeZ;
+    [SerializeField] private bool hasToggleInput;
+    [SerializeField] private bool hasLockOn;
 
     void Start()
     {
@@ -31,10 +36,27 @@ public class PlayerShooting : MonoBehaviour
     }
     void Update()
     {
-        MouseLook();
-        if (ToggleInput())
+        if (hasLockOn)
         {
-            FireGuns();
+            
+        }
+        else
+        {
+            MouseLook();
+        }
+        if (hasToggleInput)
+        {
+            if (ToggleInput())
+            {
+                FireGuns();
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButton(1))
+            {
+                FireGuns();
+            }
         }
         
     }
@@ -112,20 +134,28 @@ public class PlayerShooting : MonoBehaviour
 
     
 
-    void DetectEnemy()
+    GameObject DetectEnemy()
     {
-        float rayCastDistance = 20f;
-        RaycastHit output;
+        GameObject output = null;
         LayerMask enemyMask = LayerMask.GetMask("Enemy");
 
-        bool isSeeingEnemy = Physics.SphereCast(
+        Collider[] hits = Physics.OverlapSphere(
             transform.position, 
             enemyDetectionRadius, 
-            transform.up, 
-            out output,
-            rayCastDistance);
+            enemyMask);
+        if (hits.Length == 0)
+        {
+            return null;
+        }
 
-        isShooting = isSeeingEnemy;
+        for(int i = 0; i < hits.Length; i++)
+        {
+            
+        }
+
+        
+        return output;
+        
     }
     
 }

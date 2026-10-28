@@ -28,6 +28,7 @@ public class EnemyManager : MonoBehaviour
     {
         //SpawnEnemy(ChosenEnemy, new Vector3(0,0,0));
         StartCoroutine(SpawnLoop());
+        wave = 10;
     }
 
     IEnumerator SpawnLoop()
@@ -39,7 +40,6 @@ public class EnemyManager : MonoBehaviour
             yield return StartCoroutine(SpawnWave(energy));
             yield return new WaitUntil(() => enemyCount == 0);
             yield return new WaitForSeconds(waveWaitTime);
-            
         }
     }
 
