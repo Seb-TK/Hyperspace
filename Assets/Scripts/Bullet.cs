@@ -35,6 +35,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        // GameObject bulletVisualMesh = transform.GetChild(0).gameObject;
+        // Vector3 newRotation = bulletVisualMesh.transform.rotation.eulerAngles;
+        // newRotation.y = 90;
+        // bulletVisualMesh.transform.position = newRotation;
     }
 
     void DieOnEdge()

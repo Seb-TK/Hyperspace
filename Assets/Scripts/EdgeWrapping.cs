@@ -14,24 +14,6 @@ public class EdgeWrapping : MonoBehaviour
     public Vector3 playerPosBeforeTeleport;
 
 
-    //used for a fix camera to find camera borders
-    // public float[] FindBoundPos(float boundWidth, float boundHeight)
-    // {
-    //     Camera camera = Camera.main;
-    //     float camOffset = -camera.transform.position.z;
-
-    //     Vector3 topRightPoint = camera.ViewportToWorldPoint(
-    //         new Vector3(
-    //             boundWidth,
-    //             boundHeight,
-    //             camOffset
-    //         ));
-    //     float outputWidth = topRightPoint.x;
-    //     float outputHeight = topRightPoint.y;
-    //     float[] outputArray = {outputWidth, outputHeight};
-    //     return outputArray;
-    // }
-
 
     void Start()
     {
@@ -39,6 +21,10 @@ public class EdgeWrapping : MonoBehaviour
         worldPlane = FindAnyObjectByType<WorldPlane>();
         playerPosBeforeTeleport = transform.position;
     }
+
+    // issue is that if you make the edge wrap alg thing actually tp you to the other side, the edge
+    // teleport will cause an issue. the idea is that it needs to be for everything even bullets and stuff
+    //
     
     //execution order is sooner than default so this runs first
     void Update()
@@ -72,8 +58,11 @@ public class EdgeWrapping : MonoBehaviour
 
         if(GetComponent<PlayerData>() == null)
         {
-            EdgeWrap();
-            EdgeWrapOnAxisZ();
+            EdgeWrapAlg();
+            
+            Vector3 newPosition = transform.position;
+            newPosition.z = EdgeWrapOnAnyAxis(transform.position.z, dimensionLocation, dimensionRange);
+            transform.position = newPosition;
         }
         
         point = transform.position;
@@ -88,7 +77,7 @@ public class EdgeWrapping : MonoBehaviour
         
     }
 
-    private void EdgeWrap()
+    private void EdgeWrapAlg()
     {   
 
 
@@ -96,48 +85,6 @@ public class EdgeWrapping : MonoBehaviour
         Vector3 playerPos = player.transform.position;
         float mapWidth = worldPlane.transform.localScale.x;
         float mapHeight = worldPlane.transform.localScale.y;
-
-
-
-        // //find distance between current
-        // //compare to distance of flipped version
-        // //what ever is closest pick?
-
-        
-        
-        // float distanceToPlayer = transform.position.x - playerPos.x;
-        // float[] newPositions = new float[2];
-        // float mapLength = mapWidth;
-        // if(distanceToPlayer >= mapLength / 2)
-        // {
-            
-        //     float newPosX = transform.position.x;
-        //     float newPosY = transform.position.y;
-
-        //     //switch to flipped
-        //     if(transform.position.x > 0)
-        //     {
-        //         //means that you need to subtract the difference
-        //         //between the location of object
-        //         // and positive edge
-        //         //from negative edge
-        //         float distanceToEdgeX = (mapLength / 2) - transform.position.x;
-        //         newPosX = (-mapLength / 2) - distanceToEdgeX;
-        //     }
-        //     else
-        //     {
-        //         //means you need to add 
-        //         // the difference between
-        //         //bottom width and position
-        //         //to the top edge
-        //         float distanceToEdgeX = (mapWidth / 2) + transform.position.x;
-        //         newPosX = mapWidth / 2 + Mathf.Abs(distanceToEdgeX);
-        //     }
-        //     transform.position = new Vector3(newPosX, newPosY, transform.position.z);
-        // }
-
-
-
 
         Vector3 distance = transform.position - playerPos;
         distance.x = Mathf.Repeat(distance.x + mapWidth / 2f, mapWidth);
@@ -153,27 +100,25 @@ public class EdgeWrapping : MonoBehaviour
 
         
     }
-    private void EdgeWrapOnAxisZ()
+    private float EdgeWrapOnAnyAxis(float position, float playerPos, float range)
     {
-        dimensionLocation = worldPlane.dimensionLocation;
-        dimensionRange = worldPlane.dimensionRange;
-        if (transform.position.z < 0)
+        if (position < 0)
         {
             thisObjOnWhichSide = 1;
         }
-        if (transform.position.z > 0)
+        if (position > 0)
         {
             thisObjOnWhichSide = -1;
         }
-        float distanceToEdge = dimensionRange - Mathf.Abs(transform.position.z);
-        float newPositionZ = (dimensionRange + distanceToEdge) * thisObjOnWhichSide;
-        float difference = Mathf.Abs(transform.position.z - dimensionLocation);
-        float newDifference = Mathf.Abs(newPositionZ - dimensionLocation);
+        float distanceToEdge = range - Mathf.Abs(position);
+        float newPosition = (range + distanceToEdge) * thisObjOnWhichSide;
+        float difference = Mathf.Abs(position - playerPos);
+        float newDifference = Mathf.Abs(newPosition - playerPos);
         if(newDifference < difference)
         {
-            Vector3 newPosition = transform.position;
-            newPosition.z = newPositionZ;
-            transform.position = newPosition;
+            return newPosition;
+        } else {
+            return position;
         }
     }
 

@@ -26,6 +26,9 @@ public class EnemyMovement : MonoBehaviour
     private EnemyDataObj data;
     private Vector3 directionToPlayer;
     private WorldPlane worldPlane;
+    private Vector3 velocity;
+    [SerializeField] private float velocityDecayRate;
+    private Vector3 velocityDecay;
     
 
     void Awake()
@@ -34,6 +37,11 @@ public class EnemyMovement : MonoBehaviour
     }
     void Start()
     {
+        velocityDecay = new Vector3 
+        (velocityDecayRate,
+        velocityDecayRate,
+        velocityDecayRate
+        );
         data = GetComponent<EnemyData>().EnemyDataContainer;
         worldPlane = FindAnyObjectByType<WorldPlane>();
         movementSpeed = data.movementSpeed;
@@ -69,12 +77,19 @@ public class EnemyMovement : MonoBehaviour
         {
             DrifterAi();
         }
+        ApplyVelocity();
         Debug.Log("this runs last");
         Debug.Log("in enemy movement late update my ending positon is: " + transform.position);
         Debug.Log("next update");
     }
 
-    public void RangerAi()
+    private void ApplyVelocity()
+    {
+        transform.position += velocity;
+        velocity -= velocityDecay;
+    }
+
+    private void RangerAi()
     {
         TurnTowardsPlayer();
         HoverAtDistance(hoverDistance);

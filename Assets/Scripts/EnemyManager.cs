@@ -26,9 +26,8 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        //SpawnEnemy(ChosenEnemy, new Vector3(0,0,0));
-        StartCoroutine(SpawnLoop());
-        wave = 10;
+        SpawnEnemy(ChosenEnemy, new Vector3(0,0,0));
+        //StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()

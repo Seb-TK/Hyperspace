@@ -56,8 +56,12 @@ public class EnemyShooting : MonoBehaviour
         for(int i = 0; i < this.bulletCount; i++)
         {
             float randomOffsetFloat = Random.Range(-this.accuracy, this.accuracy);
+            // Vector3 direction = player.transform.position - transform.position;
+            // SpawnBullet(transform.position, Quaternion.LookRotation(direction));
             Quaternion randomOffset = Quaternion.Euler(0, 0, randomOffsetFloat - 90);
             SpawnBullet(transform.position, transform.rotation * randomOffset);
+
+
         }
     }
     void SpawnBullet(Vector3 position, Quaternion rotation)
