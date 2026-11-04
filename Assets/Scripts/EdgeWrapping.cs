@@ -38,6 +38,11 @@ public class EdgeWrapping : MonoBehaviour
         //     Debug.Log("in edge wrapping regular update my position is: " + transform.position);
         // }
     }
+
+    // refactor so that you dont have to write closest position in enemy movement 
+    // and you can just do the default, do this by having it be in the closest position then 
+    //when it comes back to edge wrapping you save the changes to the actual position and
+    // do edge teleport
     void LateUpdate()
     {
         EdgeTeleport();
@@ -50,18 +55,19 @@ public class EdgeWrapping : MonoBehaviour
 
         if(GetComponent<PlayerData>() == null)
         {
-            EdgeWrapAlg();
-            transform.position = closestPosition;
-
-            // GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
-            // Vector3 playerPos = player.transform.position;
-            // float mapWidth = worldPlane.transform.localScale.x;
-            // float mapHeight = worldPlane.transform.localScale.y;
-            // Vector3 newPosition = transform.position;
-            // newPosition.x = EdgeWrapOnAnyAxis(transform.position.x,playerPos.x,mapWidth);
-            // newPosition.z = EdgeWrapOnAnyAxis(transform.position.z, dimensionLocation, dimensionRange);
-            // closestPosition = newPosition;
+            // EdgeWrapAlg();
             // transform.position = closestPosition;
+
+            GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
+            Vector3 playerPos = player.transform.position;
+            float mapWidth = worldPlane.transform.localScale.x / 2;
+            float mapHeight = worldPlane.transform.localScale.y / 2;
+            Vector3 newPosition = transform.position;
+            newPosition.x = EdgeWrapOnAnyAxis(transform.position.x,playerPos.x,mapWidth);
+            newPosition.y = EdgeWrapOnAnyAxis(transform.position.y,playerPos.y,mapHeight);
+            newPosition.z = EdgeWrapOnAnyAxis(transform.position.z, dimensionLocation, dimensionRange);
+            closestPosition = newPosition;
+            transform.position = closestPosition;
         }
         point = closestPosition;
         Debug.DrawRay(point, Vector3.right * 0.5f, Color.red);
