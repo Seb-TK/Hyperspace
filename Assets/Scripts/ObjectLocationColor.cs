@@ -10,6 +10,7 @@ public class ObjectLocationColor : MonoBehaviour
     private WorldPlane worldPlane;
     private ObjectBehavior objectBehavior;
     private float collisionDistance;
+    public Color color;
     [SerializeField] private float colorMultiplier = 1f;
     [SerializeField] private float colorOffset = 0f;
     [SerializeField] private float saturation = 1f;
@@ -41,7 +42,7 @@ public class ObjectLocationColor : MonoBehaviour
         SetColor();
     }
 
-    void SetColor()
+    public void SetColor()
     {
         dimensionLocation = transform.position.z;
         float dimensionRange = worldPlane.dimensionRange;
@@ -55,14 +56,8 @@ public class ObjectLocationColor : MonoBehaviour
         {
             tempValue *= valueCollisionMultiplier;
         }
-        if(GetComponent<EnemyData>() != null)
-        {
-            Debug.Log("Mathf.Abs(transform.position.z - dimensionLocation): " + Mathf.Abs(transform.position.z - dimensionLocation));
-            Debug.Log("transform.position.z " + transform.position.z);
-            Debug.Log("dimensionLocation " + dimensionLocation);
-        }
-        renderer.material.color = Color.HSVToRGB(targetColorValue, saturation, tempValue);        
-
+        color = Color.HSVToRGB(targetColorValue, saturation, tempValue);
+        renderer.material.color = color;
     }
 
 }
