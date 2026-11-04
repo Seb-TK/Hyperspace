@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using NUnit.Framework.Constraints;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,17 +12,16 @@ public class EnemyMovement : MonoBehaviour
     //ADD TIME.DELTATIME to the velocity
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementSpeedZ;
-    [SerializeField] private float movementRandomness;
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float movementBurstsRate;
+    [SerializeField] private float movementBurstsAmount;
     [SerializeField] private EnemyDataObj.AiTypes AiType;
     [SerializeField] private float hoverDistance;
     [SerializeField] private float chargeRate;
-    [SerializeField] private float chargeSpeed;
-    [SerializeField] private float chargeDistance;
+    [SerializeField] private float chargePower;
     [SerializeField] private float chargePauseLength;
     [SerializeField] private float movementAcrossZLength;
-    [SerializeField] private float lengthOfMovementsZ;
-    private float chargeTimer;
+    [SerializeField] private float movementRandMultiplier;
+    private float rotationSpeed;
     private GameObject player;
     private Vector3 playerPosition;
     private EnemyDataObj data;
@@ -29,156 +29,175 @@ public class EnemyMovement : MonoBehaviour
     private WorldPlane worldPlane;
     private Vector3 velocity;
     [SerializeField] private float velocityDecayRate;
+    [SerializeField] private float VelocityDecayRateZ;
+    [SerializeField] private float hoverDistanceBuffer;
     private Vector3 velocityDecay;
+    private float maxVelocity;
+    private float maxVelocityZ;
+    private float rotationalVelocity;
+    private float rotationalVelocityDecay;
+    private float rotationalVelocityClamp;
+    private float chargeTimer;
+    private float currentChargeTimer;
     
-
     void Awake()
     {
         player = FindAnyObjectByType<PlayerMovement>().gameObject;
     }
     void Start()
     {
+        movementRandMultiplier = UnityEngine.Random.Range(movementRandMultiplier, 1);
+        worldPlane = FindAnyObjectByType<WorldPlane>();
+        data = GetComponent<EnemyData>().EnemyDataContainer;
+        velocityDecayRate = data.velocityDecayRate;
+        VelocityDecayRateZ = data.velocityDecayRateZ;
         velocityDecay = new Vector3 
         (velocityDecayRate,
         velocityDecayRate,
-        velocityDecayRate
+        VelocityDecayRateZ
         );
-        data = GetComponent<EnemyData>().EnemyDataContainer;
-        worldPlane = FindAnyObjectByType<WorldPlane>();
-        movementSpeed = data.movementSpeed;
-        rotationSpeed = data.rotationSpeed;
-        movementRandomness = data.movementRandomness;
-        AiType = data.aiType;
-        hoverDistance = data.hoverDistance;
-        chargeDistance = data.chargeDistance;
-        chargeSpeed = data.chargeSpeed;
+        movementSpeed = data.movementSpeed * movementRandMultiplier;
+        movementSpeedZ = data.movementSpeedZ * movementRandMultiplier;
+        maxVelocity = data.maxVelocity * movementRandMultiplier;
+        maxVelocityZ = data.maxVelocityZ * movementRandMultiplier;
+        rotationSpeed = data.rotationSpeed * movementRandMultiplier;
+        rotationalVelocityClamp = data.rotationalVelocityClamp * movementRandMultiplier;
+        rotationalVelocityDecay = data.rotationalVelocityDecay * movementRandMultiplier;
+        movementBurstsRate = data.movementBurstsRate * movementRandMultiplier;
+        movementBurstsAmount = data.movementBurstsAmount * movementRandMultiplier;
+        hoverDistance = data.hoverDistance * movementRandMultiplier;
+        chargePower = data.chargePower;
         chargeRate = data.chargeRate;
         chargePauseLength = data.chargePauseLength;
-        lengthOfMovementsZ = data.lengthOfMovementsZ;
-        chargeTimer = Time.deltaTime + chargeRate;
-        if(AiType == EnemyDataObj.AiTypes.Charger)
-        {
-            StartCoroutine(ChargerAi());
-        }
+        AiType = data.aiType;
+        PointAtPlayer();
+        RunSetupFunctions();
     }
 
     void Update()
     {
         playerPosition = player.transform.position;
         directionToPlayer = (playerPosition - transform.position).normalized;
+        RunAi();
+        ApplyVelocity();
+        ApplyRotationalVelocity();
+    }
+
+    private void RunAi()
+    {
         if(AiType == EnemyDataObj.AiTypes.Ranger)
         {
             RangerAi();
         } else if(AiType == EnemyDataObj.AiTypes.Charger)
         {
             ChargerAi();
-        } else if(AiType == EnemyDataObj.AiTypes.Drifter)
+        }
+        if(AiType == EnemyDataObj.AiTypes.Drifter)
         {
             DrifterAi();
         }
-        ApplyVelocity();
+    }
+
+    private void RunSetupFunctions()
+    {
+        if(AiType == EnemyDataObj.AiTypes.Ranger)
+        {
+            StartCoroutine(RandomMovementBursts());
+        } else if(AiType == EnemyDataObj.AiTypes.Charger)
+        {
+            chargeTimer = Time.time + chargeRate;
+            currentChargeTimer = chargeTimer * movementRandMultiplier;
+            StartCoroutine(RandomMovementBursts());
+        }
+    }
+
+    private void PointAtPlayer()
+    {
+        Vector3 thisPlayerPosition = player.transform.position;
+        Vector3 thisDirectionToPlayer = (thisPlayerPosition - transform.position).normalized;
+        thisDirectionToPlayer.z = 0;
+        transform.up = thisDirectionToPlayer;
     }
 
     private void ApplyVelocity()
     {
-        transform.position += velocity;
-        velocity -= velocityDecay;
+        velocity.z = Mathf.Clamp(velocity.z, -maxVelocityZ, maxVelocityZ);
+        velocity = Vector3.ClampMagnitude(velocity, maxVelocity);
+        transform.position += velocity * Time.deltaTime;
+        velocity = Vector3.Lerp(velocity, Vector3.zero, velocityDecayRate * Time.deltaTime);
+    }
+
+    private void ApplyRotationalVelocity()
+    {
+        rotationalVelocity = Mathf.Clamp(rotationalVelocity, -rotationalVelocityClamp, rotationalVelocityClamp);
+        Quaternion rotationAmount = Quaternion.Euler(0,0,rotationalVelocity * rotationSpeed * Time.deltaTime);
+        transform.rotation *= rotationAmount;
+        rotationalVelocity = Mathf.Lerp(rotationalVelocity, 0, rotationalVelocityDecay * Time.deltaTime);
     }
 
     private void RangerAi()
     {
         TurnTowardsPlayer();
         HoverAtDistance(hoverDistance);
-        StartCoroutine(MoveAcrossZ(lengthOfMovementsZ));
+        MoveAcrossZ();
     }
-
-    IEnumerator ChargerAi()
+    IEnumerator RandomMovementBursts()
     {
         while (true)
         {
-            if(Time.time > chargeTimer)
-            {
-                float chargePauseLengthTimer = Time.time + chargePauseLength;
-                while(Time.time < chargePauseLengthTimer)
-                {
-                    yield return null;
-                }
-                Vector3 currentPosition = transform.position;
-                Vector3 targetPosition = transform.position += transform.right * chargeDistance;
-                float t = 0f;
-                while(t <= 1f)
-                {
-                    t += chargeSpeed;
-                    //experiment with an animation curve for better easing
-                    float easedT = Mathf.SmoothStep(0,1,t);
-                    transform.position = Vector3.Lerp(currentPosition, targetPosition, easedT);
-                    yield return null;
-                }
-                chargeTimer = Time.time + chargeRate;
-            }
-            RangerAi();
-            yield return null;
+            float waitTime = UnityEngine.Random.Range(movementBurstsRate / 2, movementBurstsRate * 2);
+            yield return new WaitForSeconds(waitTime);
+            Vector3 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
+            float burstAmount = UnityEngine.Random.Range(movementBurstsAmount / 2, movementBurstsAmount * 2);
+            velocity += randomDirection * burstAmount;
         }
+    }
+
+    private void ChargerAi()
+    {
+        if(Time.time > currentChargeTimer)
+            {
+                velocity += Vector3.forward * chargePower;
+                chargeTimer = Time.time + chargeRate;
+                currentChargeTimer = chargeTimer * movementRandMultiplier;
+            }
     }
 
     private void HoverAtDistance(float distance)
     {
-        Vector3 playerPosition = player.transform.position;
-        playerPosition.z = 0;
-        Vector3 thisPosition = transform.position;
-        thisPosition.z = 0;
+        Vector2 playerPosition = player.transform.position;
+        Vector2 thisPosition = transform.position;
 
         float distanceToPlayer = Vector3.Distance(
             playerPosition,
             thisPosition
         );
-        float hoverDistanceBuffer = 2f;
-        if(Mathf.Round(distanceToPlayer) >= distance)
+        hoverDistanceBuffer = 1f;
+        if(Mathf.Round(distanceToPlayer) >= distance + hoverDistanceBuffer)
         {
-            thisPosition += directionToPlayer * movementSpeed * Time.deltaTime;
+            velocity += directionToPlayer * movementSpeed * Time.deltaTime;
         } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
         {
-            thisPosition -= directionToPlayer * movementSpeed * Time.deltaTime;
-        }
-        thisPosition.z = transform.position.z;
-        transform.position = thisPosition;
-
-        if(transform.position.z <= player.transform.position.z)
-        {
-            transform.position += Vector3.forward * movementSpeedZ * Time.deltaTime;
-        } else if(transform.position.z >= player.transform.position.z + 0.05f)
-        {
-            transform.position -= Vector3.forward * movementSpeedZ * Time.deltaTime;
+            velocity -= directionToPlayer * movementSpeed * Time.deltaTime;
         }
     }
 
-    IEnumerator MoveAcrossZ(float lengthOfMovements)
-    {
-        for (int i = 0; i < lengthOfMovements; i++)
+        private void MoveAcrossZ()
         {
-            float newPosZ = transform.position.z;
             if(worldPlane.dimensionLocation > transform.position.z)
             {
-                newPosZ += movementSpeedZ * Time.deltaTime;
+                velocity.z += movementSpeedZ * Time.deltaTime;
             } else if (worldPlane.dimensionLocation < transform.position.z)
             {
-                newPosZ -= movementSpeedZ * Time.deltaTime;
+                velocity.z -= movementSpeedZ * Time.deltaTime;
             }
-            transform.position = new Vector3(
-                                transform.position.x, 
-                                transform.position.y,
-                                newPosZ);
-            yield return null;
         }
-    }
 
     void TurnTowardsPlayer()
     {
         Vector2 directionToPlayer = playerPosition - transform.position;
-        float targetAngle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-
-        Quaternion targetRotation = Quaternion.Euler(0,0,targetAngle);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        float angle = Vector3.SignedAngle(transform.up, directionToPlayer, Vector3.forward);
+        rotationalVelocity += angle;
     }
     // add a failsafe so that drifters dont drift
     //out of bounds on the z axis, maybe a tp?

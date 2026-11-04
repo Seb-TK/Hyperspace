@@ -32,7 +32,6 @@ public class PlayerData : MonoBehaviour
             if(shootTimer >= data.fireRate)
             {
                 shootTimer = 0;
-                Debug.Log("shoot timer is above fire rate");
                 return true;
             }
             else

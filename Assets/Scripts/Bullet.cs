@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
     private Vector3 startingPos;
     private float distanceTraveled;
     public float rangeRandom;
+    private Vector3 moveDirection;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -27,18 +28,21 @@ public class Bullet : MonoBehaviour
         GameObject VisualMeshObj = Instantiate(BulletVisualMesh, transform.position, transform.rotation);
         VisualMeshObj.transform.parent = transform;
     }
+    public void Init(Vector3 direction)
+    {
+        moveDirection = direction.normalized;
+        Vector3 moveDirectionNoZ = moveDirection;
+        moveDirectionNoZ.z = 0f;
+        transform.up = moveDirectionNoZ;
+    }
     void Update()
     {
-        transform.position += transform.up * MoveSpeed * Time.deltaTime;
+        transform.position += moveDirection * MoveSpeed * Time.deltaTime;
         distanceTraveled += MoveSpeed * Time.deltaTime;
         if (distanceTraveled > (BulletRange + UnityEngine.Random.Range(0,rangeRandom)))
         {
             Destroy(gameObject);
         }
-        // GameObject bulletVisualMesh = transform.GetChild(0).gameObject;
-        // Vector3 newRotation = bulletVisualMesh.transform.rotation.eulerAngles;
-        // newRotation.y = 90;
-        // bulletVisualMesh.transform.position = newRotation;
     }
 
     void DieOnEdge()

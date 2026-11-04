@@ -52,14 +52,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   movementSpeed: 0
   movementSpeedZ: 0
-  movementRandomness: 0
-  rotationSpeed: 0
+  movementBurstsRate: 0
+  movementBurstsAmount: 0
   AiType: 0
   hoverDistance: 0
   chargeRate: 0
   chargeSpeed: 0
   chargeDistance: 0
   chargePauseLength: 0
+  movementAcrossZLength: 0
+  movementRandomMultiplier: 0.8
+  velocityDecayRate: 0
+  VelocityDecayRateZ: 0
+  hoverDistanceBuffer: 1
 --- !u!114 &6397057679295714414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,8 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1051548954d704f2fb02818e448d76bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EdgeWrapping
-  boundWidth: 1.02
-  boundHeight: 1.02
+  playerPosBeforeTeleport: {x: 0, y: 0, z: 0}
+  closestPosition: {x: 0, y: 0, z: 0}
+  actualPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &6036517211801550158
 MonoBehaviour:
   m_ObjectHideFlags: 0

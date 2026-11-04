@@ -56,26 +56,26 @@ public class EnemyShooting : MonoBehaviour
         for(int i = 0; i < this.bulletCount; i++)
         {
             float randomOffsetFloat = Random.Range(-this.accuracy, this.accuracy);
-            // Vector3 direction = player.transform.position - transform.position;
-            // SpawnBullet(transform.position, Quaternion.LookRotation(direction));
-            Quaternion randomOffset = Quaternion.Euler(0, 0, randomOffsetFloat - 90);
-            SpawnBullet(transform.position, transform.rotation * randomOffset);
-
-
+            Vector3 randomOffset = new Vector3(0, 0, randomOffsetFloat);
+            Vector3 direction = player.transform.position - transform.position;
+            direction.z = 0;
+            SpawnBullet(transform.position, Quaternion.Euler(randomOffset) * direction);
+            
         }
     }
-    void SpawnBullet(Vector3 position, Quaternion rotation)
+    void SpawnBullet(Vector3 position, Vector3 rotation)
     {
-        GameObject spawnedBullet = Instantiate(bulletPrefab, position, rotation);
-        Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
-        bulletScript.BulletVisualMesh = bulletVisualMesh;
-        bulletScript.isPlayerBullet = false;
-        bulletScript.ignoreEdgeWrap = ignoreEdgeWrap;
-        bulletScript.BulletSize = bulletSize;
-        bulletScript.Damage = damage;
-        bulletScript.MoveSpeed = speed;
-        bulletScript.BulletRange = range;
-        bulletScript.rangeRandom = rangeRandom;
+        Bullet bulletObj = bulletPrefab.GetComponent<Bullet>();
+        Bullet spawnedBullet = Instantiate(bulletObj, position, transform.rotation);
+        spawnedBullet.Init(rotation);
+        spawnedBullet.BulletVisualMesh = bulletVisualMesh;
+        spawnedBullet.isPlayerBullet = false;
+        spawnedBullet.ignoreEdgeWrap = ignoreEdgeWrap;
+        spawnedBullet.BulletSize = bulletSize;
+        spawnedBullet.Damage = damage;
+        spawnedBullet.MoveSpeed = speed;
+        spawnedBullet.BulletRange = range;
+        spawnedBullet.rangeRandom = rangeRandom;
     }
 
 }

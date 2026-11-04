@@ -9,12 +9,18 @@ public class EnemyDataObj : ScriptableObject
     //Learn about [System.Serializable] sometime
     [Header("Movement")]
     public float movementSpeed;
+    public float velocityDecayRate;
+    public float maxVelocity;
     public float movementSpeedZ;
-    public float movementRandomness;
+    public float velocityDecayRateZ;
+    public float maxVelocityZ;
+    public float movementBurstsRate;
+    public float movementBurstsAmount;
     public float rotationSpeed;
+    public float rotationalVelocityClamp;
+    public float rotationalVelocityDecay;
     public bool ignoreEdgeWrap;
     public float hoverDistance;
-    public float lengthOfMovementsZ;
 
     public enum AiTypes{
         Ranger,
@@ -24,9 +30,8 @@ public class EnemyDataObj : ScriptableObject
 
     public AiTypes aiType;
 
-    [Header("Charge")]    
-    public float chargeSpeed;
-    public float chargeDistance;
+    [Header("Charge")]
+    public float chargePower;
     public float chargePauseLength;
     public float chargeRate;
 

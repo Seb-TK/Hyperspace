@@ -22,7 +22,8 @@ public class EnemyManager : MonoBehaviour
     private int wave;
     public int enemyCount;
     private bool temp;
-
+    private WaveAnnouncement waveAnnouncementText;
+    public static event Action<int> AnnounceWave;
 
     void Start()
     {
@@ -72,7 +73,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator SpawnWave(int inputEnergy)
     {
-        //Debug.Log("wave spawned");
+        AnnounceWave?.Invoke(wave);
         int energy = inputEnergy;
         int enemyListLength = enemyDataList.Count;
         while(energy >= 0)

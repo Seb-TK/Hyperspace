@@ -22,6 +22,7 @@ public class EdgeWrapping : MonoBehaviour
         actualPosition = transform.position;
         closestPosition = transform.position;
         worldPlane = FindAnyObjectByType<WorldPlane>();
+        dimensionRange = worldPlane.dimensionRange;
         playerPosBeforeTeleport = transform.position;
     }
     
@@ -55,6 +56,7 @@ public class EdgeWrapping : MonoBehaviour
         float mapWidth = worldPlane.transform.localScale.x / 2;
         float mapHeight = worldPlane.transform.localScale.y / 2;
         Vector3 newPosition = transform.position;
+        dimensionLocation = worldPlane.dimensionLocation;
         newPosition.x = EdgeWrapOnAxis(transform.position.x,playerPos.x,mapWidth);
         newPosition.y = EdgeWrapOnAxis(transform.position.y,playerPos.y,mapHeight);
         newPosition.z = EdgeWrapOnAxis(transform.position.z, dimensionLocation, dimensionRange);
@@ -103,8 +105,6 @@ public class EdgeWrapping : MonoBehaviour
         }
     }
 
-    public event Action OnPlayerTeleport;
-
     private void EdgeTeleport()
     {
         float boundWidthPos = worldPlane.boundWidth;
@@ -113,20 +113,11 @@ public class EdgeWrapping : MonoBehaviour
 
         newPos.x = Mathf.Repeat(newPos.x + boundWidthPos, 2 * boundWidthPos);
         newPos.y = Mathf.Repeat(newPos.y + boundHeightPos, 2 * boundHeightPos);
+        newPos.z = Mathf.Repeat(newPos.z + dimensionRange, 2 * dimensionRange);
         newPos.x -= boundWidthPos;
         newPos.y -= boundHeightPos;
-        
-        if(transform.position != newPos & GetComponent<PlayerData>() != null)
-        {
-            playerPosBeforeTeleport = transform.position;
-            transform.position = newPos;
-            OnPlayerTeleport?.Invoke();
-        }
-        else
-        {
-            transform.position = newPos;
-        }
+        newPos.z -= dimensionRange;
 
-        
+        transform.position = newPos;
     }
 }

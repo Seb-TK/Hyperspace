@@ -53,7 +53,7 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(0))
             {
                 FireGuns();
             }
@@ -113,14 +113,15 @@ public class PlayerShooting : MonoBehaviour
 
     void SpawnBullet(Vector3 position, Quaternion rotation, GameObject visualMesh)
     {
-        GameObject spawnedBullet = Instantiate(bullet, position, rotation);
-        Bullet bulletScript = spawnedBullet.GetComponent<Bullet>();
-        bulletScript.BulletVisualMesh = bulletVisualMesh;
-        bulletScript.Damage = bulletDamage;
-        bulletScript.MoveSpeed = bulletSpeed;
-        bulletScript.BulletSize = bulletSize;
-        bulletScript.BulletRange = bulletRange;
-        bulletScript.isPlayerBullet = true;
+        Bullet bulletPrefab = bullet.GetComponent<Bullet>();
+        Bullet spawnedBullet = Instantiate(bulletPrefab, position, rotation);
+        spawnedBullet.Init(transform.up);
+        spawnedBullet.BulletVisualMesh = bulletVisualMesh;
+        spawnedBullet.Damage = bulletDamage;
+        spawnedBullet.MoveSpeed = bulletSpeed;
+        spawnedBullet.BulletSize = bulletSize;
+        spawnedBullet.BulletRange = bulletRange;
+        spawnedBullet.isPlayerBullet = true;
     }
 
     bool ToggleInput()

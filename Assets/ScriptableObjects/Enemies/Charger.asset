@@ -12,17 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c04b54e064436993c07fcf87d371e, type: 3}
   m_Name: Charger
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
-  movementSpeed: 3
-  movementSpeedZ: 100
-  movementRandomness: 0
-  rotationSpeed: 300
+  movementSpeed: 3.5
+  velocityDecayRate: 0.15
+  maxVelocity: 7
+  movementSpeedZ: 0.25
+  velocityDecayRateZ: 0.001
+  maxVelocityZ: 0.25
+  movementBurstsRate: 1
+  movementBurstsAmount: 1
+  rotationSpeed: 1.8
+  rotationalVelocityClamp: 130
+  rotationalVelocityDecay: 15
   ignoreEdgeWrap: 0
-  hoverDistance: 5
-  lengthOfMovementsZ: 0
+  hoverDistance: 3
   aiType: 1
-  chargeSpeed: 0.03
-  chargeDistance: 6
-  chargePauseLength: 0.4
+  chargePower: 5
+  chargePauseLength: 0.5
   chargeRate: 3
   enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
   objectWidth: 0.3
@@ -30,15 +35,15 @@ MonoBehaviour:
   sizeChangeMultiplier: 2
   sizeChangeOffset: -1.3
   visualSizeMultiplier: 1
-  health: 8
+  health: 5
   waveUnlocked: 1
   energyCost: 1
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   bulletVisualMesh: {fileID: 2417094205364157175, guid: 51577dbad53a1468fa31c05b16a37bd9, type: 3}
-  fireRate: 0.5
-  bulletSize: 0.1
-  bulletRange: 10
-  bulletSpeed: 10
+  fireRate: 1
+  bulletSize: 0.23
+  bulletRange: 20
+  bulletSpeed: 5
   bulletCount: 1
-  bulletAccuracy: 3
+  bulletAccuracy: 5
   rangeRandom: 0

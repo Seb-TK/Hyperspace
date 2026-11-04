@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Drifter
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
   movementSpeed: 0.1
-  movementSpeedZ: 0.2
+  velocityDecayRate: 0.1
+  zVelocityDecayRate: 0.7
+  movementSpeedZ: 0.1
   movementRandomness: 100
   rotationSpeed: 350
   ignoreEdgeWrap: 0
