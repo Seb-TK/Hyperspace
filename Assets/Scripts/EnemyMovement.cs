@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using NUnit.Framework.Constraints;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -29,6 +30,8 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 velocity;
     [SerializeField] private float velocityDecayRate;
     private Vector3 velocityDecay;
+    private EdgeWrapping edgeWrapping;
+    private Vector3 closestPosition;
     
 
     void Awake()
@@ -37,6 +40,7 @@ public class EnemyMovement : MonoBehaviour
     }
     void Start()
     {
+        edgeWrapping = GetComponent<EdgeWrapping>();
         velocityDecay = new Vector3 
         (velocityDecayRate,
         velocityDecayRate,
@@ -63,10 +67,9 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("this runs fourth");
-        Debug.Log("in enemy movement late update my starting positon is: " + transform.position);
+        closestPosition = edgeWrapping.closestPosition;
         playerPosition = player.transform.position;
-        directionToPlayer = (playerPosition - transform.position).normalized;
+        directionToPlayer = (playerPosition - closestPosition).normalized;
         if(AiType == EnemyDataObj.AiTypes.Ranger)
         {
             RangerAi();
@@ -78,9 +81,6 @@ public class EnemyMovement : MonoBehaviour
             DrifterAi();
         }
         ApplyVelocity();
-        Debug.Log("this runs last");
-        Debug.Log("in enemy movement late update my ending positon is: " + transform.position);
-        Debug.Log("next update");
     }
 
     private void ApplyVelocity()
@@ -178,7 +178,7 @@ public class EnemyMovement : MonoBehaviour
 
     void TurnTowardsPlayer()
     {
-        Vector2 directionToPlayer = playerPosition - transform.position;
+        Vector2 directionToPlayer = playerPosition - closestPosition;
         float targetAngle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
 
         Quaternion targetRotation = Quaternion.Euler(0,0,targetAngle);

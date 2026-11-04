@@ -21,7 +21,8 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         playerPos = player.transform.position;
-        lerpToPlayer();
+        setCameraPos(playerPos.x,playerPos.y, transform.position.z);
+        // lerpToPlayer();
     }
 
     void playerTeleported()
