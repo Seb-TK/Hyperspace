@@ -32,11 +32,11 @@ public class EdgeWrapping : MonoBehaviour
     void Update()
     {
         transform.position = actualPosition;
-        if (GetComponent<EnemyMovement>() != null)
-        {
-            Debug.Log("this runs first");
-            Debug.Log("in edge wrapping regular update my position is: " + transform.position);
-        }
+        // if (GetComponent<EnemyMovement>() != null)
+        // {
+        //     Debug.Log("this runs first");
+        //     Debug.Log("in edge wrapping regular update my position is: " + transform.position);
+        // }
     }
     void LateUpdate()
     {
@@ -118,19 +118,14 @@ public class EdgeWrapping : MonoBehaviour
         float boundHeightPos = worldPlane.boundHeight;
         Vector3 newPos = transform.position;
 
-        if(transform.position.x > boundWidthPos)
+        newPos.x = Mathf.Repeat(newPos.x + boundWidthPos, 2 * boundWidthPos);
+        newPos.y = Mathf.Repeat(newPos.y + boundHeightPos, 2 * boundHeightPos);
+        newPos.x -= boundWidthPos;
+        newPos.y -= boundHeightPos;
+
+        if(transform.position != newPos & GetComponent<EnemyMovement>() != null)
         {
-            newPos.x = -boundWidthPos;
-        } else if(transform.position.x < -boundWidthPos)
-        {
-            newPos.x = boundWidthPos;
-        }
-        if(transform.position.y > boundHeightPos)
-        {
-            newPos.y = -boundHeightPos;
-        } else if(transform.position.y < -boundHeightPos)
-        {
-            newPos.y = boundHeightPos;
+            Debug.Log("teleport");
         }
         
         if(transform.position != newPos & GetComponent<PlayerData>() != null)

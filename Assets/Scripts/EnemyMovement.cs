@@ -129,7 +129,7 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 playerPosition = player.transform.position;
         playerPosition.z = 0;
-        Vector3 thisPosition = transform.position;
+        Vector3 thisPosition = closestPosition;
         thisPosition.z = 0;
 
         float distanceToPlayer = Vector3.Distance(
