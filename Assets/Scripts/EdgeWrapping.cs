@@ -13,6 +13,7 @@ public class EdgeWrapping : MonoBehaviour
     public Vector3 playerPosBeforeTeleport;
     public Vector3 closestPosition;
     public Vector3 actualPosition;
+    private Vector3 cachePosition;
 
 
 
@@ -31,12 +32,7 @@ public class EdgeWrapping : MonoBehaviour
     //execution order is sooner than default so this runs first
     void Update()
     {
-        transform.position = actualPosition;
-        // if (GetComponent<EnemyMovement>() != null)
-        // {
-        //     Debug.Log("this runs first");
-        //     Debug.Log("in edge wrapping regular update my position is: " + transform.position);
-        // }
+        // transform.position = actualPosition;
     }
 
     // refactor so that you dont have to write closest position in enemy movement 
@@ -45,36 +41,50 @@ public class EdgeWrapping : MonoBehaviour
     // do edge teleport
     void LateUpdate()
     {
-        EdgeTeleport();
-        actualPosition = transform.position;
+        if(GetComponent<PlayerData>() == null)
+        {
+            UpdateActualPosition();
+            EdgeTeleport();
+            actualPosition = transform.position;
+            EdgeWrapAlg();
+            cachePosition = transform.position;
+        }
+        else
+        {
+            EdgeTeleport();
+        }
+    }
 
+    private void UpdateActualPosition()
+    {
+        Vector3 delta = transform.position - cachePosition;
+        actualPosition += delta;
+    }
+
+    private void EdgeWrapAlg()
+    { 
         //blue is real one red is fake imposter evil clone
         Vector3 point = actualPosition;
         Debug.DrawRay(point, Vector3.right * 0.5f, Color.blue);
         Debug.DrawRay(point, Vector3.up * 0.5f, Color.blue);
 
-        if(GetComponent<PlayerData>() == null)
-        {
-            // EdgeWrapAlg();
-            // transform.position = closestPosition;
+        GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
+        Vector3 playerPos = player.transform.position;
+        float mapWidth = worldPlane.transform.localScale.x / 2;
+        float mapHeight = worldPlane.transform.localScale.y / 2;
+        Vector3 newPosition = transform.position;
+        newPosition.x = EdgeWrapOnAxis(transform.position.x,playerPos.x,mapWidth);
+        newPosition.y = EdgeWrapOnAxis(transform.position.y,playerPos.y,mapHeight);
+        newPosition.z = EdgeWrapOnAxis(transform.position.z, dimensionLocation, dimensionRange);
+        closestPosition = newPosition;
+        transform.position = closestPosition;
 
-            GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
-            Vector3 playerPos = player.transform.position;
-            float mapWidth = worldPlane.transform.localScale.x / 2;
-            float mapHeight = worldPlane.transform.localScale.y / 2;
-            Vector3 newPosition = transform.position;
-            newPosition.x = EdgeWrapOnAnyAxis(transform.position.x,playerPos.x,mapWidth);
-            newPosition.y = EdgeWrapOnAnyAxis(transform.position.y,playerPos.y,mapHeight);
-            newPosition.z = EdgeWrapOnAnyAxis(transform.position.z, dimensionLocation, dimensionRange);
-            closestPosition = newPosition;
-            transform.position = closestPosition;
-        }
         point = closestPosition;
         Debug.DrawRay(point, Vector3.right * 0.5f, Color.red);
         Debug.DrawRay(point, Vector3.up * 0.5f, Color.red);
     }
 
-    private void EdgeWrapAlg()
+    private void EdgeWrapAlgRepeat()
     {   
         GameObject player = FindAnyObjectByType<PlayerData>().gameObject;
         Vector3 playerPos = player.transform.position;
@@ -92,9 +102,8 @@ public class EdgeWrapping : MonoBehaviour
         newPosition.x = distance.x;
         newPosition.y = distance.y;
         closestPosition = newPosition;
-
     }
-    private float EdgeWrapOnAnyAxis(float position, float playerPos, float range)
+    private float EdgeWrapOnAxis(float position, float playerPos, float range)
     {
         if (position < 0)
         {
