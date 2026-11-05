@@ -20,14 +20,13 @@ MonoBehaviour:
   maxVelocityZ: 0.2
   movementBurstsRate: 1
   movementBurstsAmount: 1
-  rotationSpeed: 2
+  rotationSpeed: 2.5
   rotationalVelocityClamp: 100
   rotationalVelocityDecay: 20
   ignoreEdgeWrap: 0
   hoverDistance: 3.5
   aiType: 0
-  chargeSpeed: 0.03
-  chargeDistance: 6
+  chargePower: 0
   chargePauseLength: 0.4
   chargeRate: 3
   enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}

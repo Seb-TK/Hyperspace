@@ -59,7 +59,7 @@ public class EdgeWrapping : MonoBehaviour
         dimensionLocation = worldPlane.dimensionLocation;
         newPosition.x = EdgeWrapOnAxis(transform.position.x,playerPos.x,mapWidth);
         newPosition.y = EdgeWrapOnAxis(transform.position.y,playerPos.y,mapHeight);
-        newPosition.z = EdgeWrapOnAxis(transform.position.z, dimensionLocation, dimensionRange);
+        newPosition.z = EdgeWrapOnAxis(transform.position.z,dimensionLocation,dimensionRange);
         closestPosition = newPosition;
         transform.position = closestPosition;
     }

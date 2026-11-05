@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c04b54e064436993c07fcf87d371e, type: 3}
   m_Name: Charger
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
-  movementSpeed: 3.5
-  velocityDecayRate: 0.15
-  maxVelocity: 7
-  movementSpeedZ: 0.25
+  movementSpeed: 3
+  velocityDecayRate: 0.1
+  maxVelocity: 3.5
+  movementSpeedZ: 0.2
   velocityDecayRateZ: 0.001
-  maxVelocityZ: 0.25
+  maxVelocityZ: 0.2
   movementBurstsRate: 1
   movementBurstsAmount: 1
-  rotationSpeed: 1.8
-  rotationalVelocityClamp: 130
-  rotationalVelocityDecay: 15
+  rotationSpeed: 2.5
+  rotationalVelocityClamp: 100
+  rotationalVelocityDecay: 20
   ignoreEdgeWrap: 0
-  hoverDistance: 3
-  aiType: 1
-  chargePower: 5
-  chargePauseLength: 0.5
+  hoverDistance: 3.5
+  aiType: 0
+  chargePower: 0
+  chargePauseLength: 0.4
   chargeRate: 3
   enemyVisualMesh: {fileID: 2767110290482761148, guid: 0b00aac33c1a74b48bcbb166fa4959ca, type: 3}
   objectWidth: 0.3

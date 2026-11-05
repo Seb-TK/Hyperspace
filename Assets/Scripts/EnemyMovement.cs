@@ -4,6 +4,7 @@ using NUnit.Framework.Constraints;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float chargePower;
     [SerializeField] private float chargePauseLength;
     [SerializeField] private float movementAcrossZLength;
-    [SerializeField] private float movementRandMultiplier;
+    [SerializeField] private float movementRandMultiplierInput;
+    public float movementRandMultiplier;
     private float rotationSpeed;
     private GameObject player;
     private Vector3 playerPosition;
@@ -31,9 +33,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float velocityDecayRate;
     [SerializeField] private float VelocityDecayRateZ;
     [SerializeField] private float hoverDistanceBuffer;
-    private Vector3 velocityDecay;
+    private float chargeSpeedDecayMultiplier;
     private float maxVelocity;
-    private float maxVelocityZ;
+    public float maxVelocityZ;
     private float rotationalVelocity;
     private float rotationalVelocityDecay;
     private float rotationalVelocityClamp;
@@ -46,16 +48,11 @@ public class EnemyMovement : MonoBehaviour
     }
     void Start()
     {
-        movementRandMultiplier = UnityEngine.Random.Range(movementRandMultiplier, 1);
         worldPlane = FindAnyObjectByType<WorldPlane>();
         data = GetComponent<EnemyData>().EnemyDataContainer;
+        movementRandMultiplier = UnityEngine.Random.Range(movementRandMultiplierInput, 1);
         velocityDecayRate = data.velocityDecayRate;
         VelocityDecayRateZ = data.velocityDecayRateZ;
-        velocityDecay = new Vector3 
-        (velocityDecayRate,
-        velocityDecayRate,
-        VelocityDecayRateZ
-        );
         movementSpeed = data.movementSpeed * movementRandMultiplier;
         movementSpeedZ = data.movementSpeedZ * movementRandMultiplier;
         maxVelocity = data.maxVelocity * movementRandMultiplier;
@@ -68,10 +65,25 @@ public class EnemyMovement : MonoBehaviour
         hoverDistance = data.hoverDistance * movementRandMultiplier;
         chargePower = data.chargePower;
         chargeRate = data.chargeRate;
+        chargeSpeedDecayMultiplier = data.chargeSpeedDecayMultiplier;
         chargePauseLength = data.chargePauseLength;
         AiType = data.aiType;
         PointAtPlayer();
-        RunSetupFunctions();
+        RunStartFunctions();
+    }
+    
+    private void RunStartFunctions()
+    {
+        if(AiType == EnemyDataObj.AiTypes.Ranger)
+        {
+            StartCoroutine(RandomMovementBursts());
+        } else if(AiType == EnemyDataObj.AiTypes.Charger)
+        {
+            chargeTimer = Time.time + chargeRate;
+            currentChargeTimer = chargeTimer * movementRandMultiplier;
+            StartCoroutine(RandomMovementBursts());
+            StartCoroutine(ChargerAi());
+        }
     }
 
     void Update()
@@ -88,26 +100,9 @@ public class EnemyMovement : MonoBehaviour
         if(AiType == EnemyDataObj.AiTypes.Ranger)
         {
             RangerAi();
-        } else if(AiType == EnemyDataObj.AiTypes.Charger)
-        {
-            ChargerAi();
-        }
-        if(AiType == EnemyDataObj.AiTypes.Drifter)
+        } else if(AiType == EnemyDataObj.AiTypes.Drifter)
         {
             DrifterAi();
-        }
-    }
-
-    private void RunSetupFunctions()
-    {
-        if(AiType == EnemyDataObj.AiTypes.Ranger)
-        {
-            StartCoroutine(RandomMovementBursts());
-        } else if(AiType == EnemyDataObj.AiTypes.Charger)
-        {
-            chargeTimer = Time.time + chargeRate;
-            currentChargeTimer = chargeTimer * movementRandMultiplier;
-            StartCoroutine(RandomMovementBursts());
         }
     }
 
@@ -121,10 +116,17 @@ public class EnemyMovement : MonoBehaviour
 
     private void ApplyVelocity()
     {
+        // Debug.Log("z pos: " + transform.position.z + " worldPlanePos: " + worldPlane.dimensionLocation + " z velocity: " + velocity.z);
+        // Debug.Log("before clamp velocity.z: " + velocity.z);
         velocity.z = Mathf.Clamp(velocity.z, -maxVelocityZ, maxVelocityZ);
+        // Debug.Log("after clamp velocity.z: " + velocity.z);
+        // Debug.Log("max velocityz: " + maxVelocityZ);
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity);
         transform.position += velocity * Time.deltaTime;
+        velocity.z = Mathf.Lerp(velocity.z, 0, VelocityDecayRateZ * Time.deltaTime);
+        float cacheVelocityZ = velocity.z;
         velocity = Vector3.Lerp(velocity, Vector3.zero, velocityDecayRate * Time.deltaTime);
+        velocity.z = cacheVelocityZ;
     }
 
     private void ApplyRotationalVelocity()
@@ -153,14 +155,35 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void ChargerAi()
+    IEnumerator ChargerAi()
     {
-        if(Time.time > currentChargeTimer)
+        while (true)
+        {
+            if(Time.time > currentChargeTimer)
             {
-                velocity += Vector3.forward * chargePower;
-                chargeTimer = Time.time + chargeRate;
-                currentChargeTimer = chargeTimer * movementRandMultiplier;
+                yield return StartCoroutine(Charge());
             }
+            RangerAi();
+            yield return null;
+        }
+        
+    }
+
+    IEnumerator Charge()
+    {   
+        float cacheVelocityDecay = velocityDecayRate;
+        velocityDecayRate *= chargeSpeedDecayMultiplier;
+        yield return new WaitForSeconds(chargePauseLength);
+        velocity = transform.up * chargePower;
+        float cacheMaxVelocity = maxVelocity;
+        maxVelocity = chargePower;
+        yield return new WaitForSeconds(chargePauseLength);
+        maxVelocity = cacheMaxVelocity;
+        velocityDecayRate = cacheVelocityDecay;
+
+        chargeTimer = Time.time + chargeRate;
+        currentChargeTimer = chargeTimer * movementRandMultiplier;
+        
     }
 
     private void HoverAtDistance(float distance)
@@ -184,12 +207,18 @@ public class EnemyMovement : MonoBehaviour
 
         private void MoveAcrossZ()
         {
-            if(worldPlane.dimensionLocation > transform.position.z)
+            if(transform.position.z < worldPlane.dimensionLocation)
             {
                 velocity.z += movementSpeedZ * Time.deltaTime;
-            } else if (worldPlane.dimensionLocation < transform.position.z)
+            } else if (transform.position.z > worldPlane.dimensionLocation)
             {
                 velocity.z -= movementSpeedZ * Time.deltaTime;
+            }
+            float hoverDistanceBufferZ = 0.1f;
+            float distance = Mathf.Abs(transform.position.z - worldPlane.dimensionLocation);
+            if(distance < hoverDistanceBufferZ)
+            {
+                velocity.z += -Mathf.Lerp(0, velocity.z, 0.1f);
             }
         }
 
@@ -199,8 +228,7 @@ public class EnemyMovement : MonoBehaviour
         float angle = Vector3.SignedAngle(transform.up, directionToPlayer, Vector3.forward);
         rotationalVelocity += angle;
     }
-    // add a failsafe so that drifters dont drift
-    //out of bounds on the z axis, maybe a tp?
+
     void DrifterAi()
     {
         float t = Time.deltaTime * rotationSpeed;

@@ -34,6 +34,7 @@ public class EnemyDataObj : ScriptableObject
     public float chargePower;
     public float chargePauseLength;
     public float chargeRate;
+    public float chargeSpeedDecayMultiplier;
 
     [Header("Object Dimensions")]
     public GameObject enemyVisualMesh;
