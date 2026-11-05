@@ -14,6 +14,7 @@ public class EnemyDataObj : ScriptableObject
     public float movementSpeedZ;
     public float velocityDecayRateZ;
     public float maxVelocityZ;
+    public float movementRandMultiplierInputZ;
     public float movementBurstsRate;
     public float movementBurstsAmount;
     public float rotationSpeed;
@@ -21,6 +22,7 @@ public class EnemyDataObj : ScriptableObject
     public float rotationalVelocityDecay;
     public bool ignoreEdgeWrap;
     public float hoverDistance;
+    public float driftSpeed;
 
     public enum AiTypes{
         Ranger,
@@ -33,6 +35,7 @@ public class EnemyDataObj : ScriptableObject
     [Header("Charge")]
     public float chargePower;
     public float chargePauseLength;
+    public float chargeEndPauseLength;
     public float chargeRate;
     public float chargeSpeedDecayMultiplier;
 

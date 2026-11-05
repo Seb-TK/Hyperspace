@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
     private float distanceTraveled;
     public float rangeRandom;
     private Vector3 moveDirection;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -43,6 +44,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (isPlayerBullet)
+        {
+            DieOnEdge();
+        }
     }
 
     void DieOnEdge()
@@ -50,19 +55,21 @@ public class Bullet : MonoBehaviour
         WorldPlane worldPlane = FindAnyObjectByType<WorldPlane>();
         float boundWidthPos = worldPlane.boundWidth;
         float boundHeightPos = worldPlane.boundHeight;
-        if(transform.position.x > boundWidthPos)
+        float cameraX = Camera.main.transform.position.x;
+        float cameraY = Camera.main.transform.position.y;
+        if(transform.position.x > boundWidthPos + cameraX)
         {
             Destroy(gameObject);
         }
-        if(transform.position.x < -boundWidthPos)
+        if(transform.position.x < -boundWidthPos + cameraX)
         {
             Destroy(gameObject);
         }
-        if(transform.position.y > boundHeightPos)
+        if(transform.position.y > boundHeightPos + cameraY)
         {
             Destroy(gameObject);
         }
-        if(transform.position.y < -boundHeightPos)
+        if(transform.position.y < -boundHeightPos + cameraY)
         {
             Destroy(gameObject);
         }

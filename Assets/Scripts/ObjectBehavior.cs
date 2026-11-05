@@ -13,7 +13,7 @@ public class ObjectBehavior : MonoBehaviour
     private GameObject worldPlaneGameObject;
     private GameObject visualMesh;
 
-    public static float CollisionDistance = 0.3f;
+    public static float CollisionDistance = 0.6f;
     void Start()
     {
 

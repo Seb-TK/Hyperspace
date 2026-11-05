@@ -14,15 +14,17 @@ public class EnemyData : MonoBehaviour
     {
 
         health = EnemyDataContainer.health;
-
-        objectBehavior = GetComponent<ObjectBehavior>();
-        objectBehavior.objectWidth = EnemyDataContainer.objectWidth;
-        objectBehavior.sizeChangeMultiplier = EnemyDataContainer.sizeChangeMultiplier;
-        objectBehavior.sizeChangeOffset = EnemyDataContainer.sizeChangeOffset;
-
-        objectBehavior.objectHitBoxWidth = EnemyDataContainer.objectHitBoxWidth;
         visualMesh = transform.GetChild(0).gameObject.GetComponent<EnemyVisualMesh>();
-        visualMesh.SizeMultiplier = EnemyDataContainer.visualSizeMultiplier;
+        if(EnemyDataContainer.aiType == EnemyDataObj.AiTypes.Drifter)
+        {
+            objectBehavior = GetComponent<ObjectBehavior>();
+            objectBehavior.objectWidth = EnemyDataContainer.objectWidth;
+            objectBehavior.sizeChangeMultiplier = EnemyDataContainer.sizeChangeMultiplier;
+            objectBehavior.sizeChangeOffset = EnemyDataContainer.sizeChangeOffset;
+
+            objectBehavior.objectHitBoxWidth = EnemyDataContainer.objectHitBoxWidth;
+            visualMesh.SizeMultiplier = EnemyDataContainer.visualSizeMultiplier;
+        }
     }
 
 

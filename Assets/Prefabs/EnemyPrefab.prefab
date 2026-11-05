@@ -59,13 +59,14 @@ MonoBehaviour:
   chargeRate: 0
   chargePower: 0
   chargePauseLength: 0
+  chargeEndPauseLength: 0
   movementAcrossZLength: 0
   movementRandMultiplierInput: 0.8
   movementRandMultiplier: 0
   velocityDecayRate: 0
   VelocityDecayRateZ: 0
   hoverDistanceBuffer: 1
-  chargeSpeedDecay: 2
+  movementRandMultiplierInputZ: 0
   maxVelocityZ: 0
 --- !u!114 &6397057679295714414
 MonoBehaviour:
@@ -79,10 +80,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74d77eac130b4fef9d44c8781ca73f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  objectWidth: 0.8
-  objectHitBoxWidth: 0
-  sizeChangeMultiplier: 2.3
-  sizeChangeOffset: -0.9
+  objectWidth: 0.3
+  objectHitBoxWidth: 0.5
+  sizeChangeMultiplier: 2.2
+  sizeChangeOffset: -1.3
 --- !u!65 &2371020681305131931
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ MonoBehaviour:
   bulletVisualMesh: {fileID: 2417094205364157175, guid: 51577dbad53a1468fa31c05b16a37bd9, type: 3}
   damage: 1
   fireRate: 1
-  speed: 10
+  speed: 15
   count: 1
   size: 0.2
   accuracy: 0

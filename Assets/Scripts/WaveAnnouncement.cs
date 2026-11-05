@@ -8,7 +8,7 @@ public class WaveAnnouncement : MonoBehaviour
     [SerializeField] private float waitTime;
     [SerializeField] private float fadeTime;
 
-    void Start()
+    void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
         EnemyManager.AnnounceWave += AnnounceWave;
@@ -41,7 +41,7 @@ public class WaveAnnouncement : MonoBehaviour
             text.alpha = Mathf.Lerp(startValue, endValue, t);
             yield return null;
         }
-        text.alpha = 0f;
+        text.alpha = t;
         yield return null;
     }
 }

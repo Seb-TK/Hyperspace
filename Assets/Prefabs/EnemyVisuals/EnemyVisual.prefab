@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace4a7eda90e34fc996a975c2f35a7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  SizeMultiplier: 0
+  SizeMultiplier: 1
   fixedSizeMultiplier: 1.5
 --- !u!114 &-707038862797450163
 MonoBehaviour:

@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private int defaultEnergy;
     [SerializeField] private int energyPerWave;
     [SerializeField] private float waveWaitTime;
+    public List<EnemyDataObj> currentEnemyList;
     private int wave;
     public int enemyCount;
     private bool temp;
@@ -27,8 +28,8 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        SpawnEnemy(ChosenEnemy, new Vector3(0,0,0));
-        // StartCoroutine(SpawnLoop());
+        // SpawnEnemy(ChosenEnemy, new Vector3(1,0,0));
+        StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
@@ -71,32 +72,46 @@ public class EnemyManager : MonoBehaviour
         SpawnCircle.GetComponent<SpawnCircle>().Enemy = SpawnedEnemy;
     }
 
+    private int ChooseEnemy(int energy)
+    {
+        int randomEnemyInt;
+        EnemyDataObj chosenEnemy;
+        int energyCost;
+        Debug.Log("energy is at: " + energy);
+        int currentEnergy = energy;
+        do {
+            randomEnemyInt = UnityEngine.Random.Range(0,currentEnemyList.Count);
+            chosenEnemy = currentEnemyList[randomEnemyInt];
+            energyCost = chosenEnemy.energyCost;
+            Debug.Log("i picked: " + chosenEnemy);
+            Debug.Log("it had a cost of: " + energyCost);
+        } while(energyCost > energy);
+        Debug.Log("time to spawn, my energy went from: " + energy);
+        currentEnergy -= energyCost;
+        Debug.Log("now it's: " + currentEnergy);
+        SpawnEnemy(randomEnemyInt, EnemySpawnLocationSetup());
+        Debug.Log("Enemy spawned");
+        Debug.Log("");
+        return currentEnergy;
+    }
+
     IEnumerator SpawnWave(int inputEnergy)
     {
+        currentEnemyList.Clear();
+        for(int i = 0; i < enemyDataList.Count; i++)
+        {
+            if (enemyDataList[i].waveUnlocked >= wave)
+            {
+                currentEnemyList.Add(enemyDataList[i]);
+            }
+        }
         AnnounceWave?.Invoke(wave);
         int energy = inputEnergy;
         int enemyListLength = enemyDataList.Count;
         while(energy >= 0)
         {
             yield return new WaitForSeconds(spawnDelay);
-            int randomEnemyInt;
-            EnemyDataObj chosenEnemy;
-            int energyCost;
-            //Debug.Log("energy is at: " + energy);
-            do {
-                randomEnemyInt = UnityEngine.Random.Range(0,enemyListLength);
-                chosenEnemy = enemyDataList[randomEnemyInt];
-                energyCost = chosenEnemy.energyCost;
-                yield return null;
-                // Debug.Log("i picked: " + chosenEnemy);
-                // Debug.Log("it had a cost of: " + energyCost);
-            } while(energyCost > energy | wave < chosenEnemy.waveUnlocked);
-            //Debug.Log("time to spawn, my energy went from: " + energy);
-            energy -= energyCost;
-            //Debug.Log("now it's: " + energy);
-            SpawnEnemy(randomEnemyInt, EnemySpawnLocationSetup());
-            // Debug.Log("Enemy spawned");
-            // Debug.Log("");
+            energy = ChooseEnemy(energy);
         }
     }
 }
