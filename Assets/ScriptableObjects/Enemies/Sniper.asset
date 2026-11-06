@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c04b54e064436993c07fcf87d371e, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataScriptableObject
-  movementSpeed: 2
-  velocityDecayRate: 0
-  maxVelocity: 0
-  movementSpeedZ: 100
-  velocityDecayRateZ: 0
-  maxVelocityZ: 0
-  movementRandMultiplierInputZ: 0
-  movementBurstsRate: 0
-  movementBurstsAmount: 0
-  rotationSpeed: 200
-  rotationalVelocityClamp: 0
-  rotationalVelocityDecay: 0
-  ignoreEdgeWrap: 1
-  hoverDistance: 10
+  movementSpeed: 0.1
+  velocityDecayRate: 0.1
+  maxVelocity: 0.3
+  movementSpeedZ: 0.01
+  velocityDecayRateZ: 0.001
+  maxVelocityZ: 0.08
+  movementRandMultiplierInputZ: 0.8
+  movementBurstsRate: 0.1
+  movementBurstsAmount: 0.3
+  rotationSpeed: 1.5
+  rotationalVelocityClamp: 100
+  rotationalVelocityDecay: 2.8
+  ignoreEdgeWrap: 0
+  hoverDistance: 1.5
   driftSpeed: 0
-  aiType: 0
+  aiType: 3
   chargePower: 0
   chargePauseLength: 0.4
   chargeEndPauseLength: 0
@@ -39,15 +39,15 @@ MonoBehaviour:
   sizeChangeMultiplier: 2
   sizeChangeOffset: -1.3
   visualSizeMultiplier: 1
-  health: 4
-  waveUnlocked: 7
-  energyCost: 3
+  health: 12
+  waveUnlocked: 10
+  energyCost: 1
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}
   bulletVisualMesh: {fileID: 2417094205364157175, guid: 51577dbad53a1468fa31c05b16a37bd9, type: 3}
   fireRate: 2
-  bulletSize: 0.3
-  bulletRange: 20
-  bulletSpeed: 10
+  bulletSize: 0.4
+  bulletRange: 50
+  bulletSpeed: 23
   bulletCount: 1
   bulletAccuracy: 0
   rangeRandom: 0

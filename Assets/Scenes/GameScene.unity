@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &61912596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 61912598}
+  - component: {fileID: 61912597}
+  m_Layer: 0
+  m_Name: SettingsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &61912597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61912596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f08545ba6a544954a0659f1528b8ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!4 &61912598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61912596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.48409, y: -1.30376, z: -10.08614}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &139568806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   EnemyPrefab: {fileID: 67493959001194574, guid: 37fa39331d2a6480fa0a0fffb42f756b, type: 3}
   SpawnCirclePrefab: {fileID: 3871052150835977722, guid: d00a6241d9be244449aa0f3a29d13a76, type: 3}
-  ChosenEnemy: 4
+  ChosenEnemy: 6
   enemyDataList:
   - {fileID: 11400000, guid: 10dc22a45fb0d4a7d9569fab5e7fcf51, type: 2}
   - {fileID: 11400000, guid: 1c0360f857ebe4fd0b2937062b3d80b9, type: 2}
@@ -1158,7 +1202,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88bd46fcdf9534fe2b7044229c3a4389, type: 2}
   - {fileID: 11400000, guid: 70f7469f7b42c48f7ad7b468255d05a4, type: 2}
   - {fileID: 11400000, guid: 6bc23d2b115a34dafbef8c089b153a1c, type: 2}
-  - {fileID: 11400000, guid: 8de3c6a8d3f1c4c2b9e47717ec75c5d5, type: 2}
+  - {fileID: 11400000, guid: 3c4a40f08da8647afb1e859499c86a82, type: 2}
   edgeWrapping: {fileID: 0}
   waitTimeMax: 5
   waitTimeMin: 3
@@ -1575,3 +1619,4 @@ SceneRoots:
   - {fileID: 817728672}
   - {fileID: 996162374}
   - {fileID: 714352207}
+  - {fileID: 61912598}

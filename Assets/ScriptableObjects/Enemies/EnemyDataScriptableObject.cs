@@ -27,7 +27,8 @@ public class EnemyDataObj : ScriptableObject
     public enum AiTypes{
         Ranger,
         Charger,
-        Drifter
+        Drifter,
+        Sniper
     };
 
     public AiTypes aiType;

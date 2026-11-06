@@ -40,6 +40,7 @@ public class EnemyShooting : MonoBehaviour
         bulletPrefab = data.bulletPrefab;
         ignoreEdgeWrap = data.ignoreEdgeWrap;
         rangeRandom = data.rangeRandom;
+        fireRateTimer = Time.time + fireRate;
     }
 
     void Update()
@@ -76,6 +77,11 @@ public class EnemyShooting : MonoBehaviour
         spawnedBullet.MoveSpeed = speed;
         spawnedBullet.BulletRange = range;
         spawnedBullet.rangeRandom = rangeRandom;
+        EnemyMovement enemyMovement = GetComponent<EnemyMovement>();
+        if(enemyMovement.AiType == EnemyDataObj.AiTypes.Sniper)
+        {
+            spawnedBullet.doesDieOnEdge = true;
+        }
     }
 
 }

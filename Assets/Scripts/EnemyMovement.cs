@@ -18,7 +18,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float movementSpeedZ;
     [SerializeField] private float movementBurstsRate;
     [SerializeField] private float movementBurstsAmount;
-    [SerializeField] private EnemyDataObj.AiTypes AiType;
     [SerializeField] private float hoverDistance;
     [SerializeField] private float chargeRate;
     [SerializeField] private float chargePower;
@@ -26,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float chargeEndPauseLength;
     [SerializeField] private float movementAcrossZLength;
     [SerializeField] private float movementRandMultiplierInput;
+    [SerializeField] public EnemyDataObj.AiTypes AiType;
     public float movementRandMultiplier;
     private float rotationSpeed;
     private GameObject player;
@@ -123,7 +123,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void RunAi()
     {
-        if(AiType == EnemyDataObj.AiTypes.Ranger)
+        if(AiType == EnemyDataObj.AiTypes.Ranger | AiType == EnemyDataObj.AiTypes.Sniper)
         {
             RangerAi();
         } else if(AiType == EnemyDataObj.AiTypes.Drifter)

@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
     private float distanceTraveled;
     public float rangeRandom;
     private Vector3 moveDirection;
+    public bool doesDieOnEdge;
 
     void Start()
     {
@@ -44,7 +45,7 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (isPlayerBullet)
+        if (isPlayerBullet | doesDieOnEdge)
         {
             DieOnEdge();
         }
