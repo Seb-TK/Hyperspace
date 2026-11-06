@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7293598552722606145}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: -0.059, z: 0}
   m_LocalScale: {x: 1.281, y: 1.187, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -126,6 +126,8 @@ GameObject:
   - component: {fileID: -5840429703887043969}
   - component: {fileID: 5381784012048388346}
   - component: {fileID: -8440791013490224934}
+  - component: {fileID: -7305822919415993071}
+  - component: {fileID: -2871110964210145835}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -195,7 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87485176a519243179847518bcbbe357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  health: 10
   equippedWeapons:
   - shootTimer: 1
     data: {fileID: 11400000, guid: 0ec21d8eb88054d0b91d7ecf356a6e1d, type: 2}
@@ -221,7 +222,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 1}
+  m_Size: {x: 0.8, y: 0.8, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-8440791013490224934
 MonoBehaviour:
@@ -238,3 +239,58 @@ MonoBehaviour:
   playerPosBeforeTeleport: {x: 0, y: 0, z: 0}
   closestPosition: {x: 0, y: 0, z: 0}
   actualPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &-7305822919415993071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750046926255423819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f14729ab93c341389541477c33e85b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthManager
+  Health: 10
+  invincibilityLength: 2
+--- !u!114 &-2871110964210145835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750046926255423819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc1f738102824a498cccccb0487c5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  damageAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9999878
+      value: -0.0000011324883
+      inSlope: -0.9870849
+      outSlope: -0.9870849
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18332335
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  onHitColor: 0.5
+  onHitSaturation: 0.5
+  onHitValue: 0.3
+  hitAnimationTime: 1
+  flashCount: 5

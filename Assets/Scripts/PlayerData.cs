@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    public float health;
     public List<Weapon> equippedWeapons = new List<Weapon>();
     public List<WeaponData> weaponDataList = new List<WeaponData>();
     public enum WeaponType
@@ -30,7 +29,6 @@ public class PlayerData : MonoBehaviour
 
         public bool IncrimentTimer()
         {
-            Debug.Log(shootTimer);
             if(shootTimer >= data.fireRate)
             {
                 shootTimer = 0;
@@ -48,11 +46,6 @@ public class PlayerData : MonoBehaviour
     public static void addWeapon(WeaponType weapon)
     {
         int chosenWeaponInt = (int) weapon;
-        //new Weapon(weaponDataList[chosenWeaponInt]);
-    }
-    
-    public void OnHit(float damage)
-    {
-        health -= damage;
+        // new Weapon(weaponDataList[chosenWeaponInt]);
     }
 }

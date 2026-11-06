@@ -40,6 +40,7 @@ public class EnemyShooting : MonoBehaviour
         bulletPrefab = data.bulletPrefab;
         ignoreEdgeWrap = data.ignoreEdgeWrap;
         rangeRandom = data.rangeRandom;
+        damage = data.damage;
         fireRateTimer = Time.time + fireRate;
     }
 

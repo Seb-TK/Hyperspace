@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 {
     
     [SerializeField] private EdgeWrapping edgeWrapping;
-    [SerializeField] private float collisionDistance;
+    private float collisionDistance;
     public GameObject BulletVisualMesh;
     public float MoveSpeed;
     public float BulletRange;
@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour
         startingPos = transform.position;
         GameObject VisualMeshObj = Instantiate(BulletVisualMesh, transform.position, transform.rotation);
         VisualMeshObj.transform.parent = transform;
+        collisionDistance = ObjectBehavior.CollisionDistance;
     }
     public void Init(Vector3 direction)
     {
@@ -83,20 +84,23 @@ public class Bullet : MonoBehaviour
         distanceToCollider = Mathf.Abs(distanceToCollider);
         if(distanceToCollider <= collisionDistance)
         {
+            Debug.Log("close enough");
             if (isPlayerBullet)
             {
                 if (collider.GetComponent<EnemyData>() != null)
                 {
                     EnemyData enemyDataScript = collider.GetComponent<EnemyData>();
                     enemyDataScript.OnHit(Damage);
+                    Destroy(gameObject);
                 }
             }
             else
             {
                 if (collider.GetComponent<PlayerData>() != null)
                 {
-                    PlayerData playerData = collider.GetComponent<PlayerData>();
-                    playerData.OnHit(Damage);
+                    HealthManager healthManager = collider.GetComponent<HealthManager>();
+                    healthManager.OnHit(Damage);
+                    Destroy(gameObject);
                 }
             }
         }

@@ -10,4 +10,10 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.Instantiate(playerPrefab);
     }
 
+    public void OnPlayerDeath()
+    {
+        Debug.Log("he dead bro");
+        return;
+    }
+
 }

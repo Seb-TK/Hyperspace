@@ -12,11 +12,10 @@ public class ObjectBehavior : MonoBehaviour
     public float sizeChangeOffset;
     private GameObject worldPlaneGameObject;
     private GameObject visualMesh;
-
-    public static float CollisionDistance = 0.6f;
+    public static float CollisionDistance;
     void Start()
     {
-
+        CollisionDistance = 0.2f;
         gameManager = FindAnyObjectByType<GameManager>().gameObject;
         worldPlaneGameObject = gameManager.GetComponent<GameManager>().worldPlane;
         visualMesh = transform.GetChild(0).gameObject;
