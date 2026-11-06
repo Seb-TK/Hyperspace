@@ -238,21 +238,22 @@ public class EnemyMovement : MonoBehaviour
             velocityChange += dir * movementSpeed;
         } else if(closestDistance < distanceBetweenEnemiesBuffer)
         {
-                Vector2 playerPosition = player.transform.position;
-            Vector2 thisPosition = transform.position;
+            
+        }
+        Vector2 playerPosition = player.transform.position;
+        Vector2 thisPosition = transform.position;
 
-            float distanceToPlayer = Vector2.Distance(
-                playerPosition,
-                thisPosition
-            );
-            hoverDistanceBuffer = 1;
-            if(Mathf.Round(distanceToPlayer) >= distance + hoverDistanceBuffer)
-            {
-                velocityChange += directionToPlayer * movementSpeed;
-            } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
-            {
-                velocityChange -= directionToPlayer * movementSpeed;
-            }
+        float distanceToPlayer = Vector2.Distance(
+            playerPosition,
+            thisPosition
+        );
+        hoverDistanceBuffer = 1;
+        if(Mathf.Round(distanceToPlayer) >= distance + hoverDistanceBuffer)
+        {
+            velocityChange += directionToPlayer * movementSpeed;
+        } else if(Mathf.Round(distanceToPlayer) <= distance - hoverDistanceBuffer)
+        {
+            velocityChange -= directionToPlayer * movementSpeed;
         }
         Vector3 velocityChangeVec3 = velocityChange;
         velocity += velocityChangeVec3;

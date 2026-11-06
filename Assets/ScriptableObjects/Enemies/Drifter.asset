@@ -18,6 +18,7 @@ MonoBehaviour:
   movementSpeedZ: 0.1
   velocityDecayRateZ: 0.01
   maxVelocityZ: 0.1
+  movementRandMultiplierInputZ: 0
   movementBurstsRate: 0.5
   movementBurstsAmount: 0.1
   rotationSpeed: 5
@@ -38,7 +39,7 @@ MonoBehaviour:
   sizeChangeMultiplier: 2
   sizeChangeOffset: -1.2
   visualSizeMultiplier: 3
-  health: 15
+  health: 18
   waveUnlocked: 5
   energyCost: 2
   bulletPrefab: {fileID: 6335770467902634788, guid: 6d48d34434d07494d82c2ba2203bc589, type: 3}

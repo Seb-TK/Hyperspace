@@ -53,6 +53,13 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                for(int i = 0; i < playerData.equippedWeapons.Count; i++)
+                {
+                    playerData.equippedWeapons[i].ResetTimer();
+                }
+            }
             if (Input.GetMouseButton(0))
             {
                 FireGuns();

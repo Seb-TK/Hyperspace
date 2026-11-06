@@ -23,12 +23,14 @@ public class PlayerData : MonoBehaviour
         {
             data = weaponData;
         }
+        public void ResetTimer()
+        {
+            shootTimer = 0;
+        }
 
         public bool IncrimentTimer()
         {
-            float randomOffsetRange = 0.1f;
-            float randomOffset = Random.Range(-randomOffsetRange,randomOffsetRange);
-            shootTimer += Time.deltaTime + (Time.deltaTime * randomOffset);
+            Debug.Log(shootTimer);
             if(shootTimer >= data.fireRate)
             {
                 shootTimer = 0;
@@ -36,6 +38,7 @@ public class PlayerData : MonoBehaviour
             }
             else
             {
+                shootTimer += Time.deltaTime;
                 return false;
             }
         }

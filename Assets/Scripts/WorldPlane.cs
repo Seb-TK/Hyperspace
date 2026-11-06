@@ -16,8 +16,8 @@ public class WorldPlane : MonoBehaviour
     void Update()
     {
         // moveUsingButtons();
-        moveUsingScroll();
-        wrapOnAxisZ();
+        MoveUsingScroll();
+        WrapOnAxisZ();
         transform.position = new Vector3(
             transform.position.x,
             transform.position.y,
@@ -25,19 +25,19 @@ public class WorldPlane : MonoBehaviour
         );
     }
 
-    void wrapOnAxisZ()
+    void WrapOnAxisZ()
     {
         float newLocation = Mathf.Repeat(dimensionLocation + dimensionRange, dimensionRange + dimensionRange);
         newLocation -= dimensionRange;
         dimensionLocation = newLocation;
     }
 
-    void moveUsingScroll()
+    void MoveUsingScroll()
     {
-        dimensionLocation += Input.mouseScrollDelta.y * dimensionMoveSpeedScroll * Time.deltaTime;
+        dimensionLocation -= Input.mouseScrollDelta.y * dimensionMoveSpeedScroll * Time.deltaTime;
     }
 
-    void moveUsingButtons()
+    void MoveUsingButtons()
     {
       bool isPressing = false;
         if (Input.GetKey(KeyCode.Q))

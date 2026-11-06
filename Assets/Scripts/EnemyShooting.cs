@@ -57,7 +57,7 @@ public class EnemyShooting : MonoBehaviour
         {
             float randomOffsetFloat = Random.Range(-this.accuracy, this.accuracy);
             Vector3 randomOffset = new Vector3(0, 0, randomOffsetFloat);
-            Vector3 direction = player.transform.position - transform.position;
+            Vector3 direction = transform.up;
             direction.z = 0;
             SpawnBullet(transform.position, Quaternion.Euler(randomOffset) * direction);
             

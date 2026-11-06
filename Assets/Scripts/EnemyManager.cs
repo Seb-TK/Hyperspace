@@ -22,14 +22,14 @@ public class EnemyManager : MonoBehaviour
     public List<EnemyDataObj> currentEnemyList;
     private int wave;
     public int enemyCount;
-    private bool temp;
-    private WaveAnnouncement waveAnnouncementText;
-    public static event Action<int> AnnounceWave;
+    private WaveAnnouncementTextManager waveAnnouncementManager;
+    public static event Action<int,List<EnemyDataObj>> AnnounceWave;
 
     void Start()
     {
-        // SpawnEnemy(ChosenEnemy, new Vector3(1,0,0));
-        StartCoroutine(SpawnLoop());
+        currentEnemyList = enemyDataList;
+        SpawnEnemy(ChosenEnemy, new Vector3(1,0,0));
+        // StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
@@ -40,7 +40,6 @@ public class EnemyManager : MonoBehaviour
             int energy = defaultEnergy + wave * energyPerWave;
             yield return StartCoroutine(SpawnWave(energy));
             yield return new WaitUntil(() => enemyCount == 0);
-            yield return new WaitForSeconds(waveWaitTime);
         }
     }
 
@@ -64,8 +63,8 @@ public class EnemyManager : MonoBehaviour
         GameObject SpawnCircle = Instantiate(SpawnCirclePrefab, spawnLocation, quaternion.identity);
         GameObject SpawnedEnemy = Instantiate(EnemyPrefab, spawnLocation, quaternion.identity);
         EnemyData enemyData = SpawnedEnemy.GetComponent<EnemyData>();
-        enemyData.EnemyDataContainer = enemyDataList[enemyDataIndex];
-        GameObject enemyVisualmeshPrefab = enemyDataList[enemyDataIndex].enemyVisualMesh;
+        enemyData.EnemyDataContainer = currentEnemyList[enemyDataIndex];
+        GameObject enemyVisualmeshPrefab = currentEnemyList[enemyDataIndex].enemyVisualMesh;
         Instantiate(enemyVisualmeshPrefab, SpawnedEnemy.transform);
 
         SpawnedEnemy.SetActive(false);
@@ -100,15 +99,15 @@ public class EnemyManager : MonoBehaviour
         currentEnemyList.Clear();
         for(int i = 0; i < enemyDataList.Count; i++)
         {
-            if (enemyDataList[i].waveUnlocked >= wave)
+            if (wave >= enemyDataList[i].waveUnlocked)
             {
                 currentEnemyList.Add(enemyDataList[i]);
             }
         }
-        AnnounceWave?.Invoke(wave);
+        AnnounceWave?.Invoke(wave, currentEnemyList);
+        yield return new WaitForSeconds(waveWaitTime);
         int energy = inputEnergy;
-        int enemyListLength = enemyDataList.Count;
-        while(energy >= 0)
+        while(energy > 0)
         {
             yield return new WaitForSeconds(spawnDelay);
             energy = ChooseEnemy(energy);

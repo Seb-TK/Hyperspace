@@ -10,9 +10,9 @@ public class EnemyData : MonoBehaviour
     private ObjectBehavior objectBehavior;
     private float iFramesEnd;
     [SerializeField] private float invincibilityLength;
+    [SerializeField] private GameObject offScreenArrow;
     void Start()
     {
-
         health = EnemyDataContainer.health;
         visualMesh = transform.GetChild(0).gameObject.GetComponent<EnemyVisualMesh>();
         if(EnemyDataContainer.aiType == EnemyDataObj.AiTypes.Drifter)
