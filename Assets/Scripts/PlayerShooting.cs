@@ -57,7 +57,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 for(int i = 0; i < playerData.equippedWeapons.Count; i++)
                 {
-                    playerData.equippedWeapons[i].ResetTimer();
+                    playerData.equippedWeapons[i].ResetTimer(i);
                 }
             }
             if (Input.GetMouseButton(0))
@@ -99,7 +99,7 @@ public class PlayerShooting : MonoBehaviour
     {
         for(int i = 0; i < playerData.equippedWeapons.Count; i++)
         {
-            if (playerData.equippedWeapons[i].IncrimentTimer())
+            if (playerData.equippedWeapons[i].IncrimentTimer(i))
             {
                 ApplyWeaponData(playerData.equippedWeapons[i]);
                 Shoot();
@@ -122,7 +122,7 @@ public class PlayerShooting : MonoBehaviour
     {
         Bullet bulletPrefab = bullet.GetComponent<Bullet>();
         Bullet spawnedBullet = Instantiate(bulletPrefab, position, rotation);
-        spawnedBullet.Init(transform.up);
+        spawnedBullet.Init(rotation * Vector3.up);
         spawnedBullet.BulletVisualMesh = bulletVisualMesh;
         spawnedBullet.Damage = bulletDamage;
         spawnedBullet.MoveSpeed = bulletSpeed;
@@ -160,10 +160,7 @@ public class PlayerShooting : MonoBehaviour
         {
             
         }
-
-        
         return output;
-        
     }
     
 }

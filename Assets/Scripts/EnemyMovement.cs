@@ -46,10 +46,10 @@ public class EnemyMovement : MonoBehaviour
     private float rotationalVelocityDecay;
     private float rotationalVelocityClamp;
     private float driftSpeed;
-    private float chargeTimer;
-    private float currentChargeTimer;
+    public float chargeTimer;
+    public float currentChargeTimer;
     float driftOffset;
-    float timeLastMovedFromClosestEnemy;
+    public float timeLastMovedFromClosestEnemy;
     [SerializeField ]float moveFromCloseEnemyRate;
     [SerializeField ]float moveFromCloseEnemyAmount;
     
@@ -217,8 +217,12 @@ public class EnemyMovement : MonoBehaviour
         float distanceBetweenEnemies = 2f;
         LayerMask mask = LayerMask.GetMask("Enemy");
         Collider[] closeEnemies = Physics.OverlapSphere(transform.position, distanceBetweenEnemies, mask);
-        float closestDistance = Vector2.Distance(closeEnemies[0].gameObject.transform.position,transform.position);
         int closestEnemyIndex = 0;
+        float closestDistance = 0;
+        try
+        {
+            closestDistance = Vector2.Distance(closeEnemies[0].gameObject.transform.position,transform.position);
+        } catch (Exception){}
         for(int i = 0; i < closeEnemies.Length; i++)
         {
             float currentDistance = Vector2.Distance(closeEnemies[i].gameObject.transform.position,transform.position);

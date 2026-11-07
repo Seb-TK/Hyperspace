@@ -100,7 +100,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7293598552722606145}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b6c5905ecd74264b94f049a1b70ed6, type: 3}
   m_Name: 
@@ -199,10 +199,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   equippedWeapons:
   - shootTimer: 1
-    data: {fileID: 11400000, guid: 0ec21d8eb88054d0b91d7ecf356a6e1d, type: 2}
+    data: {fileID: 11400000, guid: 48b1e32947ef84182b6b243a0ba0d41f, type: 2}
   weaponDataList:
   - {fileID: 11400000, guid: 0ec21d8eb88054d0b91d7ecf356a6e1d, type: 2}
   - {fileID: 11400000, guid: e7893bd2ab1d84b81ae6a5a354dd2007, type: 2}
+  - {fileID: 11400000, guid: c35eefba1c4224fca93cb8b3f6b00788, type: 2}
+  - {fileID: 11400000, guid: 111e1c9037cf642e1829215ee9134113, type: 2}
 --- !u!65 &5381784012048388346
 BoxCollider:
   m_ObjectHideFlags: 0

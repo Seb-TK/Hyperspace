@@ -25,6 +25,10 @@ public class UpgradeManager : MonoBehaviour
         {
             LevelUp();
         }
+        else
+        {
+            isWaitingForUpgradeChoice = false;
+        }
     }
 
     public void GainXp(float xpGained)

@@ -6,8 +6,11 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI enemiesLeftTextObj;
     [SerializeField] private TextMeshProUGUI healthTextObj;
+    [SerializeField] private TextMeshProUGUI XpTextObj;
     [SerializeField] private EnemyManager enemyManager;
+    [SerializeField] private UpgradeManager upgradeManager;
     private HealthManager healthManager;
+
     void Start()
     {
         healthManager = FindAnyObjectByType<HealthManager>().GetComponent<HealthManager>();
@@ -21,5 +24,13 @@ public class GameUIManager : MonoBehaviour
         string healthText = "Health: ";
         healthText += healthManager.Health;
         healthTextObj.SetText(healthText);
+
+        string xpText = "Current XP: ";
+        xpText += upgradeManager.currentXp;
+        xpText += " / ";
+        xpText += upgradeManager.XpRequirement;
+        xpText += "\nCurrent Level: ";
+        xpText += upgradeManager.currentLevel;
+        XpTextObj.SetText(xpText);
     }
 }

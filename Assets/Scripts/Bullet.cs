@@ -84,7 +84,6 @@ public class Bullet : MonoBehaviour
         distanceToCollider = Mathf.Abs(distanceToCollider);
         if(distanceToCollider <= collisionDistance)
         {
-            Debug.Log("close enough");
             if (isPlayerBullet)
             {
                 if (collider.GetComponent<EnemyData>() != null)

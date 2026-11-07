@@ -12,9 +12,11 @@ public class Card : MonoBehaviour
     [SerializeField] float animationDuration;
     [SerializeField] float waitTime;
     [SerializeField] float leaveSpeed;
+    [SerializeField] float canBeChosenWaitTime;
     [SerializeField] StatCard cardData;
     public static bool wasChosen;
     private bool canBeChosen;
+    public static bool isWaitingForCanBeChosen;
     
     void Start()
     {
@@ -47,7 +49,21 @@ public class Card : MonoBehaviour
         }
         transform.rotation = Quaternion.identity;
         transform.position = targetPos;
-        canBeChosen = true;
+        StartCoroutine(WaitForCanBeChosen());
+    }
+    IEnumerator WaitForCanBeChosen()
+    {
+        if(isWaitingForCanBeChosen)
+        {
+            yield return new WaitUntil(() => isWaitingForCanBeChosen == false);
+            canBeChosen = true;
+        }
+        else
+        {
+            isWaitingForCanBeChosen = true;
+            yield return new WaitForSeconds(canBeChosenWaitTime);
+            isWaitingForCanBeChosen = false;
+        }
     }
     void OnMouseOver()
     {
@@ -56,13 +72,13 @@ public class Card : MonoBehaviour
             chooseCard();
         }
     }
-    void chooseCard()
+    private void chooseCard()
     {
         wasChosen = true;
         SelectCard();
         SelectedAnimation();
     }
-    void SelectCard()
+    private void SelectCard()
     {
         StartCoroutine(SelectedAnimation());
         CardManager cardManager = FindAnyObjectByType<CardManager>();

@@ -68,8 +68,11 @@ MonoBehaviour:
   hoverDistanceBuffer: 1
   movementRandMultiplierInputZ: 0
   maxVelocityZ: 0
+  chargeTimer: 0
+  currentChargeTimer: 0
+  timeLastMovedFromClosestEnemy: 0
   moveFromCloseEnemyRate: 0.5
-  moveFromCloseEnemyAmount: 1.5
+  moveFromCloseEnemyAmount: 20
 --- !u!114 &6397057679295714414
 MonoBehaviour:
   m_ObjectHideFlags: 0

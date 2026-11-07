@@ -26,14 +26,11 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
+        // StartCoroutine(SpawnLoop());
+
+        //test functions (disable together)
         currentEnemyList = enemyDataList;
         SpawnEnemy(ChosenEnemy, new Vector3(1,3,0));
-        SpawnEnemy(ChosenEnemy, new Vector3(1,1,0));
-        SpawnEnemy(ChosenEnemy, new Vector3(1,2,0));
-        SpawnEnemy(ChosenEnemy, new Vector3(1.5f,0,0));
-        SpawnEnemy(ChosenEnemy, new Vector3(2,0,0));
-        SpawnEnemy(ChosenEnemy, new Vector3(5,0,0));
-        // StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()

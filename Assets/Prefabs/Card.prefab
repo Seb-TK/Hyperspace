@@ -235,6 +235,7 @@ MonoBehaviour:
   animationDuration: 0
   waitTime: 0
   leaveSpeed: 0
+  canBeChosenWaitTime: 1
   cardData: {fileID: 0}
 --- !u!64 &1395211909298269133
 MeshCollider:
