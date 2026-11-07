@@ -3,6 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StatCard", menuName = "Scriptable Objects/StatCard")]
 public class StatCard : ScriptableObject
 {
+    public enum Stats
+    {
+        
+    }
+
     [Header("General Traits")]
     public GameObject VisualMesh;
     public string Name;

@@ -49,6 +49,9 @@ public class EnemyMovement : MonoBehaviour
     private float chargeTimer;
     private float currentChargeTimer;
     float driftOffset;
+    float timeLastMovedFromClosestEnemy;
+    [SerializeField ]float moveFromCloseEnemyRate;
+    [SerializeField ]float moveFromCloseEnemyAmount;
     
     void Awake()
     {
@@ -214,7 +217,7 @@ public class EnemyMovement : MonoBehaviour
         float distanceBetweenEnemies = 2f;
         LayerMask mask = LayerMask.GetMask("Enemy");
         Collider[] closeEnemies = Physics.OverlapSphere(transform.position, distanceBetweenEnemies, mask);
-        float closestDistance = 999f;
+        float closestDistance = Vector2.Distance(closeEnemies[0].gameObject.transform.position,transform.position);
         int closestEnemyIndex = 0;
         for(int i = 0; i < closeEnemies.Length; i++)
         {
@@ -230,15 +233,13 @@ public class EnemyMovement : MonoBehaviour
                 closestDistance = currentDistance;
             }
         }
-        float distanceBetweenEnemiesBuffer = 1.5f;
-        if(closeEnemies.Length > 0)
+        
+        if(closeEnemies.Length > 0 & Time.time > timeLastMovedFromClosestEnemy + moveFromCloseEnemyRate)
         {
+            timeLastMovedFromClosestEnemy = Time.time;
             Vector3 dirVec3 = transform.position - closeEnemies[closestEnemyIndex].gameObject.transform.position;
             Vector2 dir = dirVec3;
-            velocityChange += dir * movementSpeed;
-        } else if(closestDistance < distanceBetweenEnemiesBuffer)
-        {
-            
+            velocityChange += dir * movementSpeed * (moveFromCloseEnemyAmount - closestDistance);
         }
         Vector2 playerPosition = player.transform.position;
         Vector2 thisPosition = transform.position;
@@ -247,6 +248,7 @@ public class EnemyMovement : MonoBehaviour
             playerPosition,
             thisPosition
         );
+        
         hoverDistanceBuffer = 1;
         if(Mathf.Round(distanceToPlayer) >= distance + hoverDistanceBuffer)
         {

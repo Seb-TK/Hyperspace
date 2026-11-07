@@ -22,13 +22,17 @@ public class EnemyManager : MonoBehaviour
     public List<EnemyDataObj> currentEnemyList;
     private int wave;
     public int enemyCount;
-    private WaveAnnouncementTextManager waveAnnouncementManager;
-    public static event Action<int,List<EnemyDataObj>> AnnounceWave;
+    public static event Action<int> AnnounceWave;
 
     void Start()
     {
         currentEnemyList = enemyDataList;
-        SpawnEnemy(ChosenEnemy, new Vector3(1,0,0));
+        SpawnEnemy(ChosenEnemy, new Vector3(1,3,0));
+        SpawnEnemy(ChosenEnemy, new Vector3(1,1,0));
+        SpawnEnemy(ChosenEnemy, new Vector3(1,2,0));
+        SpawnEnemy(ChosenEnemy, new Vector3(1.5f,0,0));
+        SpawnEnemy(ChosenEnemy, new Vector3(2,0,0));
+        SpawnEnemy(ChosenEnemy, new Vector3(5,0,0));
         // StartCoroutine(SpawnLoop());
     }
 
@@ -104,7 +108,9 @@ public class EnemyManager : MonoBehaviour
                 currentEnemyList.Add(enemyDataList[i]);
             }
         }
-        AnnounceWave?.Invoke(wave, currentEnemyList);
+        UpgradeManager.isWaitingForUpgradeChoice = true;
+        AnnounceWave?.Invoke(wave);
+        yield return new WaitUntil(() => UpgradeManager.isWaitingForUpgradeChoice == false);
         yield return new WaitForSeconds(waveWaitTime);
         int energy = inputEnergy;
         while(energy > 0)

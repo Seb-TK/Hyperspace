@@ -52,6 +52,7 @@ public class EnemyDataObj : ScriptableObject
     public float health;
     public int waveUnlocked;
     public int energyCost;
+    public float xpDropped;
 
     [Header("Shooting")]
     public GameObject bulletPrefab;

@@ -307,6 +307,51 @@ MonoBehaviour:
   fadeTime: 2
   waveAnnouncement: {fileID: 1249820241}
   waveEnemyListTextObj: {fileID: 647710450}
+--- !u!1 &527591614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527591616}
+  - component: {fileID: 527591615}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &527591615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527591614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59908ad724f294c64a41dde642f5284c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  cardList: []
+--- !u!4 &527591616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527591614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00772, y: -0.28552, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,6 +1332,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265359724}
   m_CullTransparentMesh: 1
+--- !u!1 &1949376659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1949376661}
+  - component: {fileID: 1949376660}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1949376660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949376659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19120999a98354c148fc8968b7aa759f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  currentLevel: 1
+  currentXp: 0
+  XpRequirement: 5
+  levelOneXp: 5
+  XpPerLevelMultiplier: 1.5
+  cardSpawnerObj: {fileID: 4860431011032916572, guid: 068d648acbf3e49f68ec5e3118f39969, type: 3}
+--- !u!4 &1949376661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949376659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.23842, y: -2.46642, z: -0.23948}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2042635587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,10 +1433,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 10dc22a45fb0d4a7d9569fab5e7fcf51, type: 2}
   - {fileID: 11400000, guid: 1c0360f857ebe4fd0b2937062b3d80b9, type: 2}
   - {fileID: 11400000, guid: b06432384674d4fc0abe02ccebcb6dff, type: 2}
-  - {fileID: 11400000, guid: 88bd46fcdf9534fe2b7044229c3a4389, type: 2}
-  - {fileID: 11400000, guid: 70f7469f7b42c48f7ad7b468255d05a4, type: 2}
-  - {fileID: 11400000, guid: 6bc23d2b115a34dafbef8c089b153a1c, type: 2}
   - {fileID: 11400000, guid: 3c4a40f08da8647afb1e859499c86a82, type: 2}
+  - {fileID: 11400000, guid: 88bd46fcdf9534fe2b7044229c3a4389, type: 2}
+  - {fileID: 11400000, guid: 6bc23d2b115a34dafbef8c089b153a1c, type: 2}
+  - {fileID: 11400000, guid: 70f7469f7b42c48f7ad7b468255d05a4, type: 2}
   edgeWrapping: {fileID: 0}
   waitTimeMax: 5
   waitTimeMin: 3
@@ -1713,7 +1808,9 @@ MonoBehaviour:
   mat: {fileID: -876546973899608171, guid: 900acf6cbce7a4855b3ed5d3a8f1035d, type: 3}
   worldPlane: {fileID: 5476033400411041309}
   saturationMulti: 1
-  valueMulti: 1
+  valueMulti: 1.3
+  BackgroundColorChoice: 0
+  LineColorChoice: 2
 --- !u!4 &9076401995228531475
 Transform:
   m_ObjectHideFlags: 0
@@ -1759,3 +1856,5 @@ SceneRoots:
   - {fileID: 996162374}
   - {fileID: 714352207}
   - {fileID: 61912598}
+  - {fileID: 1949376661}
+  - {fileID: 527591616}

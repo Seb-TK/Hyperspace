@@ -24,8 +24,10 @@ public class WaveAnnouncementTextManager : MonoBehaviour
         waveEnemyListText.alpha = 0f;
     }
 
-    private void AnnounceWave(int wave, List<EnemyDataObj> currentEnemies)
+    private void AnnounceWave(int wave)
     {
+        EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>().GetComponent<EnemyManager>();
+        List<EnemyDataObj>currentEnemies = enemyManager.currentEnemyList;
         waveAnnouncementText.SetText("Wave " + wave);
         String waveEnemyListNewtext = "Current Possible Enemies:\n";
         

@@ -54,7 +54,6 @@ MonoBehaviour:
   movementSpeedZ: 0
   movementBurstsRate: 0
   movementBurstsAmount: 0
-  AiType: 0
   hoverDistance: 0
   chargeRate: 0
   chargePower: 0
@@ -62,12 +61,15 @@ MonoBehaviour:
   chargeEndPauseLength: 0
   movementAcrossZLength: 0
   movementRandMultiplierInput: 0.8
+  AiType: 0
   movementRandMultiplier: 0
   velocityDecayRate: 0
   VelocityDecayRateZ: 0
   hoverDistanceBuffer: 1
   movementRandMultiplierInputZ: 0
   maxVelocityZ: 0
+  moveFromCloseEnemyRate: 0.5
+  moveFromCloseEnemyAmount: 1.5
 --- !u!114 &6397057679295714414
 MonoBehaviour:
   m_ObjectHideFlags: 0

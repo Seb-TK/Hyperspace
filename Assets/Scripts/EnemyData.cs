@@ -9,12 +9,16 @@ public class EnemyData : MonoBehaviour
     private EnemyVisualMesh visualMesh;
     private ObjectBehavior objectBehavior;
     private float iFramesEnd;
+    private float xpDropped;
+    private UpgradeManager upgradeManager;
     [SerializeField] private float invincibilityLength;
     [SerializeField] private GameObject offScreenArrow;
     void Start()
     {
         health = EnemyDataContainer.health;
         visualMesh = transform.GetChild(0).gameObject.GetComponent<EnemyVisualMesh>();
+        xpDropped = EnemyDataContainer.xpDropped;
+        upgradeManager = FindAnyObjectByType<UpgradeManager>();
         if(EnemyDataContainer.aiType == EnemyDataObj.AiTypes.Drifter)
         {
             objectBehavior = GetComponent<ObjectBehavior>();
@@ -25,8 +29,8 @@ public class EnemyData : MonoBehaviour
             objectBehavior.objectHitBoxWidth = EnemyDataContainer.objectHitBoxWidth;
             visualMesh.SizeMultiplier = EnemyDataContainer.visualSizeMultiplier;
         }
+        
     }
-
 
 
     public void OnHit(float damage)
@@ -50,7 +54,7 @@ public class EnemyData : MonoBehaviour
     {
         EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>();
         enemyManager.enemyCount--;
-        Debug.Log("I died, enemy count is: " + enemyManager.enemyCount);
+        upgradeManager.GainXp(xpDropped);
         Destroy(gameObject);
     }
     
