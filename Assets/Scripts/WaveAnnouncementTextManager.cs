@@ -26,6 +26,13 @@ public class WaveAnnouncementTextManager : MonoBehaviour
 
     private void AnnounceWave(int wave)
     {
+        StartCoroutine(AnnounceWaveCoroutine(wave));
+    }
+
+
+    IEnumerator AnnounceWaveCoroutine(int wave)
+    {
+        yield return new WaitUntil(() => UpgradeManager.isWaitingForUpgradeChoice == false);
         EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>().GetComponent<EnemyManager>();
         List<EnemyDataObj>currentEnemies = enemyManager.currentEnemyList;
         waveAnnouncementText.SetText("Wave " + wave);
@@ -40,11 +47,7 @@ public class WaveAnnouncementTextManager : MonoBehaviour
             waveEnemyListNewtext += currentEnemies[i].name;
         }
         waveEnemyListText.SetText(waveEnemyListNewtext);
-        StartCoroutine(AnnounceWaveCoroutine());
-    }
 
-    IEnumerator AnnounceWaveCoroutine()
-    {
         yield return StartCoroutine(FadeText(0f,1f,fadeTime));
         yield return new WaitForSeconds(waitTime);
         yield return StartCoroutine(FadeText(1f,0f,fadeTime));

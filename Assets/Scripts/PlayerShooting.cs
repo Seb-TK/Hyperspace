@@ -4,8 +4,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using NUnit.Framework;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -53,16 +55,19 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!UpgradeManager.isWaitingForUpgradeChoice)
             {
-                for(int i = 0; i < playerData.equippedWeapons.Count; i++)
+                    if (Input.GetMouseButtonDown(0))
                 {
-                    playerData.equippedWeapons[i].ResetTimer(i);
+                    for(int i = 0; i < playerData.equippedWeapons.Count; i++)
+                    {
+                        playerData.equippedWeapons[i].ResetTimer();
+                    }
                 }
-            }
-            if (Input.GetMouseButton(0))
-            {
-                FireGuns();
+                if (Input.GetMouseButton(0))
+                {
+                    FireGuns();
+                }
             }
         }
         
@@ -99,7 +104,7 @@ public class PlayerShooting : MonoBehaviour
     {
         for(int i = 0; i < playerData.equippedWeapons.Count; i++)
         {
-            if (playerData.equippedWeapons[i].IncrimentTimer(i))
+            if (playerData.equippedWeapons[i].IncrimentTimer())
             {
                 ApplyWeaponData(playerData.equippedWeapons[i]);
                 Shoot();

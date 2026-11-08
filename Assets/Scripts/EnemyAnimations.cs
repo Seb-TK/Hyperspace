@@ -11,31 +11,25 @@ public class EnemyAnimations : MonoBehaviour
     [SerializeField] private float onHitSaturation = 99f;
     [SerializeField] private float onHitValue = -99f;
     [SerializeField] private float hitAnimationTime;
+    Color currentColor;
     void Start()
     {
         renderer = GetComponent<Renderer>();
+        currentColor = renderer.material.color;
     }
 
-    public void getHit()
+    public void GetHit()
     {
-    
-        Color currentColor = renderer.material.color;
         Color.RGBToHSV(currentColor, out float currentHue, out float currentSaturation, out float currentValue);
         
         float inputColor = onHitColor + currentHue;
         float inputSaturation = onHitSaturation + currentSaturation;
         float inputValue = onHitValue + currentValue;
         
-        StartCoroutine(colorLerp(inputColor, inputSaturation, inputValue, hitAnimationTime));
-
+        StartCoroutine(ColorLerp(inputColor, inputSaturation, inputValue, hitAnimationTime));
     }
 
-    private void setColor(float color, float saturation, float value)
-    {
-        renderer.material.color = Color.HSVToRGB(color, saturation, value);        
-    }
-
-    private IEnumerator colorLerp(float targetColor, float targetSaturation, float targetValue, float lengthInSeconds)
+    private IEnumerator ColorLerp(float targetColor, float targetSaturation, float targetValue, float lengthInSeconds)
     {
         float startTime = Time.time;
         float endTime = Time.time + lengthInSeconds;

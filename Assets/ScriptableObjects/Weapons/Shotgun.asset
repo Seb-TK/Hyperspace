@@ -19,6 +19,6 @@ MonoBehaviour:
   fireRate: 2
   speed: 7
   count: 20
-  size: 0.1
-  accuracy: 20
+  size: 0.28
+  accuracy: 30
   range: 2

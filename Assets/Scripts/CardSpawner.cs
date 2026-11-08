@@ -8,7 +8,8 @@ public class CardSpawner : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            Instantiate(card);
+            Camera cam = Camera.main;
+            Instantiate(card, cam.transform);
             card.GetComponent<Card>().cardSpot = i;
         }
     }

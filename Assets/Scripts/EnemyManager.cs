@@ -26,11 +26,11 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        // StartCoroutine(SpawnLoop());
+        StartCoroutine(SpawnLoop());
 
         //test functions (disable together)
-        currentEnemyList = enemyDataList;
-        SpawnEnemy(ChosenEnemy, new Vector3(1,3,0));
+        // currentEnemyList = enemyDataList;
+        // SpawnEnemy(ChosenEnemy, new Vector3(1,3,0));
     }
 
     IEnumerator SpawnLoop()
@@ -77,21 +77,14 @@ public class EnemyManager : MonoBehaviour
         int randomEnemyInt;
         EnemyDataObj chosenEnemy;
         int energyCost;
-        Debug.Log("energy is at: " + energy);
         int currentEnergy = energy;
         do {
             randomEnemyInt = UnityEngine.Random.Range(0,currentEnemyList.Count);
             chosenEnemy = currentEnemyList[randomEnemyInt];
             energyCost = chosenEnemy.energyCost;
-            Debug.Log("i picked: " + chosenEnemy);
-            Debug.Log("it had a cost of: " + energyCost);
         } while(energyCost > energy);
-        Debug.Log("time to spawn, my energy went from: " + energy);
         currentEnergy -= energyCost;
-        Debug.Log("now it's: " + currentEnergy);
         SpawnEnemy(randomEnemyInt, EnemySpawnLocationSetup());
-        Debug.Log("Enemy spawned");
-        Debug.Log("");
         return currentEnergy;
     }
 

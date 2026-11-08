@@ -9,9 +9,11 @@ public class EnemyData : MonoBehaviour
     private EnemyVisualMesh visualMesh;
     private ObjectBehavior objectBehavior;
     private float iFramesEnd;
+    private float hitAnimationEnd;
     private float xpDropped;
     private UpgradeManager upgradeManager;
     [SerializeField] private float invincibilityLength;
+    [SerializeField] private float hitAnimationLength;
     [SerializeField] private GameObject offScreenArrow;
     void Start()
     {
@@ -42,8 +44,12 @@ public class EnemyData : MonoBehaviour
             return;
         }
         health -= damage;
-        EnemyAnimations enemyAnimations = visualMesh.gameObject.GetComponent<EnemyAnimations>();
-        enemyAnimations.getHit();
+        if (Time.time > hitAnimationEnd)
+        {
+            hitAnimationEnd = Time.time + hitAnimationLength;
+            EnemyAnimations enemyAnimations = visualMesh.gameObject.GetComponent<EnemyAnimations>();
+            enemyAnimations.GetHit();
+        }
         if(health <= 0f)
         {
             Die();

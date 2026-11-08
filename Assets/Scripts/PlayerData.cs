@@ -22,13 +22,13 @@ public class PlayerData : MonoBehaviour
         {
             data = weaponData;
         }
-        public void ResetTimer(int weaponNumInList)
+        public void ResetTimer()
         {
-            float fireOffset = -(weaponNumInList-1) * Random.Range(0.1f,0.5f);
+            float fireOffset = Random.Range(0f,0.2f);
             shootTimer = fireOffset;
         }
 
-        public bool IncrimentTimer(int weaponNumInList)
+        public bool IncrimentTimer()
         {
             if(shootTimer >= data.fireRate)
             {

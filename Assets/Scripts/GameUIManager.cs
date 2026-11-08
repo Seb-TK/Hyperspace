@@ -22,13 +22,13 @@ public class GameUIManager : MonoBehaviour
         enemiesLeftTextObj.SetText(enemiesRemainingText);
 
         string healthText = "Health: ";
-        healthText += healthManager.Health;
+        healthText += Mathf.RoundToInt(healthManager.Health);
         healthTextObj.SetText(healthText);
 
         string xpText = "Current XP: ";
-        xpText += upgradeManager.currentXp;
+        xpText += Mathf.RoundToInt(upgradeManager.currentXp);
         xpText += " / ";
-        xpText += upgradeManager.XpRequirement;
+        xpText += Mathf.RoundToInt(upgradeManager.XpRequirement);
         xpText += "\nCurrent Level: ";
         xpText += upgradeManager.currentLevel;
         XpTextObj.SetText(xpText);

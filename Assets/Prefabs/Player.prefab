@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: -8440791013490224934}
   - component: {fileID: -7305822919415993071}
   - component: {fileID: -2871110964210145835}
+  - component: {fileID: 1057921314174686496}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -198,6 +199,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   equippedWeapons:
+  - shootTimer: 1
+    data: {fileID: 11400000, guid: 0ec21d8eb88054d0b91d7ecf356a6e1d, type: 2}
+  - shootTimer: 1
+    data: {fileID: 11400000, guid: e7893bd2ab1d84b81ae6a5a354dd2007, type: 2}
+  - shootTimer: 1
+    data: {fileID: 11400000, guid: 111e1c9037cf642e1829215ee9134113, type: 2}
   - shootTimer: 1
     data: {fileID: 11400000, guid: 48b1e32947ef84182b6b243a0ba0d41f, type: 2}
   weaponDataList:
@@ -296,3 +303,64 @@ MonoBehaviour:
   onHitValue: 0.3
   hitAnimationTime: 1
   flashCount: 5
+--- !u!114 &1057921314174686496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750046926255423819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d858d462b81e646d2ab03e77b9b9b9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  modifiers:
+  - statCard: 0
+    value: 0
+  - statCard: 1
+    value: 0
+  - statCard: 2
+    value: 0
+  - statCard: 3
+    value: 0
+  - statCard: 4
+    value: 0
+  - statCard: 5
+    value: 0
+  - statCard: 6
+    value: 0
+  - statCard: 7
+    value: 0
+  - statCard: 8
+    value: 0
+  - statCard: 9
+    value: 0
+  - statCard: 10
+    value: 0
+  - statCard: 11
+    value: 0
+  - statCard: 12
+    value: 0
+  - statCard: 13
+    value: 0
+  - statCard: 14
+    value: 0
+  - statCard: 15
+    value: 0
+  - statCard: 16
+    value: 0
+  - statCard: 17
+    value: 0
+  - statCard: 18
+    value: 0
+  - statCard: 19
+    value: 0
+  - statCard: 20
+    value: 0
+  - statCard: 21
+    value: 0
+  - statCard: 22
+    value: 0
+  - statCard: 23
+    value: 0

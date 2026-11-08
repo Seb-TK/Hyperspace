@@ -33,7 +33,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void GainXp(float xpGained)
     {
-        currentXp += xpGained;
+        currentXp += xpGained * 5;
     }
 
     private void LevelUp()

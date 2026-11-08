@@ -138,7 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   EnemyDataContainer: {fileID: 0}
-  invincibilityLength: 0.1
+  invincibilityLength: 0
+  hitAnimationLength: 0.15
   offScreenArrow: {fileID: 5869174316772151052, guid: 82b65421d541d4508b4a9ff84903bb25, type: 3}
 --- !u!114 &-1479953350338997384
 MonoBehaviour:

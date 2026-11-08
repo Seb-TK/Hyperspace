@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-        Debug.Log("he dead bro");
         return;
     }
 
