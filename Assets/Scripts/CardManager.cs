@@ -5,7 +5,6 @@ public class CrdMngr : MonoBehaviour
 {
     public static List<string> Rarities = new List<string> 
         {
-            "Basic",
             "Good",
             "Great",
             "Epic",
@@ -15,7 +14,6 @@ public class CrdMngr : MonoBehaviour
 
     public static List<int> RarityWeights = new List<int> 
         {
-            12,
             10,
             8,
             5,
@@ -24,7 +22,6 @@ public class CrdMngr : MonoBehaviour
         };
     public static List<float> RarityValues = new List<float> 
         {
-            0.02f,
             0.05f,
             0.1f,
             0.25f,

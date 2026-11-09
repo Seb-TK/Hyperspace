@@ -183,6 +183,7 @@ public class Card : MonoBehaviour
         Vector3 leaveMoveAmount = new Vector3(0,10,0);
         yield return StartCoroutine(MoveAnimation(leaveMoveAmount, leaveSpeed));
         AddCard();
+        UpgradeManager.isWaitingForUpgradeChoice = false;
         Destroy(gameObject);
         yield return null;
     }
