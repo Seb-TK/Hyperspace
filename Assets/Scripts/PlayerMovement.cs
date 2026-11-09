@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Security.Cryptography;
 using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             Input.GetAxisRaw("Vertical"),
             0
         ).normalized;
-        transform.position += InputVector * MovementSpeed * Time.deltaTime;
+        transform.position += InputVector * MovementSpeed * PlayerStats.Mods[CrdMngr.Stats.MovementSpeed] * Time.deltaTime;
     }
     void DashInput()
     {

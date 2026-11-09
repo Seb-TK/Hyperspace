@@ -114,7 +114,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        for(int j = 0; j < bulletCount; j++)
+        for(int j = 0; j < bulletCount * Mathf.RoundToInt(PlayerStats.Mods[CrdMngr.Stats.BulletCount]); j++)
         {
             float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
             Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);
@@ -129,10 +129,10 @@ public class PlayerShooting : MonoBehaviour
         Bullet spawnedBullet = Instantiate(bulletPrefab, position, rotation);
         spawnedBullet.Init(rotation * Vector3.up);
         spawnedBullet.BulletVisualMesh = bulletVisualMesh;
-        spawnedBullet.Damage = bulletDamage;
-        spawnedBullet.MoveSpeed = bulletSpeed;
-        spawnedBullet.BulletSize = bulletSize;
-        spawnedBullet.BulletRange = bulletRange;
+        spawnedBullet.Damage = bulletDamage * PlayerStats.Mods[CrdMngr.Stats.Damage];
+        spawnedBullet.MoveSpeed = bulletSpeed * PlayerStats.Mods[CrdMngr.Stats.BulletSpeed];
+        spawnedBullet.BulletSize = bulletSize * PlayerStats.Mods[CrdMngr.Stats.BulletSize];
+        spawnedBullet.BulletRange = bulletRange * PlayerStats.Mods[CrdMngr.Stats.BulletRange];
         spawnedBullet.isPlayerBullet = true;
     }
 

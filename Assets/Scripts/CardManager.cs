@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour
+public class CrdMngr : MonoBehaviour
 {
     public static List<string> Rarities = new List<string> 
         {
@@ -24,34 +24,29 @@ public class CardManager : MonoBehaviour
         };
     public static List<float> RarityValues = new List<float> 
         {
-            2,
-            5,
-            10,
-            25,
-            50,
-            80
+            0.02f,
+            0.05f,
+            0.1f,
+            0.25f,
+            0.5f,
+            0.8f
         };
 
-    public enum StatTypes
+    public enum Stats
     {
         FireRate, 
         Damage, 
         BulletSpeed, 
         BulletSize,
         BulletCount,
-        Health,
-        MovementSpeed,
-        ZAxisMovementSpeed,
-        PlayerSize,
-        DashSpeed,
-        DashCooldown,
-        CameraView,
+        BulletRange,
+        maxHealth,
+        MovementSpeed
     }
     private PlayerStats playerStats;
     void Start()
     {
         playerStats = FindAnyObjectByType<PlayerStats>();
-        // currentStats = playerStats.CurrentStats;
     }
 
 

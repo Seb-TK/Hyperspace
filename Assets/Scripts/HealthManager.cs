@@ -4,6 +4,7 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour
 {
     public float Health;
+    public float MaxHealth;
     private float iFramesEnd;
     public float invincibilityLength;
     private GameManager gameManager;
@@ -11,6 +12,15 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>().GetComponent<GameManager>();
+        Card.CardAdded += HealthAdded;
+    }
+
+    public void HealthAdded(PlayerStats.StatCard card)
+    {
+        if(card.statType == CrdMngr.Stats.maxHealth)
+        {
+            Health *= card.Value;
+        }
     }
 
     public void OnHit(float damage)
@@ -18,6 +28,7 @@ public class HealthManager : MonoBehaviour
         Health -= damage;
         StartCoroutine(DamageAnimation(damage));
     }
+
 
     IEnumerator DamageAnimation(float damage)
     {

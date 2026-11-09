@@ -30,7 +30,7 @@ public class PlayerData : MonoBehaviour
 
         public bool IncrimentTimer()
         {
-            if(shootTimer >= data.fireRate)
+            if(shootTimer >= data.fireRate / PlayerStats.Mods[CrdMngr.Stats.FireRate])
             {
                 shootTimer = 0;
                 return true;
@@ -47,6 +47,6 @@ public class PlayerData : MonoBehaviour
     public static void addWeapon(WeaponType weapon)
     {
         int chosenWeaponInt = (int) weapon;
-        // new Weapon(weaponDataList[chosenWeaponInt]);
+        //new Weapon(equippedWeapons.cur[chosenWeaponInt]);
     }
 }

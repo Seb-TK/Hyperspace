@@ -49,7 +49,7 @@ MonoBehaviour:
   fireRate: 0.035
   bulletSize: 0.23
   bulletRange: 3.5
-  bulletSpeed: 8
+  bulletSpeed: 12
   bulletCount: 4
   bulletAccuracy: 12
   rangeRandom: 12

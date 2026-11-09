@@ -31,6 +31,7 @@ public class Card : MonoBehaviour
     private bool thisCardWasChosen;
     private PlayerStats.StatCard cardData;
     private bool leaveAnimationAlreadyActivated;
+    public static event Action<PlayerStats.StatCard> CardAdded;
 
     
     void Start()
@@ -47,13 +48,17 @@ public class Card : MonoBehaviour
 
     void MakeCardData()
     {
-        int statTypesLength = Enum.GetValues(typeof(CardManager.StatTypes)).Length;
+        int statTypesLength = Enum.GetValues(typeof(CrdMngr.Stats)).Length;
         cardData = new PlayerStats.StatCard();
-        cardData.statType = (CardManager.StatTypes)Random.Range(0, statTypesLength);
-        cardData = new PlayerStats.StatCard();
+        Debug.Log(statTypesLength);
+        int rand = Random.Range(0, statTypesLength);
+        Debug.Log(rand);
+        CrdMngr.Stats stat = (CrdMngr.Stats)rand;
+        Debug.Log(stat);
+        cardData.statType = stat;
         int rarity = GetRarity();
-        cardData.Rarity = CardManager.Rarities[rarity];
-        cardData.Value = CardManager.RarityValues[rarity];
+        cardData.Rarity = CrdMngr.Rarities[rarity];
+        cardData.Value = CrdMngr.RarityValues[rarity];
     }
 
     private void SetCardText()
@@ -71,14 +76,14 @@ public class Card : MonoBehaviour
         }
         titleText.SetText(output);
         rarityText.SetText(cardData.Rarity);
-        string descriptionText = "Increases " + output + " by " + cardData.Value + "%";
+        int valueAsPercent = (int)(cardData.Value * 100);
+        string descriptionText = "Increases " + output + " by " + valueAsPercent + "%";
         descriptionTextObj.SetText(descriptionText);
     }
 
     private int GetRarity()
     {
-        cardData = new PlayerStats.StatCard();
-        List<int> weights= CardManager.RarityWeights;
+        List<int> weights= CrdMngr.RarityWeights;
         int totalWeight = 0;
         for(int i = 0; i < weights.Count; i++)
         {
@@ -185,7 +190,8 @@ public class Card : MonoBehaviour
     private void AddCard()
     {
         PlayerStats.CurrentCards.Add(cardData);
-        PlayerStats.CurrentModifiers[cardData.statType] += cardData.Value / 100;
+        PlayerStats.Mods[cardData.statType] += cardData.Value;
+        CardAdded?.Invoke(cardData);
     }
 
     IEnumerator LeavingAnimation()
