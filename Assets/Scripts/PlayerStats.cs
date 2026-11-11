@@ -17,10 +17,20 @@ public class PlayerStats : MonoBehaviour
     [System.Serializable]
     public class StatCard
     {
+        public CardType cardType;
+        public PlayerData.WeaponType weaponType;
         public CrdMngr.Stats statType;
         public string Rarity;
         public float Value;
     }
+
+    public enum CardType
+    {
+        Stat,
+        Weapon,
+        Ability
+    }
+
     [System.Serializable]
     public class Modifier
     {

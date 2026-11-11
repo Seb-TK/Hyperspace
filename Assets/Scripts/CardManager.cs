@@ -37,7 +37,7 @@ public class CrdMngr : MonoBehaviour
         BulletSize,
         BulletCount,
         BulletRange,
-        maxHealth,
+        MaxHealth,
         MovementSpeed
     }
     private PlayerStats playerStats;

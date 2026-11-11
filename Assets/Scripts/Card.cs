@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class Card : MonoBehaviour
     private PlayerStats.StatCard cardData;
     private bool leaveAnimationAlreadyActivated;
     public static event Action<PlayerStats.StatCard> CardAdded;
+    public int chanceForWeapon;
 
     
     void Start()
@@ -43,25 +45,52 @@ public class Card : MonoBehaviour
         leaveAnimationAlreadyActivated = false;
         StartCoroutine(SpawnAnimation(cardSpot));
         MakeCardData();
-        SetCardText();
     }
-
-    void MakeCardData()
+    private void MakeCardData()
     {
-        int statTypesLength = Enum.GetValues(typeof(CrdMngr.Stats)).Length;
+        int random = Random.Range(0,100);
         cardData = new PlayerStats.StatCard();
-        Debug.Log(statTypesLength);
-        int rand = Random.Range(0, statTypesLength);
-        Debug.Log(rand);
-        CrdMngr.Stats stat = (CrdMngr.Stats)rand;
-        Debug.Log(stat);
-        cardData.statType = stat;
+        if(random < chanceForWeapon)
+        {
+            MakeWeaponCard();
+            SetWeaponCardText();
+        }
+        else
+        {
+            MakeStatCard();
+            SetStatCardText();
+        }
         int rarity = GetRarity();
         cardData.Rarity = CrdMngr.Rarities[rarity];
         cardData.Value = CrdMngr.RarityValues[rarity];
+        rarityText.SetText(cardData.Rarity);
     }
 
-    private void SetCardText()
+    private void MakeWeaponCard()
+    {
+        cardData.cardType = PlayerStats.CardType.Weapon;
+        PlayerData playerData = FindAnyObjectByType<PlayerData>().GetComponent<PlayerData>();
+        int randomWeaponInt = Random.Range(0,playerData.weaponDataList.Count);
+        cardData.weaponType = (PlayerData.WeaponType)randomWeaponInt;
+    }
+
+    private void SetWeaponCardText()
+    {
+        string titleTextString = cardData.weaponType.ToString();
+        titleText.SetText(titleTextString);
+    }
+
+    private void MakeStatCard()
+    {
+        cardData = new PlayerStats.StatCard();
+        cardData.cardType = PlayerStats.CardType.Stat;
+        int statTypesLength = Enum.GetValues(typeof(CrdMngr.Stats)).Length;
+        int rand = Random.Range(0, statTypesLength);
+        CrdMngr.Stats stat = (CrdMngr.Stats)rand;
+        cardData.statType = stat;
+    }
+
+    private void SetStatCardText()
     {
         string titleTextString = cardData.statType.ToString();
         string output = "";
@@ -75,7 +104,6 @@ public class Card : MonoBehaviour
             output += titleTextString[i];
         }
         titleText.SetText(output);
-        rarityText.SetText(cardData.Rarity);
         int valueAsPercent = (int)(cardData.Value * 100);
         string descriptionText = "Increases " + output + " by " + valueAsPercent + "%";
         descriptionTextObj.SetText(descriptionText);

@@ -17,7 +17,7 @@ public class HealthManager : MonoBehaviour
 
     public void HealthAdded(PlayerStats.StatCard card)
     {
-        if(card.statType == CrdMngr.Stats.maxHealth)
+        if(card.statType == CrdMngr.Stats.MaxHealth)
         {
             Health *= card.Value;
         }

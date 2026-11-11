@@ -9,8 +9,12 @@ public class PlayerData : MonoBehaviour
     public List<WeaponData> weaponDataList = new List<WeaponData>();
     public enum WeaponType
     {
-        shooter,
-        shotgun
+        Shooter,
+        MachineGun,
+        Shotgun,
+        FlameThrower,
+        Sniper
+
     }
 
     [System.Serializable]
@@ -44,9 +48,9 @@ public class PlayerData : MonoBehaviour
 
     }
 
-    public static void addWeapon(WeaponType weapon)
+    public void addWeapon(WeaponType weapon)
     {
-        int chosenWeaponInt = (int) weapon;
-        //new Weapon(equippedWeapons.cur[chosenWeaponInt]);
+        WeaponData chosenWeaponData = weaponDataList.Find(d => d.weaponType == weapon);
+        Weapon newWeapon = new Weapon(chosenWeaponData);
     }
 }

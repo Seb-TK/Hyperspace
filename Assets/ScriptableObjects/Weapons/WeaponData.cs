@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     public String weaponName;
+    public PlayerData.WeaponType weaponType;
     public GameObject bulletObj;
     public GameObject bulletVisualMesh;
     public float damage;

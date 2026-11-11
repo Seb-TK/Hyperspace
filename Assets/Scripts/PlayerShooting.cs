@@ -32,8 +32,9 @@ public class PlayerShooting : MonoBehaviour
 
     void Start()
     {
-        PlayerData.WeaponType shooter = PlayerData.WeaponType.shooter;
-        PlayerData.addWeapon(shooter);
+        PlayerData.WeaponType shooter = PlayerData.WeaponType.Shooter;
+        playerData = FindAnyObjectByType<PlayerData>().GetComponent<PlayerData>();
+        playerData.addWeapon(shooter);
         playerData = GetComponent<PlayerData>();
     }
     void Update()
