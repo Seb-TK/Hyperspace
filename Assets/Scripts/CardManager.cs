@@ -28,6 +28,11 @@ public class CrdMngr : MonoBehaviour
             0.5f,
             0.8f
         };
+    
+    public void ResetStatics()
+    {
+        
+    }
 
     public enum Stats
     {
