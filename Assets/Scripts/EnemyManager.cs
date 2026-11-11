@@ -24,6 +24,11 @@ public class EnemyManager : MonoBehaviour
     public int enemyCount;
     public static event Action<int> AnnounceWave;
 
+    void Awake()
+    {
+        AnnounceWave = null;
+    }
+
     void Start()
     {
         StartCoroutine(SpawnLoop());
