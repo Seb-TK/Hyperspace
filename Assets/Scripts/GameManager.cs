@@ -9,11 +9,23 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         GameObject player = GameObject.Instantiate(playerPrefab);
+        ResetStatics();
+    }
+
+    void ResetStatics()
+    {
+        
     }
 
     public void OnPlayerDeath()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void OnExitToMenu()
+    {
+        ResetStatics();
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

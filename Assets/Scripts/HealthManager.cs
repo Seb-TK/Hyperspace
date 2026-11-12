@@ -12,7 +12,16 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>().GetComponent<GameManager>();
+    }
+
+    void OnEnable()
+    {
         Card.CardAdded += HealthAdded;
+    }
+
+    void OnDisable()
+    {
+        Card.CardAdded -= HealthAdded;
     }
 
     public void HealthAdded(PlayerStats.StatCard card)

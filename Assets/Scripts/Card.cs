@@ -39,7 +39,7 @@ public class Card : MonoBehaviour
     {
         aCardWasChosen = false;
         isWaitingForCanBeChosen = false;
-        CardAdded = false;
+        CardAdded = null;
     }
     
     void Start()
