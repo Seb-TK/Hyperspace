@@ -15,8 +15,22 @@ public class UpgradeManager : MonoBehaviour
     {
         currentLevel = 1;
         currentXp = 0f;
-        EnemyManager.AnnounceWave += NewWave;
         isWaitingForUpgradeChoice = false;
+    }
+
+    public void ResetStatics()
+    {
+        isWaitingForUpgradeChoice = false;
+    }
+
+    void OnEnable()
+    {
+        EnemyManager.AnnounceWave += NewWave;
+    }
+
+    void OnDisable()
+    {
+        EnemyManager.AnnounceWave -= NewWave;
     }
 
     private void NewWave(int wave)

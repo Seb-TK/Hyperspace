@@ -19,9 +19,18 @@ public class WaveAnnouncementTextManager : MonoBehaviour
     {
         waveAnnouncementText = waveAnnouncement.GetComponent<TextMeshProUGUI>();
         waveEnemyListText = waveEnemyListTextObj.GetComponent<TextMeshProUGUI>();
-        EnemyManager.AnnounceWave += AnnounceWave;
         waveAnnouncementText.alpha = 0f;
         waveEnemyListText.alpha = 0f;
+    }
+
+    void OnEnable()
+    {
+        EnemyManager.AnnounceWave += AnnounceWave;
+    }
+
+    void OnDisable()
+    {
+        EnemyManager.AnnounceWave -= AnnounceWave;
     }
 
     private void AnnounceWave(int wave)

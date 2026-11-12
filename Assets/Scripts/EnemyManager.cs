@@ -29,6 +29,11 @@ public class EnemyManager : MonoBehaviour
         AnnounceWave = null;
     }
 
+    public void ResetStatics()
+    {
+        AnnounceWave = null;
+    }
+
     void Start()
     {
         StartCoroutine(SpawnLoop());

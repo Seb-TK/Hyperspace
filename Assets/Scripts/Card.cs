@@ -35,10 +35,8 @@ public class Card : MonoBehaviour
     public static event Action<PlayerStats.StatCard> CardAdded;
     public int chanceForWeapon;
 
-    public void ResetStatics()
+    public static void ResetStatics()
     {
-        aCardWasChosen = false;
-        isWaitingForCanBeChosen = false;
         CardAdded = null;
     }
     

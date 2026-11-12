@@ -4,6 +4,7 @@ public class WorldPlane : MonoBehaviour
 {
     [SerializeField] private float dimensionMoveSpeedButtons;
     [SerializeField] private float dimensionMoveSpeedScroll;
+    [SerializeField] private float maxScrollSpeed;
     public float dimensionRange;
     public float dimensionLocation;
     public float boundWidth;
@@ -34,7 +35,7 @@ public class WorldPlane : MonoBehaviour
 
     void MoveUsingScroll()
     {
-        dimensionLocation -= Input.mouseScrollDelta.y * dimensionMoveSpeedScroll * Time.deltaTime;
+        dimensionLocation -= Mathf.Clamp(Input.mouseScrollDelta.y, -maxScrollSpeed, maxScrollSpeed) * dimensionMoveSpeedScroll;
     }
 
     void MoveUsingButtons()

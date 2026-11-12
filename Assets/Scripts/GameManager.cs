@@ -14,7 +14,11 @@ public class GameManager : MonoBehaviour
 
     void ResetStatics()
     {
-        
+        Card.ResetStatics();
+        EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>();
+        enemyManager.ResetStatics();
+        UpgradeManager upgradeManager = FindAnyObjectByType<UpgradeManager>();
+        upgradeManager.ResetStatics();
     }
 
     public void OnPlayerDeath()

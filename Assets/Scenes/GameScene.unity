@@ -2049,7 +2049,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   dimensionMoveSpeedButtons: 3
-  dimensionMoveSpeedScroll: 0.4
+  dimensionMoveSpeedScroll: 0.05
+  maxScrollSpeed: 99
   dimensionRange: 1
   dimensionLocation: 0
   boundWidth: 0

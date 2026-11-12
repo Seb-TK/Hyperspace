@@ -12,7 +12,6 @@ public class PlayerStats : MonoBehaviour
     public static Dictionary<CrdMngr.Stats,float> Mods = new Dictionary<CrdMngr.Stats,float>();
     [SerializeField] private List<Modifier> startingModifiers;
     [SerializeField] private List<Modifier> currentModifiersView;
-    
 
     [System.Serializable]
     public class StatCard
@@ -36,6 +35,12 @@ public class PlayerStats : MonoBehaviour
     {
         public CrdMngr.Stats statType;
         public float Value;
+    }
+
+    public void ResetStatics()
+    {
+        CurrentCards.Clear();
+        Mods.Clear();
     }
 
     void Start()

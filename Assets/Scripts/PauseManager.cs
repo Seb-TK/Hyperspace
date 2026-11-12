@@ -7,13 +7,8 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseObject;
     private GameObject pauseObjInstance;
     private bool isPaused;
-    public static Action OnGamePaused;
-    public static Action OnGameUnpaused;
-    void ResetStatics()
-    {
-        OnGamePaused = null;
-        OnGameUnpaused = null;
-    }
+    private Action OnGamePaused;
+    private Action OnGameUnpaused;
     void Awake()
     {
         isPaused = false;

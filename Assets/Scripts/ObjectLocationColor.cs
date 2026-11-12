@@ -27,7 +27,6 @@ public class ObjectLocationColor : MonoBehaviour
             return;
         }
         worldPlane = FindAnyObjectByType<WorldPlane>();
-        objectBehavior = FindAnyObjectByType<ObjectBehavior>();
         collisionDistance = ObjectBehavior.CollisionDistance;
         colorMultiplier = 1;
         colorOffset = 0f;

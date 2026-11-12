@@ -13,9 +13,12 @@ public class ObjectBehavior : MonoBehaviour
     private GameObject worldPlaneGameObject;
     private GameObject visualMesh;
     public static float CollisionDistance;
-    void Start()
+    void Awake()
     {
         CollisionDistance = 0.17f;
+    }
+    void Start()
+    {
         gameManager = FindAnyObjectByType<GameManager>().gameObject;
         worldPlaneGameObject = gameManager.GetComponent<GameManager>().worldPlane;
         visualMesh = transform.GetChild(0).gameObject;
