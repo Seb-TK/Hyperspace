@@ -40,6 +40,7 @@ public class EdgeWrapping : MonoBehaviour
         else
         {
             EdgeTeleport();
+            PointAtMouse();
         }
     }
 
@@ -105,7 +106,7 @@ public class EdgeWrapping : MonoBehaviour
         }
     }
 
-    private void EdgeTeleport()
+    public void EdgeTeleport()
     {
         float boundWidthPos = worldPlane.boundWidth;
         float boundHeightPos = worldPlane.boundHeight;
@@ -119,5 +120,16 @@ public class EdgeWrapping : MonoBehaviour
         newPos.z -= dimensionRange;
 
         transform.position = newPos;
+    }
+
+    private void PointAtMouse()
+    {
+        Camera camera = Camera.main;
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10);
+        Vector3 worldPosition = camera.ScreenToWorldPoint(mousePosition);
+
+        Vector2 direction = worldPosition - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0,0,angle - 90); // 90 is for up offset
     }
 }

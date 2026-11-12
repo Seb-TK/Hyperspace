@@ -122,6 +122,8 @@ public class EnemyMovement : MonoBehaviour
         RunAi();
         ApplyVelocity();
         ApplyRotationalVelocity();
+        EdgeWrapping edgeWrapping = FindAnyObjectByType<EdgeWrapping>();
+        edgeWrapping.EdgeTeleport();
     }
 
     private void RunAi()
