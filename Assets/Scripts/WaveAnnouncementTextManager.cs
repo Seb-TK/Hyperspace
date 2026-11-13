@@ -23,7 +23,7 @@ public class WaveAnnouncementTextManager : MonoBehaviour
         waveEnemyListText.alpha = 0f;
     }
 
-    void OnEnable()
+    void Start()
     {
         EnemyManager.AnnounceWave += AnnounceWave;
     }

@@ -141,6 +141,7 @@ MonoBehaviour:
   invincibilityLength: 0
   hitAnimationLength: 0.15
   offScreenArrow: {fileID: 5869174316772151052, guid: 82b65421d541d4508b4a9ff84903bb25, type: 3}
+  explolion: {fileID: 6036221728759131757, guid: d049cc70554a14611acf0dfbffb0750d, type: 3}
 --- !u!114 &-1479953350338997384
 MonoBehaviour:
   m_ObjectHideFlags: 0

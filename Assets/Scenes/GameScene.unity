@@ -1165,6 +1165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d4255b286c74904b2e35a875c7750a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  explolion: {fileID: 6036221728759131757, guid: d049cc70554a14611acf0dfbffb0750d, type: 3}
+  explosionWaitTime: 0.5
 --- !u!1 &1123921348
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,7 +2052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   dimensionMoveSpeedButtons: 3
   dimensionMoveSpeedScroll: 0.05
-  maxScrollSpeed: 99
+  maxScrollSpeed: 0.35
   dimensionRange: 1
   dimensionLocation: 0
   boundWidth: 0

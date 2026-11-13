@@ -24,11 +24,6 @@ public class EnemyManager : MonoBehaviour
     public int enemyCount;
     public static event Action<int> AnnounceWave;
 
-    void Awake()
-    {
-        AnnounceWave = null;
-    }
-
     public void ResetStatics()
     {
         AnnounceWave = null;

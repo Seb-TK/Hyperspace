@@ -67,6 +67,7 @@ public class PlayerShooting : MonoBehaviour
                 }
                 if (Input.GetMouseButton(0))
                 {
+                    Debug.Log("PressedMouse");
                     FireGuns();
                 }
             }
@@ -108,6 +109,7 @@ public class PlayerShooting : MonoBehaviour
             if (playerData.equippedWeapons[i].IncrimentTimer())
             {
                 ApplyWeaponData(playerData.equippedWeapons[i]);
+                Debug.Log("Weapon apply");
                 Shoot();
             }
         }
@@ -117,6 +119,7 @@ public class PlayerShooting : MonoBehaviour
     {
         for(int j = 0; j < bulletCount * Mathf.RoundToInt(PlayerStats.Mods[CrdMngr.Stats.BulletCount]); j++)
         {
+            Debug.Log("Spawn bullet");
             float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
             Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);
             SpawnBullet(transform.position, transform.rotation * rotationOffset, bulletVisualMesh);

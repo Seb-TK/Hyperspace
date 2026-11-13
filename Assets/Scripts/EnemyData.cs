@@ -15,6 +15,7 @@ public class EnemyData : MonoBehaviour
     [SerializeField] private float invincibilityLength;
     [SerializeField] private float hitAnimationLength;
     [SerializeField] private GameObject offScreenArrow;
+    [SerializeField] private GameObject explolion;
     void Start()
     {
         health = EnemyDataContainer.health;
@@ -61,6 +62,8 @@ public class EnemyData : MonoBehaviour
         EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>();
         enemyManager.enemyCount--;
         upgradeManager.GainXp(xpDropped);
+        AnimationManager animationManager = FindAnyObjectByType<AnimationManager>();
+        animationManager.SpawnExplolion(transform.position);
         Destroy(gameObject);
     }
     

@@ -2,7 +2,6 @@ using System;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.GameCenter;
 
 public class EdgeWrapping : MonoBehaviour
 {
