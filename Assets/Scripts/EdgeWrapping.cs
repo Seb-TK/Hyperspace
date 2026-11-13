@@ -16,7 +16,7 @@ public class EdgeWrapping : MonoBehaviour
 
 
 
-    void Start()
+    void Awake()
     {
         actualPosition = transform.position;
         closestPosition = transform.position;

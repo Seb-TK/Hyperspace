@@ -64,10 +64,6 @@ public class Card : MonoBehaviour
             MakeStatCard();
             SetStatCardText();
         }
-        int rarity = GetRarity();
-        cardData.Rarity = CrdMngr.Rarities[rarity];
-        cardData.Value = CrdMngr.RarityValues[rarity];
-        rarityText.SetText(cardData.Rarity);
     }
 
     private void MakeWeaponCard()
@@ -86,12 +82,18 @@ public class Card : MonoBehaviour
 
     private void MakeStatCard()
     {
+        
         cardData = new PlayerStats.StatCard();
         cardData.cardType = PlayerStats.CardType.Stat;
         int statTypesLength = Enum.GetValues(typeof(CrdMngr.Stats)).Length;
         int rand = Random.Range(0, statTypesLength);
         CrdMngr.Stats stat = (CrdMngr.Stats)rand;
         cardData.statType = stat;
+
+        int rarity = GetRarity();
+        cardData.Rarity = CrdMngr.Rarities[rarity];
+        cardData.Value = CrdMngr.RarityValues[rarity];
+        rarityText.SetText(cardData.Rarity);
     }
 
     private void SetStatCardText()
