@@ -23,6 +23,8 @@ public class GameUIManager : MonoBehaviour
 
         string healthText = "Health: ";
         healthText += Mathf.RoundToInt(healthManager.Health);
+        healthText += " / ";
+        healthText += Mathf.RoundToInt(healthManager.MaxHealth);
         healthTextObj.SetText(healthText);
 
         string xpText = "Current XP: ";

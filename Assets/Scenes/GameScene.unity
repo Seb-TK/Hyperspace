@@ -1782,8 +1782,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   currentLevel: 1
   currentXp: 0
-  XpRequirement: 5
-  levelOneXp: 5
+  XpRequirement: 2
+  levelOneXp: 2
   XpPerLevelMultiplier: 1.5
   cardSpawnerObj: {fileID: 4860431011032916572, guid: 068d648acbf3e49f68ec5e3118f39969, type: 3}
 --- !u!4 &1949376661
@@ -1861,9 +1861,10 @@ MonoBehaviour:
   waitTimeMin: 3
   spawnDelay: 1
   defaultEnergy: 1
-  energyPerWave: 2
+  energyPerWave: 1
   waveWaitTime: 5
   currentEnemyList: []
+  wave: 0
   enemyCount: 0
 --- !u!1 &2050843054
 GameObject:

@@ -20,9 +20,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private int energyPerWave;
     [SerializeField] private float waveWaitTime;
     public List<EnemyDataObj> currentEnemyList;
-    private int wave;
+    public int wave;
     public int enemyCount;
-    public static event Action<int> AnnounceWave;
+    public static event Action AnnounceWave;
 
     public void ResetStatics()
     {
@@ -104,7 +104,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
         UpgradeManager.isWaitingForUpgradeChoice = true;
-        AnnounceWave?.Invoke(wave);
+        AnnounceWave?.Invoke();
         yield return new WaitUntil(() => UpgradeManager.isWaitingForUpgradeChoice == false);
         yield return new WaitForSeconds(waveWaitTime);
         int energy = inputEnergy;

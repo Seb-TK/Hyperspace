@@ -33,8 +33,10 @@ public class WaveAnnouncementTextManager : MonoBehaviour
         EnemyManager.AnnounceWave -= AnnounceWave;
     }
 
-    private void AnnounceWave(int wave)
+    private void AnnounceWave()
     {
+        EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>();
+        int wave = enemyManager.wave;
         StartCoroutine(AnnounceWaveCoroutine(wave));
     }
 

@@ -12,7 +12,7 @@ public class PlayerData : MonoBehaviour
         Shooter,
         MachineGun,
         Shotgun,
-        FlameThrower,
+        Flamethrower,
         Sniper
 
     }

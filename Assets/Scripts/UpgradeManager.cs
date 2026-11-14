@@ -15,7 +15,7 @@ public class UpgradeManager : MonoBehaviour
     {
         currentLevel = 1;
         currentXp = 0f;
-        EnemyManager.AnnounceWave += NewWave;
+        EnemyManager.AnnounceWave += CheckForUpgrade;
     }
 
     public void ResetStatics()
@@ -25,10 +25,10 @@ public class UpgradeManager : MonoBehaviour
 
     void OnDisable()
     {
-        EnemyManager.AnnounceWave -= NewWave;
+        EnemyManager.AnnounceWave -= CheckForUpgrade;
     }
 
-    private void NewWave(int wave)
+    public void CheckForUpgrade()
     {
         if(currentXp >= XpRequirement)
         {
@@ -42,7 +42,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void GainXp(float xpGained)
     {
-        currentXp += xpGained * 5;
+        float XpGainMultiplier = PlayerStats.Mods[CrdMngr.Stats.XpGainMultiplier];
+        currentXp += xpGained * XpGainMultiplier;
     }
 
     private void LevelUp()

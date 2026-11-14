@@ -5,17 +5,16 @@ public class HealthManager : MonoBehaviour
 {
     public float Health;
     public float MaxHealth;
+    [SerializeField] private float StartingMaxHealth;
     private float iFramesEnd;
     public float invincibilityLength;
     private GameManager gameManager;
 
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>().GetComponent<GameManager>();
-    }
-
-    void OnEnable()
-    {
+        MaxHealth = StartingMaxHealth;
         Card.CardAdded += HealthAdded;
     }
 
@@ -26,9 +25,17 @@ public class HealthManager : MonoBehaviour
 
     public void HealthAdded(PlayerStats.StatCard card)
     {
+        Debug.Log("healthAdded");
         if(card.statType == CrdMngr.Stats.MaxHealth)
         {
-            Health *= card.Value;
+            Debug.Log("card was health card");
+            float cacheMaxHealth = MaxHealth;
+            MaxHealth = StartingMaxHealth * PlayerStats.Mods[CrdMngr.Stats.MaxHealth];
+            Debug.Log("cachemaxhealth " + cacheMaxHealth);
+            Debug.Log("max health " + MaxHealth);
+            Debug.Log("health before " + Health);
+            Health += MaxHealth - cacheMaxHealth;;
+            Debug.Log("health after " + Health);
         }
     }
 

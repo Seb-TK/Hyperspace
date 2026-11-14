@@ -115,7 +115,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        for(int j = 0; j < bulletCount * Mathf.RoundToInt(PlayerStats.Mods[CrdMngr.Stats.BulletCount]); j++)
+        for(int j = 0; j < bulletCount; j++)
         {
             float randomOffsetFloat = Random.Range(-bulletAccuracy, bulletAccuracy);
             Quaternion rotationOffset = Quaternion.Euler(0, 0, randomOffsetFloat);

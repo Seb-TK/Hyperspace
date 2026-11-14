@@ -35,10 +35,10 @@ public class CrdMngr : MonoBehaviour
         Damage, 
         BulletSpeed, 
         BulletSize,
-        BulletCount,
         BulletRange,
         MaxHealth,
-        MovementSpeed
+        MovementSpeed,
+        XpGainMultiplier
     }
     private PlayerStats playerStats;
     void Start()

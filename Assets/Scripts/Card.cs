@@ -72,6 +72,10 @@ public class Card : MonoBehaviour
         PlayerData playerData = FindAnyObjectByType<PlayerData>().GetComponent<PlayerData>();
         int randomWeaponInt = Random.Range(0,playerData.weaponDataList.Count);
         cardData.weaponType = (PlayerData.WeaponType)randomWeaponInt;
+
+        rarityText.SetText("Mythical");
+        descriptionTextObj.SetText("Adds a " + cardData.weaponType + " weapon to your equipped weapons");
+
     }
 
     private void SetWeaponCardText()
@@ -217,15 +221,33 @@ public class Card : MonoBehaviour
         Vector3 leaveMoveAmount = new Vector3(0,10,0);
         yield return StartCoroutine(MoveAnimation(leaveMoveAmount, leaveSpeed));
         AddCard();
-        UpgradeManager.isWaitingForUpgradeChoice = false;
+        UpgradeManager upgradeManager = FindAnyObjectByType<UpgradeManager>();
+        upgradeManager.CheckForUpgrade();
         Destroy(gameObject);
         yield return null;
     }
 
     private void AddCard()
     {
-        PlayerStats.CurrentCards.Add(cardData);
-        PlayerStats.Mods[cardData.statType] += cardData.Value;
+        if(cardData.cardType == PlayerStats.CardType.Stat)
+        {
+            PlayerStats.CurrentCards.Add(cardData);
+            PlayerStats.Mods[cardData.statType] += cardData.Value;
+        } else if(cardData.cardType == PlayerStats.CardType.Weapon)
+        {
+            PlayerData.Weapon newWeapon;
+            PlayerData playerData = FindAnyObjectByType<PlayerData>();
+            List<WeaponData> weaponDataList = playerData.weaponDataList;
+            for(int i = 0; i < weaponDataList.Count; i++)
+            {
+                if(weaponDataList[i].weaponName == cardData.weaponType.ToString())
+                {
+                    newWeapon = new PlayerData.Weapon(weaponDataList[i]);
+                    playerData.equippedWeapons.Add(newWeapon);
+                    break;
+                }
+            }
+        }
         CardAdded?.Invoke(cardData);
     }
 

@@ -790,6 +790,7 @@ MonoBehaviour:
   titleText: {fileID: 7134669071860962087}
   rarityText: {fileID: 2386210237617604137}
   descriptionTextObj: {fileID: 2549989849962673646}
+  chanceForWeapon: 20
 --- !u!64 &1395211909298269133
 MeshCollider:
   m_ObjectHideFlags: 0
