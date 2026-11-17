@@ -28,7 +28,6 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float lockOnRange;
     [SerializeField] private float lockOnRangeZ;
     [SerializeField] private bool hasToggleInput;
-    [SerializeField] private bool hasLockOn;
     private PauseManager pauseManager;
 
     void Start()
@@ -41,14 +40,6 @@ public class PlayerShooting : MonoBehaviour
     }
     void Update()
     {
-        if (hasLockOn)
-        {
-            
-        }
-        else
-        {
-            MouseLook();
-        }
         if (hasToggleInput)
         {
             if (ToggleInput())

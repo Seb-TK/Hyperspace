@@ -13,7 +13,7 @@ public class EdgeWrapping : MonoBehaviour
     public Vector3 closestPosition;
     public Vector3 actualPosition;
     private Vector3 cachePosition;
-
+    private PauseManager pauseManager;
 
 
     void Awake()
@@ -23,6 +23,7 @@ public class EdgeWrapping : MonoBehaviour
         worldPlane = FindAnyObjectByType<WorldPlane>();
         dimensionRange = worldPlane.dimensionRange;
         playerPosBeforeTeleport = transform.position;
+        pauseManager = FindAnyObjectByType<PauseManager>();
     }
     
     //execution order is sooner than default so this runs first among the last ones
@@ -123,12 +124,15 @@ public class EdgeWrapping : MonoBehaviour
 
     private void PointAtMouse()
     {
-        Camera camera = Camera.main;
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10);
-        Vector3 worldPosition = camera.ScreenToWorldPoint(mousePosition);
+        if (!pauseManager.isPaused)
+        {
+            Camera camera = Camera.main;
+            Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10);
+            Vector3 worldPosition = camera.ScreenToWorldPoint(mousePosition);
 
-        Vector2 direction = worldPosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,0,angle - 90); // 90 is for up offset
+            Vector2 direction = worldPosition - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0,0,angle - 90); // 90 is for up offset
+        }
     }
 }
