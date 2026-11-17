@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f08545ba6a544954a0659f1528b8ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  DropDownObj: {fileID: 8323492792695973147, guid: b32c23fe42720435286497153e9bb152, type: 3}
 --- !u!4 &61912598
 Transform:
   m_ObjectHideFlags: 0
@@ -285,7 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   pauseMenu: {fileID: 2050843054}
-  pauseObject: {fileID: 1605173992619381748, guid: 75b6c68bf889e4bbc98ffe2337cc8415, type: 3}
+  pauseTitle: {fileID: 1605173992619381748, guid: 75b6c68bf889e4bbc98ffe2337cc8415, type: 3}
+  isPaused: 0
 --- !u!4 &325864536
 Transform:
   m_ObjectHideFlags: 0

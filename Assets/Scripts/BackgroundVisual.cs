@@ -16,6 +16,8 @@ public class BackgroundVisual : MonoBehaviour
     {
         colors = new string[] {"BLACK","SOLID_COLOR","GRADIENT"};
         mat = GetComponent<Renderer>().material;
+        BackgroundColorChoice = ColorChoices.Black;
+        LineColorChoice = ColorChoices.Gradient;
     }
     // Update is called once per frame
     void Update()

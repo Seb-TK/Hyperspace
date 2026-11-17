@@ -13,7 +13,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private List<Modifier> startingModifiers;
     [SerializeField] private List<Modifier> currentModifiersView;
 
-    [System.Serializable]
+    [Serializable]
     public class StatCard
     {
         public CardType cardType;
@@ -30,7 +30,7 @@ public class PlayerStats : MonoBehaviour
         Ability
     }
 
-    [System.Serializable]
+    [Serializable]
     public class Modifier
     {
         public CrdMngr.Stats statType;
@@ -45,8 +45,6 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        Mods.Clear();
-        currentModifiersView.Clear();
         for(int i = 0; i < Enum.GetValues(typeof(CrdMngr.Stats)).Length; i++)
         {
             Mods.Add((CrdMngr.Stats)i, 1);
@@ -62,6 +60,17 @@ public class PlayerStats : MonoBehaviour
             newModifier.statType = pair.Key;
             newModifier.Value = pair.Value;
             currentModifiersView.Add(newModifier);
+        }
+        if(Input.GetKeyUp(KeyCode.Space)){
+            printMods();
+        }
+    }
+
+    void printMods()
+    {
+        foreach(var mod in Mods)
+        {
+            Debug.Log(mod);
         }
     }
 }

@@ -1,16 +1,17 @@
+using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] GameObject DropDownObj;
+    
+    public void CreateDropdown(Vector3 position, List<String> options)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameObject dropDown = Instantiate(DropDownObj, position, Quaternion.identity);
+        dropDown.GetComponent<Dropdown>().ClearOptions();
+        dropDown.GetComponent<Dropdown>().AddOptions(options);
     }
 }

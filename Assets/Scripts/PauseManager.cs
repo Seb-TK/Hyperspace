@@ -4,9 +4,9 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject pauseObject;
+    [SerializeField] private GameObject pauseTitle;
     private GameObject pauseObjInstance;
-    private bool isPaused;
+    public bool isPaused;
     private Action OnGamePaused;
     private Action OnGameUnpaused;
     void Awake()
@@ -47,7 +47,7 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
-        pauseObjInstance = Instantiate(pauseObject, new Vector3(0,100,0), Quaternion.identity, pauseMenu.transform);
+        pauseObjInstance = Instantiate(pauseTitle, new Vector3(0,100,0), Quaternion.identity, pauseMenu.transform);
     }
     void UnpauseGame()
     {

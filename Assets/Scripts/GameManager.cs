@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         ResetStatics();
     }
 
-    void ResetStatics()
+    private void ResetStatics()
     {
         Card.ResetStatics();
         EnemyManager enemyManager = FindAnyObjectByType<EnemyManager>();

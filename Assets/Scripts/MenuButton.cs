@@ -9,7 +9,6 @@ public class MenuButton : MonoBehaviour
     void Awake()
     {
         GetComponent<Button>().onClick.AddListener(ButtonClicked);
-        gameObject.SetActive(false);
     }
 
     private void ButtonClicked()

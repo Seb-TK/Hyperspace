@@ -29,6 +29,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float lockOnRangeZ;
     [SerializeField] private bool hasToggleInput;
     [SerializeField] private bool hasLockOn;
+    private PauseManager pauseManager;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class PlayerShooting : MonoBehaviour
         playerData = FindAnyObjectByType<PlayerData>().GetComponent<PlayerData>();
         playerData.addWeapon(shooter);
         playerData = GetComponent<PlayerData>();
+        pauseManager = FindAnyObjectByType<PauseManager>();
     }
     void Update()
     {
@@ -76,15 +78,19 @@ public class PlayerShooting : MonoBehaviour
 
     void MouseLook()
     {
-        Camera camera = Camera.main;
-        float camOffset = -camera.transform.position.z;
+        if (!pauseManager.isPaused)
+        {
+            Debug.Log("looking");
+            Camera camera = Camera.main;
+            float camOffset = -camera.transform.position.z;
 
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, camOffset);
-        Vector3 worldPosition = camera.ScreenToWorldPoint(mousePosition);
+            Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, camOffset);
+            Vector3 worldPosition = camera.ScreenToWorldPoint(mousePosition);
 
-        Vector2 direction = worldPosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,0,angle - 90); // 90 is for up offset
+            Vector2 direction = worldPosition - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0,0,angle - 90); // 90 is for up offset
+        }
     }
 
     void ApplyWeaponData(PlayerData.Weapon weapon)
